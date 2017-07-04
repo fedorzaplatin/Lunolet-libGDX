@@ -19,7 +19,6 @@ public class MainMenu implements Screen{
     private final float HEIGHT = Gdx.graphics.getHeight();
 
     private Stage stage;
-    private TextButton playBtn, exitBtn;
 
     public MainMenu(final MainClass passed_game) {
         this.game = passed_game;
@@ -28,7 +27,7 @@ public class MainMenu implements Screen{
 
         Skin skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
-        playBtn = new TextButton("Play", skin);
+        TextButton playBtn = new TextButton("Play", skin);
         playBtn.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -36,7 +35,15 @@ public class MainMenu implements Screen{
             }
         });
 
-        exitBtn = new TextButton("Exit", skin);
+        TextButton creditsButton = new TextButton("Credits", skin);
+        creditsButton.addCaptureListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new CreditsScreen(game));
+            }
+        });
+
+        TextButton exitBtn = new TextButton("Exit", skin);
         exitBtn.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -48,6 +55,8 @@ public class MainMenu implements Screen{
         table.setFillParent(true);
         table.center();
         table.add(playBtn);
+        table.row();
+        table.add(creditsButton);
         table.row();
         table.add(exitBtn);
         stage.addActor(table);
