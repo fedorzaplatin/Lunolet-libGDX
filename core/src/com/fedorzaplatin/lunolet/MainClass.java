@@ -2,14 +2,17 @@ package com.fedorzaplatin.lunolet;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.fedorzaplatin.lunolet.screens.MainMenu;
 
 public class MainClass extends Game {
+
+	public ScreensManager sm;
 	
 	@Override
 	public void create () {
 		Gdx.graphics.setResizable(false);
-		this.setScreen(new MainMenu(this));
+		sm = new ScreensManager(this);
+		sm.load();
+		this.setScreen(sm.get("main menu"));
 	}
 
 	@Override

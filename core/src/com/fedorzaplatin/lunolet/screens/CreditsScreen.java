@@ -13,16 +13,16 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.fedorzaplatin.lunolet.MainClass;
 
-public class CreditsScreen implements Screen {
+public class CreditsScreen extends BaseScreen {
 
-    private final MainClass game;
     private final float WIDTH = Gdx.graphics.getWidth();
     private final float HEIGTH = Gdx.graphics.getHeight();
 
     private Stage stage;
 
     public CreditsScreen(final MainClass game) {
-        this.game = game;
+        super(game);
+
         stage = new Stage(new FitViewport(WIDTH, HEIGTH));
 
         Skin skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));

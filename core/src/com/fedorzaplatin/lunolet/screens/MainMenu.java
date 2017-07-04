@@ -1,7 +1,6 @@
 package com.fedorzaplatin.lunolet.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -12,16 +11,15 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.fedorzaplatin.lunolet.MainClass;
 
-public class MainMenu implements Screen{
+public class MainMenu extends BaseScreen{
 
-    private final MainClass game;
     private final float WIDTH = Gdx.graphics.getWidth();
     private final float HEIGHT = Gdx.graphics.getHeight();
 
     private Stage stage;
 
-    public MainMenu(final MainClass passed_game) {
-        this.game = passed_game;
+    public MainMenu(final MainClass game) {
+        super(game);
 
         this.stage = new Stage(new FitViewport(WIDTH, HEIGHT));
 
@@ -31,7 +29,7 @@ public class MainMenu implements Screen{
         playBtn.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new GameScreen(game));
+                game.setScreen(game.sm.get("game"));
             }
         });
 
@@ -39,7 +37,7 @@ public class MainMenu implements Screen{
         creditsButton.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new CreditsScreen(game));
+                game.setScreen(game.sm.get("credits"));
             }
         });
 
