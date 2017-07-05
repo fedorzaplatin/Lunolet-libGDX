@@ -9,9 +9,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Shuttle extends Actor {
+public class LunarModule extends Actor {
 
-    final float moduleSize = 4.2f;
+    final private float lunarModuleSize = 4.2f;
+    private float fuelMass = 3660f;
+    final private float lunarModuleMass = 2150f;
+    private boolean alive;
+
     private Texture texture;
     private World world;
     private Body body;
@@ -20,10 +24,8 @@ public class Shuttle extends Actor {
     public Vector2 position;
 
     private float angle;
-    private float fuel;
-    private boolean alive;
 
-    public Shuttle(World world, Texture texture, Vector2 position) {
+    public LunarModule(World world, Texture texture, Vector2 position) {
         this.alive = true;
         this.world = world;
         this.texture = texture;
@@ -36,12 +38,12 @@ public class Shuttle extends Actor {
         body = world.createBody(def);
 
         PolygonShape box = new PolygonShape();
-        box.setAsBox(moduleSize / 2, moduleSize / 2);
-        fixture = body.createFixture(box, 861.6f);
-        fixture.setUserData("player");
+        box.setAsBox(lunarModuleSize / 2, lunarModuleSize / 2);
+        fixture = body.createFixture(box, (lunarModuleMass + fuelMass) / (lunarModuleSize * lunarModuleSize));
+        fixture.setUserData("lunar module");
         fixture.setFriction(0.4f);
         box.dispose();
-        setSize(moduleSize, moduleSize);
+        setSize(lunarModuleSize, lunarModuleSize);
     }
 
 
@@ -89,6 +91,11 @@ public class Shuttle extends Actor {
 
     public void destroy(){
         this.alive = false;
+    }
+
+    public void detach() {
+        body.destroyFixture(fixture);
+        world.destroyBody(body);
     }
 
     public Vector2 getVelocity(){

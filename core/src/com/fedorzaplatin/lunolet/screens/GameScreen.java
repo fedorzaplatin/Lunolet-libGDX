@@ -4,29 +4,28 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.fedorzaplatin.lunolet.Background;
 import com.fedorzaplatin.lunolet.MainClass;
 import com.fedorzaplatin.lunolet.Moon;
-import com.fedorzaplatin.lunolet.Shuttle;
+import com.fedorzaplatin.lunolet.LunarModule;
 import com.fedorzaplatin.lunolet.stages.Hud;
 
 import static com.fedorzaplatin.lunolet.Constants.PPM;
 
 public class GameScreen extends BaseScreen{
 
-    private boolean DEBUG = false;
+    private boolean DEBUG = true;
 
     static private int HEIGHT = Gdx.graphics.getHeight();
     static private int WIDTH = Gdx.graphics.getWidth();
 
+    private World world;
     private Stage stage;
     private Hud hudStage;
-    private World world;
-    private Shuttle lunarModule;
+    private LunarModule lunarModule;
 
     private Box2DDebugRenderer b2ddr;
 
@@ -39,9 +38,11 @@ public class GameScreen extends BaseScreen{
 
         stage = new Stage(new FitViewport(WIDTH / PPM, HEIGHT / PPM));
         stage.getCamera().position.set(new Vector2(0, HEIGHT / 2 / PPM), 0);
-        world = new World(new Vector2(0, -1.62f), false);
 
-        hudStage = new Hud();
+        world = new World(new Vector2(0, -1.62f), false);
+        world.setContactListener(new GameContactListener());
+
+        hudStage = new Hud(new FitViewport(WIDTH, HEIGHT));
     }
 
     @Override
@@ -51,7 +52,7 @@ public class GameScreen extends BaseScreen{
         stage.addActor(background);
 
         Texture lunarModuleTexture = new Texture(Gdx.files.internal("challengerTexture.png"), true);
-        lunarModule = new Shuttle(world, lunarModuleTexture, new Vector2(0, (HEIGHT * 2 - 30) / PPM));
+        lunarModule = new LunarModule(world, lunarModuleTexture, new Vector2(0, (HEIGHT * 2 - 30) / PPM));
         stage.addActor(lunarModule);
 
         Texture moonSurface = new Texture("moonTexture.png");
@@ -63,6 +64,10 @@ public class GameScreen extends BaseScreen{
     public void render(float delta) {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        if (!lunarModule.isAlive()) {
+            game.setScreen(game.sm.gameOverScreen);
+        }
 
         if (lunarModule.position.y * PPM > 900){
             stage.getCamera().position.set(new float[]{0, 900 / PPM, 0});
@@ -76,7 +81,7 @@ public class GameScreen extends BaseScreen{
         stage.act();
         world.step(1 / 60f, 6, 2);
         stage.draw();
-        hudStage.stage.draw();
+        hudStage.draw();
 
         if (DEBUG) {
             b2ddr.render(world, stage.getCamera().combined);
@@ -100,12 +105,48 @@ public class GameScreen extends BaseScreen{
 
     @Override
     public void hide() {
-
+        stage.clear();
+        lunarModule.detach();
     }
 
     @Override
     public void dispose() {
         stage.dispose();
+        world.dispose();
         super.dispose();
+    }
+
+    public class GameContactListener implements ContactListener {
+
+        private boolean areCollided(Contact contact, Object obj1, Object obj2) {
+            Object userDataA = contact.getFixtureA().getUserData();
+            Object userDataB = contact.getFixtureB().getUserData();
+
+            return (userDataA.equals(obj1) && userDataB.equals(obj2)) ||
+                    (userDataA.equals(obj2) && userDataB.equals(obj1));
+        }
+
+        @Override
+        public void beginContact(Contact contact) {
+            if (areCollided(contact, "lunar module", "moon")){
+                if (lunarModule.getVelocity().len() > 4f){
+                    lunarModule.destroy();
+                }
+            }
+        }
+
+        @Override
+        public void endContact(Contact contact) {
+        }
+
+        @Override
+        public void preSolve(Contact contact, Manifold oldManifold) {
+
+        }
+
+        @Override
+        public void postSolve(Contact contact, ContactImpulse impulse) {
+
+        }
     }
 }

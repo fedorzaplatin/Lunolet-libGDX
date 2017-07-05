@@ -1,6 +1,5 @@
 package com.fedorzaplatin.lunolet.stages;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
@@ -8,16 +7,14 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class Hud {
-    public Stage stage;
-
+public class Hud extends Stage{
     private Label velocity;
     private Label altitude;
 
-    public Hud() {
-        this.stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+    public Hud(Viewport viewport) {
+        super(viewport);
 
         Table table = new Table();
         table.left().top();
@@ -30,7 +27,7 @@ public class Hud {
         table.row();
         table.add(altitude).align(Align.left);
 
-        stage.addActor(table);
+        addActor(table);
     }
 
     public void update(Vector2 velocity, Vector2 altitude){

@@ -6,43 +6,52 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.fedorzaplatin.lunolet.MainClass;
 
-public class CreditsScreen extends BaseScreen {
+public class GameOverScreen extends BaseScreen{
 
     private Stage stage;
 
-    public CreditsScreen(final MainClass game) {
+    public GameOverScreen(final MainClass game) {
         super(game);
 
-        float width = Gdx.graphics.getWidth();
-        float height = Gdx.graphics.getHeight();
-        stage = new Stage(new FitViewport(width, height));
+        stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 
         Skin skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
-        Label text = new Label("Lunolet\n" +
-                "Open source project by Fedor Zapaltin\n" +
-                "Source code: github.com/fedorzaplatin/lunolet-libgdx\n" +
-                "UI skin by czyzby: github.com/czyzby/gdx-skins/tree/master/cloud-form", skin);
+        Label text = new Label("Game over!", skin);
         text.setAlignment(Align.center);
-        text.setPosition(width / 2 - text.getWidth() / 2, height / 2 - text.getHeight() / 2);
 
-        TextButton backBtn = new TextButton("Back", skin);
-        backBtn.setPosition(20, 550);
-        backBtn.addCaptureListener(new ChangeListener() {
+        TextButton againBtn = new TextButton("Again", skin);
+        againBtn.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(game.sm.mainMenu);
+                game.setScreen(game.sm.gameScreen);
             }
         });
 
-        stage.addActor(text);
-        stage.addActor(backBtn);
+        TextButton exitBtn = new TextButton("Exit", skin);
+        exitBtn.addCaptureListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.exit();
+            }
+        });
+
+        Table table = new Table();
+        table.setFillParent(true);
+        table.center();
+        table.add(text);
+        table.row();
+        table.add(againBtn);
+        table.add(exitBtn);
+
+        stage.addActor(table);
     }
 
     @Override
@@ -61,17 +70,17 @@ public class CreditsScreen extends BaseScreen {
 
     @Override
     public void resize(int width, int height) {
-
+        super.resize(width, height);
     }
 
     @Override
     public void pause() {
-
+        super.pause();
     }
 
     @Override
     public void resume() {
-
+        super.resume();
     }
 
     @Override
@@ -82,5 +91,6 @@ public class CreditsScreen extends BaseScreen {
     @Override
     public void dispose() {
         stage.dispose();
+        super.dispose();
     }
 }

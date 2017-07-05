@@ -7,23 +7,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ScreensManager {
-    private Map<String, BaseScreen> screens;
+    final private MainClass game;
 
-    final MainClass game;
+    public BaseScreen splashScreen, mainMenu, creditsScreen, gameScreen, gameOverScreen;
 
-    public ScreensManager(MainClass game){
+    public ScreensManager(final MainClass game){
         this.game = game;
-        screens = new HashMap<String, BaseScreen>();
     }
 
     public void load(){
-        screens.put("splash", new SplashScreen(game));
-        screens.put("main menu", new MainMenu(game));
-        screens.put("credits", new CreditsScreen(game));
-        screens.put("game", new GameScreen(game));
-    }
-
-    public Screen get(String screenName){
-        return this.screens.get(screenName);
+        splashScreen = new SplashScreen(game);
+        mainMenu = new MainMenu(game);
+        creditsScreen = new CreditsScreen(game);
+        gameScreen = new GameScreen(game);
+        gameOverScreen = new GameOverScreen(game);
     }
 }

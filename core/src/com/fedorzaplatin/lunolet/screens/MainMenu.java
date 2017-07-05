@@ -13,15 +13,15 @@ import com.fedorzaplatin.lunolet.MainClass;
 
 public class MainMenu extends BaseScreen{
 
-    private final float WIDTH = Gdx.graphics.getWidth();
-    private final float HEIGHT = Gdx.graphics.getHeight();
-
     private Stage stage;
 
     public MainMenu(final MainClass game) {
         super(game);
 
-        this.stage = new Stage(new FitViewport(WIDTH, HEIGHT));
+        float width = Gdx.graphics.getWidth();
+        float height = Gdx.graphics.getHeight();
+
+        this.stage = new Stage(new FitViewport(width, height));
 
         Skin skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
@@ -29,7 +29,7 @@ public class MainMenu extends BaseScreen{
         playBtn.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(game.sm.get("game"));
+                game.setScreen(game.sm.gameScreen);
             }
         });
 
@@ -37,7 +37,7 @@ public class MainMenu extends BaseScreen{
         creditsButton.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(game.sm.get("credits"));
+                game.setScreen(game.sm.creditsScreen);
             }
         });
 
@@ -91,11 +91,12 @@ public class MainMenu extends BaseScreen{
 
     @Override
     public void hide() {
-
+        Gdx.input.setInputProcessor(null);
     }
 
     @Override
     public void dispose() {
         stage.dispose();
+        super.dispose();
     }
 }
