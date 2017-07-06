@@ -1,10 +1,6 @@
 package com.fedorzaplatin.lunolet;
 
-import com.badlogic.gdx.Screen;
 import com.fedorzaplatin.lunolet.screens.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class ScreensManager {
     final private MainClass game;

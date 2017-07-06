@@ -9,7 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class Hud extends Stage{
+public class Hud extends Stage {
+
     private Label velocity;
     private Label altitude;
 
