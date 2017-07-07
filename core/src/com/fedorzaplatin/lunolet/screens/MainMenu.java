@@ -2,12 +2,12 @@ package com.fedorzaplatin.lunolet.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.fedorzaplatin.lunolet.MainClass;
 
@@ -23,28 +23,27 @@ public class MainMenu extends BaseScreen{
 
         this.stage = new Stage(new FitViewport(width, height));
 
-        Skin skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
 
-        TextButton playBtn = new TextButton("Play", skin);
-        playBtn.addCaptureListener(new ChangeListener() {
+        Image startBtn = new Image(new Texture("main-menu/startBtn.png"));
+        startBtn.addCaptureListener(new ClickListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
+            public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(game.sm.gameScreen);
             }
         });
 
-        TextButton creditsButton = new TextButton("Credits", skin);
-        creditsButton.addCaptureListener(new ChangeListener() {
+        Image creditsBtn = new Image(new Texture("main-menu/creditsBtn.png"));
+        creditsBtn.addCaptureListener(new ClickListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
+            public  void clicked(InputEvent event, float x, float y) {
                 game.setScreen(game.sm.creditsScreen);
             }
         });
 
-        TextButton exitBtn = new TextButton("Exit", skin);
-        exitBtn.addCaptureListener(new ChangeListener() {
+        Image exitBtn = new Image(new Texture("main-menu/exitBtn.png"));
+        exitBtn.addCaptureListener(new ClickListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
+            public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.exit();
             }
         });
@@ -52,11 +51,11 @@ public class MainMenu extends BaseScreen{
         Table table = new Table();
         table.setFillParent(true);
         table.center();
-        table.add(playBtn);
+        table.add(startBtn).pad(8);
         table.row();
-        table.add(creditsButton);
+        table.add(creditsBtn).pad(8);
         table.row();
-        table.add(exitBtn);
+        table.add(exitBtn).pad(8);
         stage.addActor(table);
     }
 
@@ -67,7 +66,7 @@ public class MainMenu extends BaseScreen{
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1,1,1,1);
+        Gdx.gl.glClearColor(4 / 255, 7 / 255, 4 / 255,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act();

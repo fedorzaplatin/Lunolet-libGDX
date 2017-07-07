@@ -2,13 +2,11 @@ package com.fedorzaplatin.lunolet.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.fedorzaplatin.lunolet.MainClass;
 
@@ -23,25 +21,18 @@ public class CreditsScreen extends BaseScreen {
         float height = Gdx.graphics.getHeight();
         stage = new Stage(new FitViewport(width, height));
 
-        Skin skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
+        Image background = new Image(new Texture("credits-screen/background.png"));
 
-        Label text = new Label("Lunolet\n" +
-                "Open source project by Fedor Zapaltin\n" +
-                "Source code: github.com/fedorzaplatin/lunolet-libgdx\n" +
-                "UI skin by czyzby: github.com/czyzby/gdx-skins/tree/master/cloud-form", skin);
-        text.setAlignment(Align.center);
-        text.setPosition(width / 2 - text.getWidth() / 2, height / 2 - text.getHeight() / 2);
-
-        TextButton backBtn = new TextButton("Back", skin);
-        backBtn.setPosition(20, 550);
-        backBtn.addCaptureListener(new ChangeListener() {
+        Image backBtn = new Image(new Texture("credits-screen/backBtn.png"));
+        backBtn.addCaptureListener(new ClickListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
+            public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(game.sm.mainMenu);
             }
         });
+        backBtn.setPosition(346, 49);
 
-        stage.addActor(text);
+        stage.addActor(background);
         stage.addActor(backBtn);
     }
 

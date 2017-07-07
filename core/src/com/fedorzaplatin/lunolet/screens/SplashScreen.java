@@ -25,8 +25,8 @@ public class SplashScreen extends BaseScreen{
         float height = Gdx.graphics.getHeight();
         stage = new Stage(new FitViewport(width, height));
 
-        firstImage = new Image(new Texture("SplashImageFZ.png"));
-        secondImage = new Image(new Texture("SplashImageLunolet.png"));
+        firstImage = new Image(new Texture("splash-screen/splashImageFZ.png"));
+        secondImage = new Image(new Texture("splash-screen/splashImageLunolet.png"));
 
         stage.addActor(secondImage);
         stage.addActor(firstImage);

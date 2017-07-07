@@ -2,14 +2,11 @@ package com.fedorzaplatin.lunolet.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.fedorzaplatin.lunolet.MainClass;
 
@@ -22,35 +19,32 @@ public class GameOverScreen extends BaseScreen{
 
         stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 
-        Skin skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
+        Image background = new Image(new Texture("game-over-screen/background.png"));
 
-        Label text = new Label("Game over!", skin);
-        text.setAlignment(Align.center);
-
-        TextButton againBtn = new TextButton("Again", skin);
-        againBtn.addCaptureListener(new ChangeListener() {
+        Image againBtn = new Image(new Texture("game-over-screen/againBtn.png"));
+        againBtn.addCaptureListener(new ClickListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
+            public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(game.sm.gameScreen);
             }
         });
 
-        TextButton exitBtn = new TextButton("Exit", skin);
-        exitBtn.addCaptureListener(new ChangeListener() {
+        Image mainMenuBtn = new Image(new Texture("game-over-screen/mainMenuBtn.png"));
+        mainMenuBtn.addCaptureListener(new ClickListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.exit();
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(game.sm.mainMenu);
             }
         });
 
         Table table = new Table();
         table.setFillParent(true);
+        table.setPosition(0, -140);
         table.center();
-        table.add(text);
-        table.row();
-        table.add(againBtn);
-        table.add(exitBtn);
+        table.add(againBtn).pad(8);
+        table.add(mainMenuBtn).pad(8);
 
+        stage.addActor(background);
         stage.addActor(table);
     }
 
@@ -61,7 +55,7 @@ public class GameOverScreen extends BaseScreen{
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1,1,1,1);
+        Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act();

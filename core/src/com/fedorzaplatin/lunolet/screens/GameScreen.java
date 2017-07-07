@@ -47,15 +47,15 @@ public class GameScreen extends BaseScreen{
 
     @Override
     public void show() {
-        Texture backgroundTexture = new Texture("background.png");
+        Texture backgroundTexture = new Texture("game-screen/background.png");
         Background background = new Background(backgroundTexture);
         stage.addActor(background);
 
-        Texture lunarModuleTexture = new Texture(Gdx.files.internal("challengerTexture.png"), true);
+        Texture lunarModuleTexture = new Texture(Gdx.files.internal("game-screen/challengerTexture.png"), true);
         lunarModule = new LunarModule(world, lunarModuleTexture, new Vector2(0, (HEIGHT * 2 - 30) / PPM));
         stage.addActor(lunarModule);
 
-        Texture moonSurface = new Texture("moonTexture.png");
+        Texture moonSurface = new Texture("game-screen/moonTexture.png");
         Moon moon = new Moon(world, moonSurface, new Vector2(-WIDTH / PPM / 2, 0));
         stage.addActor(moon);
     }
