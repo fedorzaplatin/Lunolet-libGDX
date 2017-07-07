@@ -12,7 +12,7 @@ public class MainClass extends Game {
 		Gdx.graphics.setResizable(false);
 		sm = new ScreensManager(this);
 		sm.load();
-		this.setScreen(sm.splashScreen);
+		this.setScreen(sm.mainMenu);
 	}
 
 	@Override

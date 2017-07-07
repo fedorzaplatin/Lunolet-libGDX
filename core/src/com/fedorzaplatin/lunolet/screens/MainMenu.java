@@ -23,6 +23,7 @@ public class MainMenu extends BaseScreen{
 
         this.stage = new Stage(new FitViewport(width, height));
 
+        Image background = new Image(new Texture("main-menu/background.png"));
 
         Image startBtn = new Image(new Texture("main-menu/startBtn.png"));
         startBtn.addCaptureListener(new ClickListener() {
@@ -49,13 +50,17 @@ public class MainMenu extends BaseScreen{
         });
 
         Table table = new Table();
+        table.setPosition(0, 14);
         table.setFillParent(true);
-        table.center();
-        table.add(startBtn).pad(8);
+        table.left();
+        table.pad(38);
+        table.add(startBtn).pad(8).left();
         table.row();
-        table.add(creditsBtn).pad(8);
+        table.add(creditsBtn).pad(8).left();
         table.row();
-        table.add(exitBtn).pad(8);
+        table.add(exitBtn).pad(8).left();
+
+        stage.addActor(background);
         stage.addActor(table);
     }
 
