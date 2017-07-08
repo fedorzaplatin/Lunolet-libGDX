@@ -1,0 +1,27 @@
+
+mainMenuBtn.png
+size: 1024,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+btnDown
+  rotate: false
+  xy: 416, 2
+  size: 205, 54
+  orig: 205, 54
+  offset: 0, 0
+  index: -1
+btnOver
+  rotate: false
+  xy: 2, 2
+  size: 205, 54
+  orig: 205, 54
+  offset: 0, 0
+  index: -1
+btnUp
+  rotate: false
+  xy: 209, 2
+  size: 205, 54
+  orig: 205, 54
+  offset: 0, 0
+  index: -1

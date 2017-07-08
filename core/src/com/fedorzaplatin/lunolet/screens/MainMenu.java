@@ -3,6 +3,7 @@ package com.fedorzaplatin.lunolet.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -27,9 +28,7 @@ public class MainMenu extends BaseScreen{
 
         Image background = new Image(new Texture("main-menu/background.png"));
 
-        ImageButton.ImageButtonStyle style = new LunoletButtonsStyle("main-menu/startBtnUp.png",
-                "main-menu/startBtnDown.png",
-                "main-menu/startBtnOver.png");
+        ImageButton.ImageButtonStyle style = new LunoletButtonsStyle(new TextureAtlas("main-menu/startBtn.atlas"));
         ImageButton startBtn = new ImageButton(style);
         startBtn.addCaptureListener(new ClickListener() {
             @Override
@@ -38,9 +37,7 @@ public class MainMenu extends BaseScreen{
             }
         });
 
-        style = new LunoletButtonsStyle("main-menu/creditsBtnUp.png",
-                "main-menu/creditsBtnDown.png",
-                "main-menu/creditsBtnOver.png");
+        style = new LunoletButtonsStyle(new TextureAtlas("main-menu/creditsBtn.atlas"));
         ImageButton creditsBtn = new ImageButton(style);
         creditsBtn.addCaptureListener(new ClickListener() {
             @Override
@@ -49,9 +46,7 @@ public class MainMenu extends BaseScreen{
             }
         });
 
-        style = new LunoletButtonsStyle("main-menu/exitBtnUp.png",
-                "main-menu/exitBtnDown.png",
-                "main-menu/exitBtnOver.png");
+        style = new LunoletButtonsStyle(new TextureAtlas("main-menu/exitBtn.atlas"));
         ImageButton exitBtn = new ImageButton(style);
         exitBtn.addCaptureListener(new ClickListener() {
             @Override

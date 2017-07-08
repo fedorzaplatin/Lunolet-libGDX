@@ -3,6 +3,7 @@ package com.fedorzaplatin.lunolet.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -25,9 +26,7 @@ public class CreditsScreen extends BaseScreen {
 
         Image background = new Image(new Texture("credits-screen/background.png"));
 
-        ImageButton backBtn = new ImageButton(new LunoletButtonsStyle("credits-screen/backBtnUp.png",
-                "credits-screen/backBtnDown.png",
-                "credits-screen/backBtnOver.png"));
+        ImageButton backBtn = new ImageButton(new LunoletButtonsStyle(new TextureAtlas("credits-screen/backBtn.atlas")));
         backBtn.setPosition(346, 49);
         backBtn.addCaptureListener(new ChangeListener() {
             @Override

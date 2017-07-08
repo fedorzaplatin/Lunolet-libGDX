@@ -3,6 +3,7 @@ package com.fedorzaplatin.lunolet.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -22,9 +23,7 @@ public class GameOverScreen extends BaseScreen{
 
         Image background = new Image(new Texture("game-over-screen/background.png"));
 
-        ImageButton againBtn = new ImageButton(new LunoletButtonsStyle("game-over-screen/againBtnUp.png",
-                "game-over-screen/againBtnDown.png",
-                "game-over-screen/againBtnOver.png"));
+        ImageButton againBtn = new ImageButton(new LunoletButtonsStyle(new TextureAtlas("game-over-screen/againBtn.atlas")));
         againBtn.addCaptureListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -32,9 +31,7 @@ public class GameOverScreen extends BaseScreen{
             }
         });
 
-        ImageButton mainMenuBtn = new ImageButton(new LunoletButtonsStyle("game-over-screen/mainMenuBtnUp.png",
-                "game-over-screen/mainMenuBtnDown.png",
-                "game-over-screen/mainMenuBtnOver.png"));
+        ImageButton mainMenuBtn = new ImageButton(new LunoletButtonsStyle(new TextureAtlas("game-over-screen/mainMenuBtn.atlas")));
         mainMenuBtn.addCaptureListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
