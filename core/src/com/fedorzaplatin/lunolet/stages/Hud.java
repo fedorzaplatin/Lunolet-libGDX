@@ -1,5 +1,6 @@
 package com.fedorzaplatin.lunolet.stages;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
@@ -17,22 +18,22 @@ public class Hud extends Stage {
     public Hud(Viewport viewport) {
         super(viewport);
 
+        velocity = new Label("0", new Label.LabelStyle(new BitmapFont(Gdx.files.internal("game-screen/bebas.fnt")), Color.WHITE));
+        altitude = new Label("0", new Label.LabelStyle(new BitmapFont(Gdx.files.internal("game-screen/bebas.fnt")), Color.WHITE));
+
         Table table = new Table();
         table.left().top();
+        table.pad(10);
         table.setFillParent(true);
-
-        velocity = new Label("0", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        altitude = new Label("0", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-
-        table.add(velocity).align(Align.left);
+        table.add(velocity).align(Align.left).pad(2);
         table.row();
-        table.add(altitude).align(Align.left);
+        table.add(altitude).align(Align.left).pad(4);
 
         addActor(table);
     }
 
     public void update(Vector2 velocity, Vector2 altitude){
-        this.velocity.setText(String.format("Velocity: %02.2f", velocity.len()));
-        this.altitude.setText(String.format("Alt.: %03.2f", altitude.len()));
+        this.velocity.setText(String.format("Velocity:  %02.2f   m/s", velocity.len()));
+        this.altitude.setText(String.format("Alt.:  %03.0f   m", altitude.len()));
     }
 }
