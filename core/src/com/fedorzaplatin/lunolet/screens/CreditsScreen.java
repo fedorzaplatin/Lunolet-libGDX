@@ -3,12 +3,14 @@ package com.fedorzaplatin.lunolet.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.fedorzaplatin.lunolet.MainClass;
+import com.fedorzaplatin.lunolet.ui.LunoletButtonsStyle;
 
 public class CreditsScreen extends BaseScreen {
 
@@ -23,14 +25,16 @@ public class CreditsScreen extends BaseScreen {
 
         Image background = new Image(new Texture("credits-screen/background.png"));
 
-        Image backBtn = new Image(new Texture("credits-screen/backBtn.png"));
-        backBtn.addCaptureListener(new ClickListener() {
+        ImageButton backBtn = new ImageButton(new LunoletButtonsStyle("credits-screen/backBtnUp.png",
+                "credits-screen/backBtnDown.png",
+                "credits-screen/backBtnOver.png"));
+        backBtn.setPosition(346, 49);
+        backBtn.addCaptureListener(new ChangeListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void changed(ChangeEvent event, Actor actor) {
                 game.setScreen(game.sm.mainMenu);
             }
         });
-        backBtn.setPosition(346, 49);
 
         stage.addActor(background);
         stage.addActor(backBtn);

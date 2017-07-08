@@ -6,10 +6,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.fedorzaplatin.lunolet.MainClass;
+import com.fedorzaplatin.lunolet.ui.LunoletButtonsStyle;
 
 public class MainMenu extends BaseScreen{
 
@@ -25,7 +27,10 @@ public class MainMenu extends BaseScreen{
 
         Image background = new Image(new Texture("main-menu/background.png"));
 
-        Image startBtn = new Image(new Texture("main-menu/startBtn.png"));
+        ImageButton.ImageButtonStyle style = new LunoletButtonsStyle("main-menu/startBtnUp.png",
+                "main-menu/startBtnDown.png",
+                "main-menu/startBtnOver.png");
+        ImageButton startBtn = new ImageButton(style);
         startBtn.addCaptureListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -33,7 +38,10 @@ public class MainMenu extends BaseScreen{
             }
         });
 
-        Image creditsBtn = new Image(new Texture("main-menu/creditsBtn.png"));
+        style = new LunoletButtonsStyle("main-menu/creditsBtnUp.png",
+                "main-menu/creditsBtnDown.png",
+                "main-menu/creditsBtnOver.png");
+        ImageButton creditsBtn = new ImageButton(style);
         creditsBtn.addCaptureListener(new ClickListener() {
             @Override
             public  void clicked(InputEvent event, float x, float y) {
@@ -41,7 +49,10 @@ public class MainMenu extends BaseScreen{
             }
         });
 
-        Image exitBtn = new Image(new Texture("main-menu/exitBtn.png"));
+        style = new LunoletButtonsStyle("main-menu/exitBtnUp.png",
+                "main-menu/exitBtnDown.png",
+                "main-menu/exitBtnOver.png");
+        ImageButton exitBtn = new ImageButton(style);
         exitBtn.addCaptureListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
