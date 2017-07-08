@@ -20,8 +20,7 @@ public class LunarModule extends Actor {
     private World world;
     private Body body;
     private Fixture fixture;
-
-    public Vector2 position;
+    private Vector2 position;
 
     private float angle;
 
@@ -100,5 +99,9 @@ public class LunarModule extends Actor {
 
     public Vector2 getVelocity(){
         return body.getLinearVelocity();
+    }
+
+    public Vector2 getPosition(){
+        return position;
     }
 }

@@ -65,19 +65,23 @@ public class GameScreen extends BaseScreen{
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        if (lunarModule.getPosition().x < (-450 / PPM) | lunarModule.getPosition().x > (450 / PPM)) {
+            lunarModule.destroy();
+        }
+
         if (!lunarModule.isAlive()) {
             game.setScreen(game.sm.gameOverScreen);
         }
 
-        if (lunarModule.position.y * PPM > 900){
+        if (lunarModule.getPosition().y * PPM > 900){
             stage.getCamera().position.set(new float[]{0, 900 / PPM, 0});
-        } else if ((400 < lunarModule.position.y * PPM) & (lunarModule.position.y * PPM < 900)){
-            stage.getCamera().position.set(new float[]{0, lunarModule.position.y, 0});
+        } else if ((400 < lunarModule.getPosition().y * PPM) & (lunarModule.getPosition().y * PPM < 900)){
+            stage.getCamera().position.set(new float[]{0, lunarModule.getPosition().y, 0});
         } else {
             stage.getCamera().position.set(new float[]{0, 400 / PPM, 0});
         }
 
-        hudStage.update(lunarModule.getVelocity(), lunarModule.position);
+        hudStage.update(lunarModule.getVelocity(), lunarModule.getPosition());
         stage.act();
         world.step(1 / 60f, 6, 2);
         stage.draw();
