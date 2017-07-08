@@ -65,7 +65,9 @@ public class GameScreen extends BaseScreen{
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if (lunarModule.getPosition().x < (-450 / PPM) | lunarModule.getPosition().x > (450 / PPM)) {
+        if (lunarModule.getPosition().x < (-450 / PPM) |
+                lunarModule.getPosition().x > (450 / PPM) |
+                lunarModule.getPosition().y > (1250 / PPM)) {
             lunarModule.destroy();
         }
 
