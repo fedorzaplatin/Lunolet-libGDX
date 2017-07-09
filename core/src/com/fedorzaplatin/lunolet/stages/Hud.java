@@ -1,6 +1,5 @@
 package com.fedorzaplatin.lunolet.stages;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
@@ -15,11 +14,12 @@ public class Hud extends Stage {
     private Label velocity;
     private Label altitude;
 
-    public Hud(Viewport viewport) {
+    public Hud(Viewport viewport, BitmapFont font) {
         super(viewport);
 
-        velocity = new Label("0", new Label.LabelStyle(new BitmapFont(Gdx.files.internal("game-screen/bebas.fnt")), Color.WHITE));
-        altitude = new Label("0", new Label.LabelStyle(new BitmapFont(Gdx.files.internal("game-screen/bebas.fnt")), Color.WHITE));
+        Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
+        velocity = new Label("0", style);
+        altitude = new Label("0", style);
 
         Table table = new Table();
         table.left().top();

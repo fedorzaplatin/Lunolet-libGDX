@@ -3,6 +3,7 @@ package com.fedorzaplatin.lunolet.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -42,20 +43,20 @@ public class GameScreen extends BaseScreen{
         world = new World(new Vector2(0, -1.62f), false);
         world.setContactListener(new GameContactListener());
 
-        hudStage = new Hud(new FitViewport(WIDTH, HEIGHT));
+        hudStage = new Hud(new FitViewport(WIDTH, HEIGHT), (BitmapFont) game.am.get("bebas.fnt"));
     }
 
     @Override
     public void show() {
-        Texture backgroundTexture = new Texture("game-screen/background.png");
+        Texture backgroundTexture = game.am.get("game-screen/background.png");
         Background background = new Background(backgroundTexture);
         stage.addActor(background);
 
-        Texture lunarModuleTexture = new Texture(Gdx.files.internal("game-screen/challengerTexture.png"), true);
+        Texture lunarModuleTexture = game.am.get("game-screen/challengerTexture.png");
         lunarModule = new LunarModule(world, lunarModuleTexture, new Vector2(0, (HEIGHT * 2 - 30) / PPM));
         stage.addActor(lunarModule);
 
-        Texture moonSurface = new Texture("game-screen/moonTexture.png");
+        Texture moonSurface = game.am.get("game-screen/moonTexture.png");
         Moon moon = new Moon(world, moonSurface, new Vector2(-WIDTH / PPM / 2, 0));
         stage.addActor(moon);
     }

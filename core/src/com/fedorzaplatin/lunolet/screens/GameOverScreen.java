@@ -21,9 +21,9 @@ public class GameOverScreen extends BaseScreen{
 
         stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 
-        Image background = new Image(new Texture("game-over-screen/background.png"));
+        Image background = new Image((Texture) game.am.get("game-over-screen/background.png"));
 
-        ImageButton.ImageButtonStyle style = new LunoletButtonsStyle(new TextureAtlas("game-over-screen/againBtn.atlas"));
+        ImageButton.ImageButtonStyle style = new LunoletButtonsStyle((TextureAtlas) game.am.get("game-over-screen/againBtn.atlas"));
         ImageButton againBtn = new ImageButton(style);
         againBtn.addCaptureListener(new ClickListener() {
             @Override
@@ -32,7 +32,7 @@ public class GameOverScreen extends BaseScreen{
             }
         });
 
-        style = new LunoletButtonsStyle(new TextureAtlas("game-over-screen/mainMenuBtn.atlas"));
+        style = new LunoletButtonsStyle((TextureAtlas) game.am.get("game-over-screen/mainMenuBtn.atlas"));
         ImageButton mainMenuBtn = new ImageButton(style);
         mainMenuBtn.addCaptureListener(new ClickListener() {
             @Override

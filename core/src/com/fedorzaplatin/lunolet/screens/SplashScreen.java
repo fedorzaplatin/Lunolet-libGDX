@@ -1,10 +1,14 @@
 package com.fedorzaplatin.lunolet.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.fedorzaplatin.lunolet.MainClass;
 
@@ -17,6 +21,7 @@ public class SplashScreen extends BaseScreen{
     private float time = 0;
     private Stage stage;
     private Image firstImage, secondImage;
+    private Label loadingProgress;
 
     public SplashScreen(MainClass game) {
         super(game);
@@ -28,7 +33,12 @@ public class SplashScreen extends BaseScreen{
         firstImage = new Image(new Texture("splash-screen/splashImageFZ.png"));
         secondImage = new Image(new Texture("splash-screen/splashImageLunolet.png"));
 
+        loadingProgress = new Label("Loading...    0%", new Label.LabelStyle(new BitmapFont(Gdx.files.internal("bebas.fnt")), Color.WHITE));
+        loadingProgress.setAlignment(Align.left);
+        loadingProgress.setPosition(10, 10);
+
         stage.addActor(secondImage);
+        stage.addActor(loadingProgress);
         stage.addActor(firstImage);
     }
 
@@ -41,10 +51,13 @@ public class SplashScreen extends BaseScreen{
     public void render(float delta) {
         Gdx.gl.glClearColor(1,1,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        time += delta;
 
-        this.time += delta;
-        if (time > 7) {
-            game.setScreen(game.sm.mainMenu);
+        if (game.am.update() & time > 7) {
+            game.finishLoad();
+        } else {
+            int progress = (int) (game.am.getProgress() * 100);
+            loadingProgress.setText(String.format("Loading...    %3d", progress) + "%");
         }
 
         stage.act();
