@@ -124,6 +124,7 @@ public class LunarModule extends Actor {
     public void detach() {
         body.destroyFixture(fixture);
         world.destroyBody(body);
+        engineSound.stop();
     }
 
     public Vector2 getVelocity(){

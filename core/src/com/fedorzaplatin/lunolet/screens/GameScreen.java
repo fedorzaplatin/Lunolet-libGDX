@@ -28,6 +28,7 @@ public class GameScreen extends BaseScreen{
     private Stage stage;
     private Hud hudStage;
     private LunarModule lunarModule;
+    private Moon moon;
 
     private Box2DDebugRenderer b2ddr;
 
@@ -61,7 +62,7 @@ public class GameScreen extends BaseScreen{
         stage.addActor(lunarModule);
 
         Texture moonSurface = game.am.get("game-screen/moonTexture.png");
-        Moon moon = new Moon(world, moonSurface, new Vector2(-WIDTH / PPM / 2, 0));
+        moon = new Moon(world, moonSurface, new Vector2(-WIDTH / PPM / 2, 0));
         stage.addActor(moon);
 
         Gdx.input.setInputProcessor(lunarModule.getInputAdapter());
@@ -113,7 +114,6 @@ public class GameScreen extends BaseScreen{
 
     @Override
     public void resume() {
-
     }
 
     @Override
@@ -121,6 +121,8 @@ public class GameScreen extends BaseScreen{
         Gdx.input.setInputProcessor(null);
         stage.clear();
         lunarModule.detach();
+        moon.detach();
+
     }
 
     @Override

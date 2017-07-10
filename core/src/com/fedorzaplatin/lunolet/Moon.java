@@ -56,4 +56,9 @@ public class Moon extends Actor{
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(texture, getX(), getY(), getWidth(), getHeight());
     }
+
+    public void detach() {
+        body.destroyFixture(fixture);
+        world.destroyBody(body);
+    }
 }
