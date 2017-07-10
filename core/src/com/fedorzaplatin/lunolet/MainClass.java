@@ -3,6 +3,7 @@ package com.fedorzaplatin.lunolet;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -35,6 +36,7 @@ public class MainClass extends Game {
 		am.load("game-screen/background.png", Texture.class);
 		am.load("game-screen/challengerTexture.png", Texture.class);
 		am.load("game-screen/moonTexture.png", Texture.class);
+		am.load("game-screen/engineSound.mp3", Sound.class);
 
 		// Assets of game over screen
 		am.load("game-over-screen/background.png", Texture.class);

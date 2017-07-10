@@ -2,6 +2,8 @@ package com.fedorzaplatin.lunolet;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
@@ -21,14 +23,35 @@ public class LunarModule extends Actor {
     private Body body;
     private Fixture fixture;
     private Vector2 position;
+    private Sound engineSound;
 
     private float angle;
 
-    public LunarModule(World world, Texture texture, Vector2 position) {
+    private InputAdapter inputAdapter;
+
+    public LunarModule(World world, Texture texture, Vector2 position, final Sound engineSound) {
         this.alive = true;
         this.world = world;
         this.texture = texture;
         this.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        this.engineSound = engineSound;
+        this.inputAdapter = new InputAdapter() {
+            @Override
+            public boolean keyDown(int keycode) {
+                if (keycode == Input.Keys.SPACE) {
+                    engineSound.resume();
+                }
+                return true;
+            }
+
+            @Override
+            public boolean keyUp(int keycode) {
+                if (keycode == Input.Keys.SPACE) {
+                    engineSound.pause();
+                }
+                return true;
+            }
+        };
 
         this.position = position;
         BodyDef def = new BodyDef();
@@ -43,8 +66,14 @@ public class LunarModule extends Actor {
         fixture.setFriction(0.4f);
         box.dispose();
         setSize(lunarModuleSize, lunarModuleSize);
+
+        engineSound.loop();
+        engineSound.pause();
     }
 
+    public InputAdapter getInputAdapter() {
+        return inputAdapter;
+    }
 
     @Override
     public void act(float delta) {

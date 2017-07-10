@@ -1,6 +1,7 @@
 package com.fedorzaplatin.lunolet.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -53,12 +54,17 @@ public class GameScreen extends BaseScreen{
         stage.addActor(background);
 
         Texture lunarModuleTexture = game.am.get("game-screen/challengerTexture.png");
-        lunarModule = new LunarModule(world, lunarModuleTexture, new Vector2(0, (HEIGHT * 2 - 30) / PPM));
+        lunarModule = new LunarModule(world,
+                lunarModuleTexture,
+                new Vector2(0, (HEIGHT * 2 - 30) / PPM),
+                (Sound) game.am.get("game-screen/engineSound.mp3"));
         stage.addActor(lunarModule);
 
         Texture moonSurface = game.am.get("game-screen/moonTexture.png");
         Moon moon = new Moon(world, moonSurface, new Vector2(-WIDTH / PPM / 2, 0));
         stage.addActor(moon);
+
+        Gdx.input.setInputProcessor(lunarModule.getInputAdapter());
     }
 
     @Override
@@ -112,6 +118,7 @@ public class GameScreen extends BaseScreen{
 
     @Override
     public void hide() {
+        Gdx.input.setInputProcessor(null);
         stage.clear();
         lunarModule.detach();
     }
