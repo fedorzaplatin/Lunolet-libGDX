@@ -1,4 +1,4 @@
-![Lunolet](http://imgur.com/a/OqLVH)
+![](http://imgur.com/a/OqLVH)
 
 Open source project by Fedor Zaplatin.
 
