@@ -118,11 +118,10 @@ public class GameScreen extends BaseScreen{
 
     @Override
     public void hide() {
-        Gdx.input.setInputProcessor(null);
         stage.clear();
         lunarModule.detach();
         moon.detach();
-
+        Gdx.input.setInputProcessor(null);
     }
 
     @Override
@@ -145,8 +144,15 @@ public class GameScreen extends BaseScreen{
         @Override
         public void beginContact(Contact contact) {
             if (areCollided(contact, "lunar module", "moon")){
-                if (lunarModule.getVelocity().len() > 4f){
+                if (lunarModule.getVelocity().len() > 4f | Math.abs(lunarModule.getAngle() - 90f) >= 20){
                     lunarModule.destroy();
+                } else {
+                    Gdx.app.postRunnable(new Runnable() {
+                        @Override
+                        public void run() {
+                            game.setScreen(game.sm.gameCompletedScreen);
+                        }
+                    });
                 }
             }
         }

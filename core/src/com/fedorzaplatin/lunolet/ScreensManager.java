@@ -5,7 +5,7 @@ import com.fedorzaplatin.lunolet.screens.*;
 public class ScreensManager {
     final private MainClass game;
 
-    public BaseScreen splashScreen, mainMenu, creditsScreen, gameScreen, gameOverScreen;
+    public BaseScreen splashScreen, mainMenu, creditsScreen, gameScreen, gameOverScreen, gameCompletedScreen;
 
     public ScreensManager(final MainClass game){
         this.game = game;
@@ -17,5 +17,6 @@ public class ScreensManager {
         creditsScreen = new CreditsScreen(game);
         gameScreen = new GameScreen(game);
         gameOverScreen = new GameOverScreen(game);
+        gameCompletedScreen = new GameCompletedScreen(game);
     }
 }

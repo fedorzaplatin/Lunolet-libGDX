@@ -134,4 +134,8 @@ public class LunarModule extends Actor {
     public Vector2 getPosition(){
         return position;
     }
+
+    public float getAngle() {
+        return angle;
+    }
 }

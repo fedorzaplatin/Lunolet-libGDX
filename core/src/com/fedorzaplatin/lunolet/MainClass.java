@@ -43,6 +43,9 @@ public class MainClass extends Game {
 		am.load("game-over-screen/againBtn.atlas", TextureAtlas.class);
 		am.load("game-over-screen/mainMenuBtn.atlas", TextureAtlas.class);
 
+		//Assets of game completed screen
+		am.load("game-completed-screen/background.png", Texture.class);
+
 		this.setScreen(new SplashScreen(this));
 	}
 
