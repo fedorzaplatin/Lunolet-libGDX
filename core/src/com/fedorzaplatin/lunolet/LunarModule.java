@@ -13,7 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class LunarModule extends Actor {
 
-    final private float lunarModuleSize = 4.2f;
+    final private float lunarModuleWidth = 4.2f;
+    final private float lunarModuleHeight = 4.2f * 714 / 643;
     private float fuelMass = 3660f;
     final private float lunarModuleMass = 2150f;
     private boolean alive;
@@ -60,12 +61,12 @@ public class LunarModule extends Actor {
         body = world.createBody(def);
 
         PolygonShape box = new PolygonShape();
-        box.setAsBox(lunarModuleSize / 2, lunarModuleSize / 2);
-        fixture = body.createFixture(box, (lunarModuleMass + fuelMass) / (lunarModuleSize * lunarModuleSize));
+        box.setAsBox(lunarModuleWidth / 2, lunarModuleHeight / 2);
+        fixture = body.createFixture(box, (lunarModuleMass + fuelMass) / (lunarModuleWidth * lunarModuleHeight));
         fixture.setUserData("lunar module");
         fixture.setFriction(0.4f);
         box.dispose();
-        setSize(lunarModuleSize, lunarModuleSize);
+        setSize(lunarModuleWidth, lunarModuleHeight);
 
         engineSound.loop();
         engineSound.pause();
