@@ -5,11 +5,13 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.fedorzaplatin.lunolet.Background;
 import com.fedorzaplatin.lunolet.MainClass;
 import com.fedorzaplatin.lunolet.Moon;
 import com.fedorzaplatin.lunolet.LunarModule;
@@ -39,8 +41,8 @@ public class GameScreen extends BaseScreen{
             b2ddr = new Box2DDebugRenderer(true, true, true, true, true, true);
         }
 
-        stage = new Stage(new FitViewport(WIDTH / PPM, HEIGHT / PPM));
-        stage.getCamera().position.set(new Vector2(0, HEIGHT / 2 / PPM), 0);
+        stage = new Stage(new FitViewport(WIDTH / PPM, HEIGHT / PPM), new PolygonSpriteBatch());
+        stage.getCamera().position.set(new Vector2(WIDTH / 2 / PPM, HEIGHT / 2 / PPM), 0);
 
         world = new World(new Vector2(0, -1.62f), false);
         world.setContactListener(new GameContactListener());
@@ -51,19 +53,21 @@ public class GameScreen extends BaseScreen{
     @Override
     public void show() {
         Texture backgroundTexture = game.am.get("game-screen/background.png");
-        Background background = new Background(backgroundTexture);
-        stage.addActor(background);
+        Image backgroundImage = new Image(backgroundTexture);
+        backgroundImage.setSize(backgroundTexture.getWidth(), backgroundTexture.getHeight());
+        backgroundImage.setPosition(0, 0);
+        stage.addActor(backgroundImage);
+        
+        Texture moonSurface = game.am.get("game-screen/moonTexture.png");
+        moon = new Moon(world, moonSurface, new Vector2(0, 0));
+        stage.addActor(moon);
 
-        Texture lunarModuleTexture = game.am.get("game-screen/challengerTexture.png");
+        Texture lunarModuleTexture = game.am.get("game-screen/lunarModuleTexture.png");
         lunarModule = new LunarModule(world,
                 lunarModuleTexture,
-                new Vector2(0, (HEIGHT * 2 - 30) / PPM),
+                new Vector2(WIDTH / PPM / 2, 500 / PPM ),
                 (Sound) game.am.get("game-screen/engineSound.mp3"));
         stage.addActor(lunarModule);
-
-        Texture moonSurface = game.am.get("game-screen/moonTexture.png");
-        moon = new Moon(world, moonSurface, new Vector2(-WIDTH / PPM / 2, 0));
-        stage.addActor(moon);
 
         Gdx.input.setInputProcessor(lunarModule.getInputAdapter());
     }
@@ -73,8 +77,8 @@ public class GameScreen extends BaseScreen{
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if (lunarModule.getPosition().x < (-450 / PPM) |
-                lunarModule.getPosition().x > (450 / PPM) |
+        if (lunarModule.getPosition().x < (-20 / PPM) |
+                lunarModule.getPosition().x > (820 / PPM) |
                 lunarModule.getPosition().y > (1250 / PPM)) {
             lunarModule.destroy();
         }
@@ -84,11 +88,11 @@ public class GameScreen extends BaseScreen{
         }
 
         if (lunarModule.getPosition().y * PPM > 900){
-            stage.getCamera().position.set(new float[]{0, 900 / PPM, 0});
+            stage.getCamera().position.set(new float[]{WIDTH / PPM / 2, 900 / PPM, 0});
         } else if ((400 < lunarModule.getPosition().y * PPM) & (lunarModule.getPosition().y * PPM < 900)){
-            stage.getCamera().position.set(new float[]{0, lunarModule.getPosition().y, 0});
+            stage.getCamera().position.set(new float[]{WIDTH / PPM / 2, lunarModule.getPosition().y, 0});
         } else {
-            stage.getCamera().position.set(new float[]{0, 400 / PPM, 0});
+            stage.getCamera().position.set(new float[]{WIDTH / PPM / 2, 400 / PPM, 0});
         }
 
         hudStage.update(lunarModule.getVelocity(), lunarModule.getPosition());
@@ -144,13 +148,20 @@ public class GameScreen extends BaseScreen{
         @Override
         public void beginContact(Contact contact) {
             if (areCollided(contact, "lunar module", "moon")){
-                if (lunarModule.getVelocity().len() > 4f | Math.abs(lunarModule.getAngle() - 90f) >= 20){
+                if (lunarModule.getVelocity().len() > 4f | Math.abs(lunarModule.getAngle() - 90f) >= 13){
                     lunarModule.destroy();
                 } else {
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
                         public void run() {
-                            game.setScreen(game.sm.gameCompletedScreen);
+                            Timer timer = new Timer();
+                            Timer.Task task = new Timer.Task() {
+                                @Override
+                                public void run() {
+                                    game.setScreen(game.sm.gameCompletedScreen);
+                                }
+                            };
+                            timer.scheduleTask(task, 1);
                         }
                     });
                 }

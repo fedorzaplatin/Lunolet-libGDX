@@ -11,6 +11,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
+import static com.fedorzaplatin.lunolet.Constants.PPM;
+
 public class LunarModule extends Actor {
 
     final private float lunarModuleWidth = 4.2f;
