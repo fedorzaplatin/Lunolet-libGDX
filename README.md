@@ -7,3 +7,8 @@ Open source project by Fedor Zaplatin.
 This project uses:
 - Java + LibGdx
 
+## Controls
+* `Space` - activate main engine
+* `D` - turn the lunar module clockwise
+* `A` - turn the lunar module counterclockwise
+
