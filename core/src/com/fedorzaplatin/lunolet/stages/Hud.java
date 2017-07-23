@@ -13,6 +13,7 @@ public class Hud extends Stage {
 
     private Label velocity;
     private Label altitude;
+    private Label fuelMass;
 
     public Hud(Viewport viewport, BitmapFont font) {
         super(viewport);
@@ -20,6 +21,7 @@ public class Hud extends Stage {
         Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
         velocity = new Label("0", style);
         altitude = new Label("0", style);
+        fuelMass = new Label("0", style);
 
         Table table = new Table();
         table.left().top();
@@ -28,12 +30,15 @@ public class Hud extends Stage {
         table.add(velocity).align(Align.left).pad(2);
         table.row();
         table.add(altitude).align(Align.left).pad(4);
+        table.row();
+        table.add(fuelMass).align(Align.left).pad(4);
 
         addActor(table);
     }
 
-    public void update(Vector2 velocity, Vector2 altitude){
+    public void update(Vector2 velocity, Vector2 altitude, float fuel){
         this.velocity.setText(String.format("Velocity:  %02.2f   m/s", velocity.len()));
         this.altitude.setText(String.format("Alt.:  %03.0f   m", altitude.len()));
+        this.fuelMass.setText(String.format("Fuel:  %04.0f   kg", fuel));
     }
 }

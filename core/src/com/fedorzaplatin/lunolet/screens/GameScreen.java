@@ -97,7 +97,7 @@ public class GameScreen extends BaseScreen{
             stage.getCamera().position.set(new float[]{WIDTH / PPM / 2, 400 / PPM, 0});
         }
 
-        hudStage.update(lunarModule.getVelocity(), lunarModule.getPosition());
+        hudStage.update(lunarModule.getVelocity(), lunarModule.getPosition(), lunarModule.getFuelMass());
         stage.act();
         world.step(1 / 60f, 6, 2);
         stage.draw();

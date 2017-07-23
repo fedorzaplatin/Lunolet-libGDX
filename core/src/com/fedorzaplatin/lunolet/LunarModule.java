@@ -14,6 +14,7 @@ public class LunarModule extends Actor {
     final private float lunarModuleHeight = 4.2f * 714 / 643;
     private float fuelMass = 3660f;
     final private float lunarModuleMass = 2150f;
+    private MassData massData;
     private boolean alive;
     private boolean activateEngine = false;
 
@@ -47,6 +48,7 @@ public class LunarModule extends Actor {
         box.dispose();
         setSize(lunarModuleWidth, lunarModuleHeight);
 
+        massData = body.getMassData();
         engineSound.loop();
         engineSound.pause();
     }
@@ -55,8 +57,12 @@ public class LunarModule extends Actor {
     public void act(float delta) {
         angle = body.getAngle() * MathUtils.radiansToDegrees + 90f;
 
-        if (activateEngine) {
-            body.applyForceToCenter(new Vector2(0, 29000f).setAngle(angle), true);
+        if (activateEngine & fuelMass > 0) {
+            body.applyForceToCenter(new Vector2(0, 17000f).setAngle(angle), true);
+            massData = body.getMassData();
+            massData.mass -= 5f;
+            body.setMassData(massData);
+            fuelMass -= 5f;
         }
 
         position = body.getPosition();
@@ -83,11 +89,11 @@ public class LunarModule extends Actor {
                 false);
     }
 
-    public boolean isAlive(){
+    public boolean isAlive() {
         return alive;
     }
 
-    public void destroy(){
+    public void destroy() {
         this.alive = false;
     }
 
@@ -97,16 +103,20 @@ public class LunarModule extends Actor {
         engineSound.stop();
     }
 
-    public Vector2 getVelocity(){
+    public Vector2 getVelocity() {
         return body.getLinearVelocity();
     }
 
-    public Vector2 getPosition(){
+    public Vector2 getPosition() {
         return position;
     }
 
     public float getAngle() {
         return angle;
+    }
+
+    public float getFuelMass() {
+        return fuelMass;
     }
 
     public void activateMainEngine() {
