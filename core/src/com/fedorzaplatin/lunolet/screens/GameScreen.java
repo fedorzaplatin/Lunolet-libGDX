@@ -1,6 +1,8 @@
 package com.fedorzaplatin.lunolet.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -54,7 +56,7 @@ public class GameScreen extends BaseScreen{
     public void show() {
         Texture backgroundTexture = game.am.get("game-screen/background.png");
         Image backgroundImage = new Image(backgroundTexture);
-        backgroundImage.setSize(backgroundTexture.getWidth(), backgroundTexture.getHeight());
+        backgroundImage.setSize(backgroundTexture.getWidth() / PPM, backgroundTexture.getHeight() / PPM);
         backgroundImage.setPosition(0, 0);
         stage.addActor(backgroundImage);
         
@@ -65,11 +67,11 @@ public class GameScreen extends BaseScreen{
         Texture lunarModuleTexture = game.am.get("game-screen/lunarModuleTexture.png");
         lunarModule = new LunarModule(world,
                 lunarModuleTexture,
-                new Vector2(WIDTH / PPM / 2, 500 / PPM ),
+                new Vector2(WIDTH / PPM / 2, 1130 / PPM ),
                 (Sound) game.am.get("game-screen/engineSound.mp3"));
         stage.addActor(lunarModule);
 
-        Gdx.input.setInputProcessor(lunarModule.getInputAdapter());
+        Gdx.input.setInputProcessor(new GameScreenInputProcessor());
     }
 
     @Override
@@ -135,7 +137,7 @@ public class GameScreen extends BaseScreen{
         super.dispose();
     }
 
-    public class GameContactListener implements ContactListener {
+    private class GameContactListener implements ContactListener {
 
         private boolean areCollided(Contact contact, Object obj1, Object obj2) {
             Object userDataA = contact.getFixtureA().getUserData();
@@ -151,21 +153,16 @@ public class GameScreen extends BaseScreen{
                 if (lunarModule.getVelocity().len() > 4f | Math.abs(lunarModule.getAngle() - 90f) >= 13){
                     lunarModule.destroy();
                 } else {
-                    Gdx.app.postRunnable(new Runnable() {
+                    Timer timer = new Timer();
+                    Timer.Task task = new Timer.Task() {
                         @Override
                         public void run() {
-                            Timer timer = new Timer();
-                            Timer.Task task = new Timer.Task() {
-                                @Override
-                                public void run() {
-                                    game.setScreen(game.sm.gameCompletedScreen);
-                                }
-                            };
-                            timer.scheduleTask(task, 1);
+                            game.setScreen(game.sm.gameCompletedScreen);
                         }
-                    });
+                    };
+                    timer.scheduleTask(task, 1);
                 }
-            }
+                }
         }
 
         @Override
@@ -180,6 +177,64 @@ public class GameScreen extends BaseScreen{
         @Override
         public void postSolve(Contact contact, ContactImpulse impulse) {
 
+        }
+    }
+
+    private class GameScreenInputProcessor implements InputProcessor {
+        @Override
+        public boolean keyDown(int i) {
+            switch (i) {
+                case Input.Keys.SPACE:
+                    lunarModule.activateMainEngine();
+                    break;
+                case Input.Keys.A:
+                    lunarModule.rotateLeft();
+                    break;
+                case Input.Keys.D:
+                    lunarModule.rotateRight();
+                    break;
+            }
+            return false;
+        }
+
+        @Override
+        public boolean keyUp(int i) {
+            switch(i){
+                case Input.Keys.SPACE:
+                    lunarModule.deactivateMainEngine();
+                    break;
+            }
+            return false;
+        }
+
+        @Override
+        public boolean keyTyped(char c) {
+            return false;
+        }
+
+        @Override
+        public boolean touchDown(int i, int i1, int i2, int i3) {
+            return false;
+        }
+
+        @Override
+        public boolean touchUp(int i, int i1, int i2, int i3) {
+            return false;
+        }
+
+        @Override
+        public boolean touchDragged(int i, int i1, int i2) {
+            return false;
+        }
+
+        @Override
+        public boolean mouseMoved(int i, int i1) {
+            return false;
+        }
+
+        @Override
+        public boolean scrolled(int i) {
+            return false;
         }
     }
 }
