@@ -12,8 +12,9 @@ public class LunarModule extends Actor {
 
     final private float lunarModuleWidth = 4.2f;
     final private float lunarModuleHeight = 4.2f * 714 / 643;
-    private float fuelMass = 3660f;
     final private float lunarModuleMass = 2150f;
+    private float fuelMass = 3660f;
+
     private MassData massData;
     private boolean alive;
     private boolean activateEngine = false;
@@ -32,14 +33,14 @@ public class LunarModule extends Actor {
         this.world = world;
         this.texture = texture;
         this.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        this.position = position;
         this.engineSound = engineSound;
 
-        this.position = position;
+        //Create box body
         BodyDef def = new BodyDef();
         def.position.set(position);
         def.type = BodyDef.BodyType.DynamicBody;
         body = world.createBody(def);
-
         PolygonShape box = new PolygonShape();
         box.setAsBox(lunarModuleWidth / 2, lunarModuleHeight / 2);
         fixture = body.createFixture(box, (lunarModuleMass + fuelMass) / (lunarModuleWidth * lunarModuleHeight));
@@ -47,30 +48,36 @@ public class LunarModule extends Actor {
         fixture.setFriction(0.4f);
         box.dispose();
         setSize(lunarModuleWidth, lunarModuleHeight);
-
         massData = body.getMassData();
+
+        //Star and pause engine's sound to resume it when space is pressed
         engineSound.loop();
         engineSound.pause();
     }
 
     @Override
     public void act(float delta) {
+        //get an angle which lunar module is tilted relative to perpendicular to the moon surface
         angle = body.getAngle() * MathUtils.radiansToDegrees + 90f;
 
         if (activateEngine & fuelMass > 0) {
-            body.applyForceToCenter(new Vector2(0, 17000f).setAngle(angle), true);
+            body.applyForceToCenter(new Vector2(0, 16000f).setAngle(angle), true);
             massData = body.getMassData();
-            massData.mass -= 5f;
+            massData.mass -= 4f;
             body.setMassData(massData);
-            fuelMass -= 5f;
+            fuelMass -= 4f;
         }
 
+        //Update lunar module's position
         position = body.getPosition();
     }
 
     @Override
     public void draw (Batch batch, float parentAlpha) {
+        //Set the actor's position to draw lunar module's texture according to the body's position
         setPosition(body.getPosition().x, body.getPosition().y);
+
+        //Draw texture
         batch.draw(texture,
                 getX() - getWidth() / 2,
                 getY() - getHeight() / 2,

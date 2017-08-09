@@ -17,26 +17,20 @@ import static com.fedorzaplatin.lunolet.Constants.PPM;
 public class Moon extends Actor{
     private World world;
     private Body body;
-    private Texture texture;
     private Fixture fixture;
     private PolygonRegion polygonRegion;
 
-    private PolygonSpriteBatch polyBatch;
-
     public Moon(World world, Texture texture, Vector2 position) {
         this.world = world;
-        this.texture = texture;
-        this.polyBatch = new PolygonSpriteBatch();
-        this.polyBatch.enableBlending();
-        position.y = position.y + 100 / PPM;
-
-        float[] vertexes;
-        vertexes = generateSurface();
-
-        short[] triangles = new EarClippingTriangulator().computeTriangles(vertexes).toArray();
+        position.y = position.y + 100 / PPM; //Lift the surface a little bit
 
         texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         TextureRegion textureRegion = new TextureRegion(texture);
+
+        float[] vertexes;
+        vertexes = generateSurface();
+        short[] triangles = new EarClippingTriangulator().computeTriangles(vertexes).toArray();
+
         this.polygonRegion = new PolygonRegion(textureRegion, vertexes, triangles);
         BodyDef def = new BodyDef();
         def.position.set(position);
@@ -46,8 +40,10 @@ public class Moon extends Actor{
         shape.createChain(vertexes);
         fixture = body.createFixture(shape, 0);
         fixture.setUserData("moon");
-        fixture.setFriction(0.4f);
+        fixture.setFriction(0.7f);
         shape.dispose();
+
+        //Set the actor's position to draw the texture
         setPosition(body.getPosition().x, body.getPosition().y);
     }
 
@@ -66,12 +62,16 @@ public class Moon extends Actor{
     }
 
     private float[] generateSurface(){
-        float[] vertexes = new float[12 * 2 + 4]; // 16 is number of vertexes
+        float[] vertexes = new float[12 * 2 + 4];
         Random rand = new Random();
         int x = 0;
         float y;
+
+        //Set start vertex
         vertexes[0] = 0;
         vertexes[1] = 0;
+
+        //Generate 6 horizontal planes
         for (int i = 2; i < 24; i += 4) {
             y = rand.nextInt(131) + 20f;
             vertexes[i] = x / PPM;
@@ -80,6 +80,8 @@ public class Moon extends Actor{
             vertexes[i + 3] = y / PPM;
             x += (54 + 90);
         }
+
+        //Set end vertex
         vertexes[26] = 800 / PPM;
         vertexes[27] = 0;
         return vertexes;

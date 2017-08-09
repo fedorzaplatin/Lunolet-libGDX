@@ -3,10 +3,8 @@ package com.fedorzaplatin.lunolet.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -40,7 +38,12 @@ public class GameScreen extends BaseScreen{
         super(game);
 
         if (DEBUG) {
-            b2ddr = new Box2DDebugRenderer(true, true, true, true, true, true);
+            b2ddr = new Box2DDebugRenderer(true,
+                    true,
+                    true,
+                    true,
+                    true,
+                    true);
         }
 
         stage = new Stage(new FitViewport(WIDTH / PPM, HEIGHT / PPM), new PolygonSpriteBatch());
@@ -49,7 +52,7 @@ public class GameScreen extends BaseScreen{
         world = new World(new Vector2(0, -1.62f), false);
         world.setContactListener(new GameContactListener());
 
-        hudStage = new Hud(new FitViewport(WIDTH, HEIGHT), (BitmapFont) game.am.get("bebas.fnt"));
+        hudStage = new Hud(new FitViewport(WIDTH, HEIGHT), game.am.get("bebas.fnt"));
     }
 
     @Override
@@ -68,7 +71,7 @@ public class GameScreen extends BaseScreen{
         lunarModule = new LunarModule(world,
                 lunarModuleTexture,
                 new Vector2(WIDTH / PPM / 2, 1130 / PPM ),
-                (Sound) game.am.get("game-screen/engineSound.mp3"));
+                game.am.get("game-screen/engineSound.mp3"));
         stage.addActor(lunarModule);
 
         Gdx.input.setInputProcessor(new GameScreenInputProcessor());
@@ -150,9 +153,10 @@ public class GameScreen extends BaseScreen{
         @Override
         public void beginContact(Contact contact) {
             if (areCollided(contact, "lunar module", "moon")){
-                if (lunarModule.getVelocity().len() > 4f | Math.abs(lunarModule.getAngle() - 90f) >= 13){
+                if (Math.floor(lunarModule.getVelocity().len()) == 0f | Math.abs(lunarModule.getAngle() - 90f) >= 13){
                     lunarModule.destroy();
                 } else {
+                    Gdx.input.setInputProcessor(null);
                     Timer timer = new Timer();
                     Timer.Task task = new Timer.Task() {
                         @Override
