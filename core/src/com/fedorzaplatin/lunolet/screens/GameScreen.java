@@ -155,7 +155,7 @@ public class GameScreen extends BaseScreen{
         @Override
         public void beginContact(Contact contact) {
             if (areCollided(contact, "lunar module", "moon")){
-                if (Math.floor(lunarModule.getVelocity().len()) == 0f | Math.abs(lunarModule.getAngle() - 90f) >= 13){
+                if (lunarModule.getVelocity().len() > 3f | Math.abs(lunarModule.getAngle() - 90f) >= 13){
                     lunarModule.destroy();
                 } else {
                     Gdx.input.setInputProcessor(null);
