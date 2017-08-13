@@ -63,9 +63,9 @@ public class LunarModule extends Actor {
         if (activateEngine & fuelMass > 0) {
             body.applyForceToCenter(new Vector2(0, 16000f).setAngle(angle), true);
             massData = body.getMassData();
-            massData.mass -= 4f;
+            massData.mass -= 0.03f;
             body.setMassData(massData);
-            fuelMass -= 4f;
+            fuelMass -= 0.03f;
         }
 
         //Update lunar module's position
