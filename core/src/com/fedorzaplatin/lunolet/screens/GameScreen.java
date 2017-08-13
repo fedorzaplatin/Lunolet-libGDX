@@ -34,6 +34,9 @@ public class GameScreen extends BaseScreen{
     private LunarModule lunarModule;
     private Moon moon;
 
+    private boolean isLanded;
+    private float contactTime;
+
     private Box2DDebugRenderer b2ddr;
 
     public GameScreen(final MainClass game) {
@@ -59,6 +62,9 @@ public class GameScreen extends BaseScreen{
 
     @Override
     public void show() {
+        isLanded = false;
+        contactTime = 0;
+
         Texture backgroundTexture = game.am.get("game-screen/background.png");
         Image backgroundImage = new Image(backgroundTexture);
         backgroundImage.setSize(backgroundTexture.getWidth() / PPM, backgroundTexture.getHeight() / PPM);
@@ -84,6 +90,7 @@ public class GameScreen extends BaseScreen{
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        //check if lunar module has crossed the game world bounds
         if (lunarModule.getPosition().x < (-20 / PPM) |
                 lunarModule.getPosition().x > (820 / PPM) |
                 lunarModule.getPosition().y > (1250 / PPM)) {
@@ -92,6 +99,16 @@ public class GameScreen extends BaseScreen{
 
         if (!lunarModule.isAlive()) {
             game.setScreen(game.sm.gameOverScreen);
+        }
+
+        if (isLanded & lunarModule.getVelocity().len() < 0.01f){
+            contactTime += delta;
+        } else {
+            contactTime = 0;
+        }
+
+        if (isLanded & contactTime > 1) {
+            game.setScreen(game.sm.gameCompletedScreen);
         }
 
         if (lunarModule.getPosition().y * PPM > 900){
@@ -144,35 +161,19 @@ public class GameScreen extends BaseScreen{
 
     private class GameContactListener implements ContactListener {
 
-        private boolean areCollided(Contact contact, Object obj1, Object obj2) {
-            Object userDataA = contact.getFixtureA().getUserData();
-            Object userDataB = contact.getFixtureB().getUserData();
-
-            return (userDataA.equals(obj1) && userDataB.equals(obj2)) ||
-                    (userDataA.equals(obj2) && userDataB.equals(obj1));
-        }
-
         @Override
         public void beginContact(Contact contact) {
-            if (areCollided(contact, "lunar module", "moon")){
-                if (lunarModule.getVelocity().len() > 3f | Math.abs(lunarModule.getAngle() - 90f) >= 13){
-                    lunarModule.destroy();
-                } else {
-                    Gdx.input.setInputProcessor(null);
-                    Timer timer = new Timer();
-                    Timer.Task task = new Timer.Task() {
-                        @Override
-                        public void run() {
-                            game.setScreen(game.sm.gameCompletedScreen);
-                        }
-                    };
-                    timer.scheduleTask(task, 1);
-                }
-                }
+            if (lunarModule.getVelocity().len() > 3f | Math.abs(lunarModule.getAngle() - 90f) >= 13){
+                lunarModule.destroy();
+            } else {
+                isLanded = true;
+            }
         }
+
 
         @Override
         public void endContact(Contact contact) {
+            isLanded = false;
         }
 
         @Override
