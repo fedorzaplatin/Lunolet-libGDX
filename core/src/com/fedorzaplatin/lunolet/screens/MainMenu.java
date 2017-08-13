@@ -1,6 +1,7 @@
 package com.fedorzaplatin.lunolet.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -17,6 +18,7 @@ import com.fedorzaplatin.lunolet.ui.LunoletButtonsStyle;
 public class MainMenu extends BaseScreen{
 
     private Stage stage;
+    private Music music;
 
     public MainMenu(final MainClass game) {
         super(game);
@@ -25,6 +27,9 @@ public class MainMenu extends BaseScreen{
         float height = Gdx.graphics.getHeight();
 
         this.stage = new Stage(new FitViewport(width, height));
+
+        music = game.am.get("main-menu/Borrtex_-_12_-_Our_Home.mp3");
+        music.setLooping(true);
 
         Image background = new Image((Texture) game.am.get("main-menu/background.png"));
 
@@ -73,6 +78,7 @@ public class MainMenu extends BaseScreen{
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
+        music.play();
     }
 
     @Override
@@ -102,11 +108,13 @@ public class MainMenu extends BaseScreen{
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(null);
+        music.stop();
     }
 
     @Override
     public void dispose() {
         stage.dispose();
+        music.dispose();
         super.dispose();
     }
 }

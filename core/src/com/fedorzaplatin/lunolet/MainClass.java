@@ -3,6 +3,7 @@ package com.fedorzaplatin.lunolet;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -27,6 +28,7 @@ public class MainClass extends Game {
 		am.load("main-menu/startBtn.atlas", TextureAtlas.class);
 		am.load("main-menu/creditsBtn.atlas", TextureAtlas.class);
 		am.load("main-menu/exitBtn.atlas", TextureAtlas.class);
+		am.load("main-menu/Borrtex_-_12_-_Our_Home.mp3", Music.class);
 
 		// Assets of credits screen
 		am.load("credits-screen/background.png", Texture.class);
