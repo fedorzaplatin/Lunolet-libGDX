@@ -34,6 +34,8 @@ public class GameScreen extends BaseScreen{
     private Hud hudStage;
     private LunarModule lunarModule;
     private Moon moon;
+    private float worldLeftBorder = 20;
+    private float worldRightBorder = 30;
 
     private boolean isLanded;
     private float contactTime;
@@ -81,7 +83,7 @@ public class GameScreen extends BaseScreen{
         lunarModule = new LunarModule(world,
                 lunarModuleTexture,
                 fireSprite,
-                new Vector2(WIDTH / PPM / 2, 1130 / PPM ),
+                new Vector2(25, 1130 / PPM ),
                 (Sound) game.am.get("game-screen/engineSound.mp3"));
         stage.addActor(lunarModule);
 
@@ -93,10 +95,16 @@ public class GameScreen extends BaseScreen{
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        //check if lunar module has crossed the game world bounds
-        if (lunarModule.getPosition().x < (-20 / PPM) |
-                lunarModule.getPosition().x > (820 / PPM) |
-                lunarModule.getPosition().y > (1250 / PPM)) {
+        if (lunarModule.getPosition().x < worldLeftBorder) {
+            moon.generateLeft();
+            worldLeftBorder -= 7.2f;
+        } else if (lunarModule.getPosition().x > worldRightBorder) {
+            moon.generateRight();
+            worldRightBorder += 7.2f;
+        }
+
+        //check if lunar module has crossed the game world border
+        if (lunarModule.getPosition().y > (1250 / PPM)) {
             lunarModule.destroy();
         }
 
@@ -115,11 +123,11 @@ public class GameScreen extends BaseScreen{
         }
 
         if (lunarModule.getPosition().y * PPM > 900){
-            stage.getCamera().position.set(new float[]{WIDTH / PPM / 2, 900 / PPM, 0});
-        } else if ((400 < lunarModule.getPosition().y * PPM) & (lunarModule.getPosition().y * PPM < 900)){
-            stage.getCamera().position.set(new float[]{WIDTH / PPM / 2, lunarModule.getPosition().y, 0});
+            stage.getCamera().position.set(new float[]{lunarModule.getPosition().x, 900 / PPM, 0});
+        } else if (lunarModule.getPosition().y < 17){
+            stage.getCamera().position.set(new float[]{lunarModule.getPosition().x, 17, 0});
         } else {
-            stage.getCamera().position.set(new float[]{WIDTH / PPM / 2, 400 / PPM, 0});
+            stage.getCamera().position.set(new float[]{lunarModule.getPosition().x, lunarModule.getPosition().y, 0});
         }
 
         hudStage.update(lunarModule.getVelocity(), lunarModule.getPosition(), lunarModule.getFuelMass());
