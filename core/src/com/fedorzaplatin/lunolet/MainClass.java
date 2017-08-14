@@ -28,7 +28,7 @@ public class MainClass extends Game {
 		am.load("main-menu/startBtn.atlas", TextureAtlas.class);
 		am.load("main-menu/creditsBtn.atlas", TextureAtlas.class);
 		am.load("main-menu/exitBtn.atlas", TextureAtlas.class);
-		am.load("main-menu/Borrtex_-_12_-_Our_Home.mp3", Music.class);
+		am.load("main-menu/mainMenuMusic.mp3", Music.class);
 
 		// Assets of credits screen
 		am.load("credits-screen/background.png", Texture.class);

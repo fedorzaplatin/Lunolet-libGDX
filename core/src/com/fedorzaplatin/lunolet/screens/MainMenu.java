@@ -28,7 +28,7 @@ public class MainMenu extends BaseScreen{
 
         this.stage = new Stage(new FitViewport(width, height));
 
-        music = game.am.get("main-menu/Borrtex_-_12_-_Our_Home.mp3");
+        music = game.am.get("main-menu/mainMenuMusic.mp3");
         music.setLooping(true);
 
         Image background = new Image((Texture) game.am.get("main-menu/background.png"));
