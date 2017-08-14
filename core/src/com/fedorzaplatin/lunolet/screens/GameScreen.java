@@ -24,7 +24,7 @@ import static com.fedorzaplatin.lunolet.Constants.PPM;
 
 public class GameScreen extends BaseScreen{
 
-    private boolean DEBUG = true;
+    private boolean DEBUG = false;
 
     static private int HEIGHT = Gdx.graphics.getHeight();
     static private int WIDTH = Gdx.graphics.getWidth();
