@@ -37,6 +37,7 @@ public class MainClass extends Game {
 		// Assets of game screen
 		am.load("game-screen/background.png", Texture.class);
 		am.load("game-screen/lunarModuleTexture.png", Texture.class);
+		am.load("game-screen/fire.atlas", TextureAtlas.class);
 		am.load("game-screen/moonTexture.png", Texture.class);
 		am.load("game-screen/engineSound.mp3", Sound.class);
 

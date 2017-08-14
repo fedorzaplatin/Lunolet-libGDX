@@ -5,14 +5,15 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.fedorzaplatin.lunolet.MainClass;
 import com.fedorzaplatin.lunolet.Moon;
@@ -23,7 +24,7 @@ import static com.fedorzaplatin.lunolet.Constants.PPM;
 
 public class GameScreen extends BaseScreen{
 
-    private boolean DEBUG = false;
+    private boolean DEBUG = true;
 
     static private int HEIGHT = Gdx.graphics.getHeight();
     static private int WIDTH = Gdx.graphics.getWidth();
@@ -76,8 +77,10 @@ public class GameScreen extends BaseScreen{
         stage.addActor(moon);
 
         Texture lunarModuleTexture = game.am.get("game-screen/lunarModuleTexture.png");
+        TextureAtlas fireSprite = game.am.get("game-screen/fire.atlas");
         lunarModule = new LunarModule(world,
                 lunarModuleTexture,
+                fireSprite,
                 new Vector2(WIDTH / PPM / 2, 1130 / PPM ),
                 (Sound) game.am.get("game-screen/engineSound.mp3"));
         stage.addActor(lunarModule);
