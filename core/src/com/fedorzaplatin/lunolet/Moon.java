@@ -63,17 +63,17 @@ public class Moon extends Actor{
     }
 
     private float[] generateSurface(){
-        float[] vertexes = new float[12 * 2 + 4];
+        float[] vertexes = new float[16 * 2 + 4];
         Random rand = new Random();
         int x = 0;
         float y;
 
         //Set start vertex
         vertexes[0] = 0;
-        vertexes[1] = 0;
+        vertexes[1] = -50;
 
-        //Generate 6 horizontal planes
-        for (int i = 2; i < 24; i += 4) {
+        //Generate horizontal planes
+        for (int i = 2; i < 34; i += 4) {
             y = rand.nextInt(131) + 20f;
             vertexes[i] = x / PPM;
             vertexes[i + 1] = y / PPM;
@@ -83,8 +83,8 @@ public class Moon extends Actor{
         }
 
         //Set end vertex
-        vertexes[26] = 800 / PPM;
-        vertexes[27] = 0;
+        vertexes[vertexes.length - 2] = x / PPM;
+        vertexes[vertexes.length - 1] = -5;
         return vertexes;
     }
 
@@ -100,7 +100,7 @@ public class Moon extends Actor{
         newVertices[2] = (x - 90) / PPM;
         newVertices[3] = y / PPM;
         newVertices[0] = (x - 90) / PPM;
-        newVertices[1] = 0;
+        newVertices[1] = -50;
 
         vertices = newVertices;
         this.update();
@@ -110,15 +110,15 @@ public class Moon extends Actor{
         Random rand = new Random();
         float[] newVertices = new float[vertices.length + 4];
         System.arraycopy(vertices, 0, newVertices, 0, vertices.length - 2);
-        float x = vertices[vertices.length - 3] * PPM + 54;
+        float x = vertices[vertices.length - 4] * PPM + 54;
         float y = rand.nextInt(131) + 20f;
 
-        newVertices[vertices.length - 1] = x / PPM;
-        newVertices[vertices.length] = y / PPM;
-        newVertices[vertices.length + 1] = (x + 90) / PPM;
-        newVertices[vertices.length + 2] = y / PPM;
-        newVertices[vertices.length + 3] = (x + 90) / PPM;
-        newVertices[vertices.length + 4] = 0;
+        newVertices[vertices.length - 2] = x / PPM;
+        newVertices[vertices.length - 1] = y / PPM;
+        newVertices[vertices.length] = (x + 90) / PPM;
+        newVertices[vertices.length + 1] = y / PPM;
+        newVertices[vertices.length + 2] = (x + 90) / PPM;
+        newVertices[vertices.length + 3] = -50;
 
         vertices = newVertices;
         this.update();
@@ -129,6 +129,7 @@ public class Moon extends Actor{
         this.polygonRegion = new PolygonRegion(moonTexture, vertices, triangles);
         ChainShape shape = new ChainShape();
         shape.createChain(vertices);
+        body.destroyFixture(fixture);
         fixture = body.createFixture(shape, 0);
         fixture.setUserData("moon");
         fixture.setFriction(0.7f);
