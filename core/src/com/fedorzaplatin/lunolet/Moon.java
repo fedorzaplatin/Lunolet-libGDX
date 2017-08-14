@@ -127,5 +127,11 @@ public class Moon extends Actor{
     private void update() {
         short[] triangles = new EarClippingTriangulator().computeTriangles(vertices).toArray();
         this.polygonRegion = new PolygonRegion(moonTexture, vertices, triangles);
+        ChainShape shape = new ChainShape();
+        shape.createChain(vertices);
+        fixture = body.createFixture(shape, 0);
+        fixture.setUserData("moon");
+        fixture.setFriction(0.7f);
+        shape.dispose();
     }
 }
