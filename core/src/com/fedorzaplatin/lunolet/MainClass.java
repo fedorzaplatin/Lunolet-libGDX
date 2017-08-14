@@ -14,6 +14,8 @@ public class MainClass extends Game {
 
 	public ScreensManager sm;
 	public AssetManager am;
+
+	private Music music;
 	
 	@Override
 	public void create () {
@@ -65,6 +67,17 @@ public class MainClass extends Game {
 
 	public void finishLoad() {
 		sm.load();
+		music = am.get("main-menu/mainMenuMusic.mp3");
+		music.setLooping(true);
+		music.play();
 		setScreen(sm.mainMenu);
+	}
+
+	public void playMusic() {
+		music.play();
+	}
+
+	public void stopMusic() {
+		music.stop();
 	}
 }
