@@ -96,10 +96,10 @@ public class GameScreen extends BaseScreen{
 
         if (lunarModule.getPosition().x < worldLeftBorder) {
             moon.generateLeft();
-            worldLeftBorder -= 7.2f;
+            worldLeftBorder -= 5f;
         } else if (lunarModule.getPosition().x > worldRightBorder) {
             moon.generateRight();
-            worldRightBorder += 7.2f;
+            worldRightBorder += 5f;
         }
 
         //check if lunar module has crossed the game world border
