@@ -24,7 +24,7 @@ public class CreditsScreen extends BaseScreen {
         float height = Gdx.graphics.getHeight();
         stage = new Stage(new FitViewport(width, height));
 
-        Image background = new Image((Texture) game.am.get("credits-screen/background.png"));
+        Image background = new Image((Texture) game.am.get("credits-screen/Background.png"));
 
         ImageButton backBtn = new ImageButton(new LunoletButtonsStyle((TextureAtlas) game.am.get("credits-screen/backBtn.atlas")));
         backBtn.setPosition(346, 49);

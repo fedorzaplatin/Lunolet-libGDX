@@ -12,6 +12,7 @@ public class DesktopLauncher {
 		config.height = 600;
 		config.foregroundFPS = 60;
 		config.backgroundFPS = 60;
+		config.vSyncEnabled = true;
 		//config.addIcon("icons/windows.png", Files.FileType.Classpath);
 		new LwjglApplication(new MainClass(), config);
 	}

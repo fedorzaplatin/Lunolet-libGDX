@@ -24,7 +24,6 @@ public class LunarModule extends Actor {
     private Texture lunarModuleTexture;
     private Body body;
     private Fixture fixture;
-    private Vector2 position;
     private Sound engineSound;
     private float angle;
 
@@ -41,7 +40,6 @@ public class LunarModule extends Actor {
         this.world = world;
         this.lunarModuleTexture = texture;
         this.lunarModuleTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        this.position = position;
         this.engineSound = engineSound;
 
         //Create box body
@@ -80,15 +78,13 @@ public class LunarModule extends Actor {
             body.setMassData(massData);
             fuelMass -= 0.03f;
         }
-
-        //Update the lunar module's position
-        position = body.getPosition();
     }
 
     @Override
     public void draw (Batch batch, float parentAlpha) {
         //Set the actor's position to draw lunar module's lunarModuleTexture according to the body's position
         setPosition(body.getPosition().x, body.getPosition().y);
+        System.out.println(body.getPosition().x);
 
         //Draw the main engine's fire
         float fireSpriteOriginX = fireSpriteWidth / 2;
@@ -144,7 +140,7 @@ public class LunarModule extends Actor {
     }
 
     public Vector2 getPosition() {
-        return position;
+        return body.getPosition();
     }
 
     public float getAngle() {

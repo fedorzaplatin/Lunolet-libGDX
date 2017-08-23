@@ -12,8 +12,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.fedorzaplatin.lunolet.Background;
 import com.fedorzaplatin.lunolet.MainClass;
 import com.fedorzaplatin.lunolet.Moon;
 import com.fedorzaplatin.lunolet.LunarModule;
@@ -33,8 +33,9 @@ public class GameScreen extends BaseScreen{
     private Hud hudStage;
     private LunarModule lunarModule;
     private Moon moon;
+    private Background background;
     private float worldLeftBorder = 20;
-    private float worldRightBorder = 30;
+    private float worldRightBorder = 26;
 
     private boolean isLanded;
     private float contactTime;
@@ -67,11 +68,8 @@ public class GameScreen extends BaseScreen{
         isLanded = false;
         contactTime = 0;
 
-        Texture backgroundTexture = game.am.get("game-screen/background.png");
-        Image backgroundImage = new Image(backgroundTexture);
-        backgroundImage.setSize(backgroundTexture.getWidth() / PPM, backgroundTexture.getHeight() / PPM);
-        backgroundImage.setPosition(0, 0);
-        stage.addActor(backgroundImage);
+        background = new Background((Texture) game.am.get("game-screen/Background.png"), 45, 60);
+        stage.addActor(background);
         
         Texture moonSurface = game.am.get("game-screen/moonTexture.png");
         moon = new Moon(world, moonSurface, new Vector2(0, 0));
@@ -96,9 +94,11 @@ public class GameScreen extends BaseScreen{
 
         if (lunarModule.getPosition().x < worldLeftBorder) {
             moon.generateLeft();
+            background.extend(-7);
             worldLeftBorder -= 5f;
         } else if (lunarModule.getPosition().x > worldRightBorder) {
             moon.generateRight();
+            background.extend(7);
             worldRightBorder += 5f;
         }
 

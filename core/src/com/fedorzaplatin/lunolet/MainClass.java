@@ -26,30 +26,30 @@ public class MainClass extends Game {
 		am.load("bebas.fnt", BitmapFont.class);
 
 		// Assets of main menu
-		am.load("main-menu/background.png", Texture.class);
+		am.load("main-menu/Background.png", Texture.class);
 		am.load("main-menu/startBtn.atlas", TextureAtlas.class);
 		am.load("main-menu/creditsBtn.atlas", TextureAtlas.class);
 		am.load("main-menu/exitBtn.atlas", TextureAtlas.class);
 		am.load("main-menu/mainMenuMusic.mp3", Music.class);
 
 		// Assets of credits screen
-		am.load("credits-screen/background.png", Texture.class);
+		am.load("credits-screen/Background.png", Texture.class);
 		am.load("credits-screen/backBtn.atlas", TextureAtlas.class);
 
 		// Assets of game screen
-		am.load("game-screen/background.png", Texture.class);
+		am.load("game-screen/Background.png", Texture.class);
 		am.load("game-screen/lunarModuleTexture.png", Texture.class);
 		am.load("game-screen/fire.atlas", TextureAtlas.class);
 		am.load("game-screen/moonTexture.png", Texture.class);
 		am.load("game-screen/engineSound.mp3", Sound.class);
 
 		// Assets of game over screen
-		am.load("game-over-screen/background.png", Texture.class);
+		am.load("game-over-screen/Background.png", Texture.class);
 		am.load("game-over-screen/againBtn.atlas", TextureAtlas.class);
 		am.load("game-over-screen/mainMenuBtn.atlas", TextureAtlas.class);
 
 		//Assets of game completed screen
-		am.load("game-completed-screen/background.png", Texture.class);
+		am.load("game-completed-screen/Background.png", Texture.class);
 
 		this.setScreen(new SplashScreen(this));
 	}
