@@ -87,7 +87,6 @@ public class LunarModule extends Actor {
     public void draw (Batch batch, float parentAlpha) {
         //Set the actor's position to draw lunar module's lunarModuleTexture according to the body's position
         setPosition(body.getPosition().x, body.getPosition().y);
-        System.out.println(body.getPosition().x);
 
         //Draw the main engine's fire
         float fireSpriteOriginX = fireSpriteWidth / 2;

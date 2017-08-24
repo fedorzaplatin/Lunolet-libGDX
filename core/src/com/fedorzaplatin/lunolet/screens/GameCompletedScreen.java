@@ -22,7 +22,7 @@ public class GameCompletedScreen extends BaseScreen {
         super(game);
         stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 
-        Image background = new Image((Texture) game.am.get("game-completed-screen/Background.png"));
+        Image background = new Image((Texture) game.am.get("game-completed-screen/background.png"));
 
         ImageButton.ImageButtonStyle style = new LunoletButtonsStyle((TextureAtlas) game.am.get("game-over-screen/againBtn.atlas"));
         ImageButton againBtn = new ImageButton(style);

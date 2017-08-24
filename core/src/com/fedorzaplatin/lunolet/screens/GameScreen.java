@@ -68,7 +68,7 @@ public class GameScreen extends BaseScreen{
         isLanded = false;
         contactTime = 0;
 
-        background = new Background((Texture) game.am.get("game-screen/Background.png"), 45, 60);
+        background = new Background((Texture) game.am.get("game-screen/background.png"), 45, 60);
         stage.addActor(background);
         
         Texture moonSurface = game.am.get("game-screen/moonTexture.png");
