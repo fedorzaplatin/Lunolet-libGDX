@@ -15,7 +15,7 @@ public class LunarModule extends Actor {
 
     //variables related to the lunar module
     final private float lunarModuleWidth = 4.2f;
-    final private float lunarModuleHeight = lunarModuleWidth * 714 / 643;
+    private float lunarModuleHeight = 0;
     final private float lunarModuleMass = 2150f;
     private float fuelMass = 400f;
     private MassData massData;
@@ -39,6 +39,9 @@ public class LunarModule extends Actor {
         this.alive = true;
         this.world = world;
         this.lunarModuleTexture = texture;
+
+        lunarModuleHeight = lunarModuleWidth * texture.getHeight() / texture.getWidth();
+        
         this.lunarModuleTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         this.engineSound = engineSound;
 
