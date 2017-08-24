@@ -14,7 +14,7 @@ allprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
 
-    version = '0.7.3'
+    version = '0.7.6'
     ext {
         appName = "Lunolet"
         gdxVersion = '1.9.6'

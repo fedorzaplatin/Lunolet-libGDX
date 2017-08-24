@@ -41,7 +41,7 @@ public class LunarModule extends Actor {
         this.lunarModuleTexture = texture;
 
         lunarModuleHeight = lunarModuleWidth * texture.getHeight() / texture.getWidth();
-        
+
         this.lunarModuleTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         this.engineSound = engineSound;
 
