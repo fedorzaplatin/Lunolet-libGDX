@@ -1,6 +1,7 @@
 package com.fedorzaplatin.lunolet.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -33,6 +34,7 @@ public class MainMenu extends BaseScreen{
         startBtn.addCaptureListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                game.stopMusic();
                 game.setScreen(game.sm.gameScreen);
             }
         });

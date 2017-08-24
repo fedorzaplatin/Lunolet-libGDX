@@ -3,6 +3,7 @@ package com.fedorzaplatin.lunolet;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -13,6 +14,8 @@ public class MainClass extends Game {
 
 	public ScreensManager sm;
 	public AssetManager am;
+
+	private Music music;
 	
 	@Override
 	public void create () {
@@ -27,6 +30,7 @@ public class MainClass extends Game {
 		am.load("main-menu/startBtn.atlas", TextureAtlas.class);
 		am.load("main-menu/creditsBtn.atlas", TextureAtlas.class);
 		am.load("main-menu/exitBtn.atlas", TextureAtlas.class);
+		am.load("main-menu/mainMenuMusic.mp3", Music.class);
 
 		// Assets of credits screen
 		am.load("credits-screen/background.png", Texture.class);
@@ -35,6 +39,7 @@ public class MainClass extends Game {
 		// Assets of game screen
 		am.load("game-screen/background.png", Texture.class);
 		am.load("game-screen/lunarModuleTexture.png", Texture.class);
+		am.load("game-screen/fire.atlas", TextureAtlas.class);
 		am.load("game-screen/moonTexture.png", Texture.class);
 		am.load("game-screen/engineSound.mp3", Sound.class);
 
@@ -62,6 +67,17 @@ public class MainClass extends Game {
 
 	public void finishLoad() {
 		sm.load();
+		music = am.get("main-menu/mainMenuMusic.mp3");
+		music.setLooping(true);
+		music.play();
 		setScreen(sm.mainMenu);
+	}
+
+	public void playMusic() {
+		music.play();
+	}
+
+	public void stopMusic() {
+		music.stop();
 	}
 }

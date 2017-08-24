@@ -2,7 +2,10 @@ package com.fedorzaplatin.lunolet;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -10,30 +13,36 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class LunarModule extends Actor {
 
+    //variables related to the lunar module
     final private float lunarModuleWidth = 4.2f;
-    final private float lunarModuleHeight = 4.2f * 714 / 643;
+    private float lunarModuleHeight = 0;
     final private float lunarModuleMass = 2150f;
-    private float fuelMass = 3660f;
-
+    private float fuelMass = 400f;
     private MassData massData;
     private boolean alive;
     private boolean activateEngine = false;
-
-    private Texture texture;
-    private World world;
+    private Texture lunarModuleTexture;
     private Body body;
     private Fixture fixture;
-    private Vector2 position;
     private Sound engineSound;
-
     private float angle;
 
-    public LunarModule(World world, Texture texture, Vector2 position, final Sound engineSound) {
+    //variables related to the main engine's fire sprite
+    private float fireSpriteWidth = 0.6f;
+    private float fireSpriteHeight = fireSpriteWidth * 162 / 131;
+    private Animation fireAnimation;
+
+    private float time;
+    private World world;
+
+    public LunarModule(World world, Texture texture, TextureAtlas fireSprite, Vector2 position, final Sound engineSound) {
         this.alive = true;
         this.world = world;
-        this.texture = texture;
-        this.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        this.position = position;
+        this.lunarModuleTexture = texture;
+
+        lunarModuleHeight = lunarModuleWidth * texture.getHeight() / texture.getWidth();
+
+        this.lunarModuleTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         this.engineSound = engineSound;
 
         //Create box body
@@ -50,35 +59,53 @@ public class LunarModule extends Actor {
         setSize(lunarModuleWidth, lunarModuleHeight);
         massData = body.getMassData();
 
-        //Star and pause engine's sound to resume it when space is pressed
+        fireAnimation = new Animation<TextureRegion>(0.04f, fireSprite.findRegions("frame"), Animation.PlayMode.LOOP);
+        time = 0;
+
+        //Star and pause the engine's sound to resume it when space key is pressed
         engineSound.loop();
         engineSound.pause();
     }
 
     @Override
     public void act(float delta) {
-        //get an angle which lunar module is tilted relative to perpendicular to the moon surface
+        time += delta;
+
+        //get an angle which the lunar module is tilted relative to a perpendicular to the moon surface
         angle = body.getAngle() * MathUtils.radiansToDegrees + 90f;
 
-        if (activateEngine & fuelMass > 0) {
-            body.applyForceToCenter(new Vector2(0, 16000f).setAngle(angle), true);
+        if (activateEngine) {
+            body.applyForceToCenter(new Vector2(0, 9000f).setAngle(angle), true);
             massData = body.getMassData();
-            massData.mass -= 4f;
+            massData.mass -= 0.03f;
             body.setMassData(massData);
-            fuelMass -= 4f;
+            fuelMass -= 0.03f;
         }
-
-        //Update lunar module's position
-        position = body.getPosition();
     }
 
     @Override
     public void draw (Batch batch, float parentAlpha) {
-        //Set the actor's position to draw lunar module's texture according to the body's position
+        //Set the actor's position to draw lunar module's lunarModuleTexture according to the body's position
         setPosition(body.getPosition().x, body.getPosition().y);
 
-        //Draw texture
-        batch.draw(texture,
+        //Draw the main engine's fire
+        float fireSpriteOriginX = fireSpriteWidth / 2;
+        float fireSpriteOriginY = fireSpriteHeight / 2 + 1.65f;
+        if (activateEngine) {
+            batch.draw((TextureRegion) fireAnimation.getKeyFrame(time, true),
+                    getX() - fireSpriteOriginX,
+                    getY() - fireSpriteOriginY,
+                    fireSpriteOriginX,
+                    fireSpriteOriginY,
+                    fireSpriteWidth,
+                    fireSpriteHeight,
+                    1,
+                    1,
+                    body.getAngle() * MathUtils.radiansToDegrees);
+        }
+
+        //Draw thr lunar module's texture
+        batch.draw(lunarModuleTexture,
                 getX() - getWidth() / 2,
                 getY() - getHeight() / 2,
                 getWidth() / 2,
@@ -90,8 +117,8 @@ public class LunarModule extends Actor {
                 body.getAngle() * MathUtils.radiansToDegrees,
                 0,
                 0,
-                texture.getWidth(),
-                texture.getHeight(),
+                lunarModuleTexture.getWidth(),
+                lunarModuleTexture.getHeight(),
                 false,
                 false);
     }
@@ -115,7 +142,7 @@ public class LunarModule extends Actor {
     }
 
     public Vector2 getPosition() {
-        return position;
+        return body.getPosition();
     }
 
     public float getAngle() {
@@ -127,20 +154,26 @@ public class LunarModule extends Actor {
     }
 
     public void activateMainEngine() {
-        this.activateEngine = true;
-        engineSound.play();
+        if (fuelMass > 0) {
+            this.activateEngine = true;
+            engineSound.play();
+        }
     }
 
     public void deactivateMainEngine() {
-        this.activateEngine = false;
-        engineSound.pause();
+        if (this.activateEngine) {
+            this.activateEngine = false;
+            engineSound.pause();
+        }
     }
 
     public void rotateLeft() {
-        body.applyForce(new Vector2(0, 29000f).setAngle(angle), body.getWorldPoint(new Vector2(1f, 0)), true);
+        body.applyForce(new Vector2(0, 11000f).setAngle(angle), body.getWorldPoint(new Vector2(2.0f, 3.2f)), true);
+        body.applyForce(new Vector2(0, 11000f).setAngle(-angle), body.getWorldPoint(new Vector2(-2.0f, 3.2f)), true);
     }
 
     public void rotateRight() {
-        body.applyForce(new Vector2(0, 29000f).setAngle(angle), body.getWorldPoint(new Vector2(-1f , 0)), true);
+        body.applyForce(new Vector2(0, 11000f).setAngle(angle), body.getWorldPoint(new Vector2(-2.0f , 3.2f)), true);
+        body.applyForce(new Vector2(0, 11000f).setAngle(-angle), body.getWorldPoint(new Vector2(2.0f, 3.2f)), true);
     }
 }

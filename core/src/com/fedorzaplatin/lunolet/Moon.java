@@ -14,30 +14,34 @@ import java.util.Random;
 
 import static com.fedorzaplatin.lunolet.Constants.PPM;
 
-public class Moon extends Actor{
+public class Moon extends Actor {
+
     private World world;
     private Body body;
     private Fixture fixture;
     private PolygonRegion polygonRegion;
+    private float[] vertices;
+    private TextureRegion moonTexture;
+    private SurfaceGenerator generator = new SurfaceGenerator();
 
     public Moon(World world, Texture texture, Vector2 position) {
         this.world = world;
-        position.y = position.y + 100 / PPM; //Lift the surface a little bit
+        position.y = position.y + 100 / PPM; //Lift the surface up a little bit
 
         texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-        TextureRegion textureRegion = new TextureRegion(texture);
+        moonTexture = new TextureRegion(texture);
 
-        float[] vertexes;
-        vertexes = generateSurface();
-        short[] triangles = new EarClippingTriangulator().computeTriangles(vertexes).toArray();
+        vertices = generator.generate();
+        short[] triangles = new EarClippingTriangulator().computeTriangles(vertices).toArray();
 
-        this.polygonRegion = new PolygonRegion(textureRegion, vertexes, triangles);
+        //create polygonRegion to fill the moon surface's body
+        this.polygonRegion = new PolygonRegion(moonTexture, vertices, triangles);
         BodyDef def = new BodyDef();
         def.position.set(position);
         def.type = BodyDef.BodyType.StaticBody;
         body = world.createBody(def);
         ChainShape shape = new ChainShape();
-        shape.createChain(vertexes);
+        shape.createChain(vertices);
         fixture = body.createFixture(shape, 0);
         fixture.setUserData("moon");
         fixture.setFriction(0.7f);
@@ -61,29 +65,87 @@ public class Moon extends Actor{
         world.destroyBody(body);
     }
 
-    private float[] generateSurface(){
-        float[] vertexes = new float[12 * 2 + 4];
-        Random rand = new Random();
-        int x = 0;
-        float y;
+    private void update() {
+        short[] triangles = new EarClippingTriangulator().computeTriangles(vertices).toArray();
+        this.polygonRegion = new PolygonRegion(moonTexture, vertices, triangles);
+        ChainShape shape = new ChainShape();
+        shape.createChain(vertices);
+        body.destroyFixture(fixture);
+        fixture = body.createFixture(shape, 0);
+        fixture.setUserData("moon");
+        fixture.setFriction(0.7f);
+        shape.dispose();
+    }
 
-        //Set start vertex
-        vertexes[0] = 0;
-        vertexes[1] = 0;
+    public void generateLeft() {
+        vertices = generator.generateLeft(vertices);
+        this.update();
+    }
 
-        //Generate 6 horizontal planes
-        for (int i = 2; i < 24; i += 4) {
-            y = rand.nextInt(131) + 20f;
-            vertexes[i] = x / PPM;
-            vertexes[i + 1] = y / PPM;
-            vertexes[i + 2] = (x + 90) / PPM;
-            vertexes[i + 3] = y / PPM;
-            x += (54 + 90);
+    public void generateRight() {
+        vertices = generator.generateRight(vertices);
+        this.update();
+    }
+
+    private class SurfaceGenerator{
+
+        private Random rand = new Random();
+
+        public float[] generate() {
+            float[] vertices = new float[16 * 2 + 4];
+            int x = 0;
+            float y;
+
+            //Set start vertex
+            vertices[0] = 0;
+            vertices[1] = -50;
+
+            //Generate horizontal planes
+            for (int i = 2; i < 34; i += 4) {
+                y = rand.nextInt(131) + 20f;
+                vertices[i] = x / PPM;
+                vertices[i + 1] = y / PPM;
+                vertices[i + 2] = (x + 90) / PPM;
+                vertices[i + 3] = y / PPM;
+                x += 54 + 90;
+            }
+
+            //Set end vertex
+            vertices[vertices.length - 2] = x / PPM;
+            vertices[vertices.length - 1] = -5;
+            return vertices;
         }
 
-        //Set end vertex
-        vertexes[26] = 800 / PPM;
-        vertexes[27] = 0;
-        return vertexes;
+        public float[] generateLeft(float[] oldVertices) {
+            float[] newVertices = new float[oldVertices.length + 4];
+            System.arraycopy(oldVertices, 2, newVertices, 6, oldVertices.length - 2);
+            float x = oldVertices[2] * PPM - 54;
+            float y = rand.nextInt(131) + 20f;
+
+            newVertices[4] = x / PPM;
+            newVertices[5] = y / PPM;
+            newVertices[2] = (x - 90) / PPM;
+            newVertices[3] = y / PPM;
+            newVertices[0] = (x - 90) / PPM;
+            newVertices[1] = -50;
+
+            return newVertices;
+        }
+
+        public float[] generateRight(float[] oldVertices) {
+            float[] newVertices = new float[oldVertices.length + 4];
+            System.arraycopy(oldVertices, 0, newVertices, 0, oldVertices.length - 2);
+            float x = oldVertices[oldVertices.length - 4] * PPM + 54;
+            float y = rand.nextInt(131) + 20f;
+
+            newVertices[oldVertices.length - 2] = x / PPM;
+            newVertices[oldVertices.length - 1] = y / PPM;
+            newVertices[oldVertices.length] = (x + 90) / PPM;
+            newVertices[oldVertices.length + 1] = y / PPM;
+            newVertices[oldVertices.length + 2] = (x + 90) / PPM;
+            newVertices[oldVertices.length + 3] = -50;
+
+            return newVertices;
+        }
     }
 }
