@@ -168,12 +168,12 @@ public class LunarModule extends Actor {
     }
 
     public void rotateLeft() {
-        body.applyForce(new Vector2(0, 15000f).setAngle(angle), body.getWorldPoint(new Vector2(2.0f, 3.2f)), true);
-        body.applyForce(new Vector2(0, 15000f).setAngle(-angle), body.getWorldPoint(new Vector2(-2.0f, 3.2f)), true);
+        body.applyForce(new Vector2(0, 11000f).setAngle(angle), body.getWorldPoint(new Vector2(2.0f, 3.2f)), true);
+        body.applyForce(new Vector2(0, 11000f).setAngle(-angle), body.getWorldPoint(new Vector2(-2.0f, 3.2f)), true);
     }
 
     public void rotateRight() {
-        body.applyForce(new Vector2(0, 17000f).setAngle(angle), body.getWorldPoint(new Vector2(-2.0f , 3.2f)), true);
-        body.applyForce(new Vector2(0, 17000f).setAngle(-angle), body.getWorldPoint(new Vector2(2.0f, 3.2f)), true);
+        body.applyForce(new Vector2(0, 11000f).setAngle(angle), body.getWorldPoint(new Vector2(-2.0f , 3.2f)), true);
+        body.applyForce(new Vector2(0, 11000f).setAngle(-angle), body.getWorldPoint(new Vector2(2.0f, 3.2f)), true);
     }
 }
