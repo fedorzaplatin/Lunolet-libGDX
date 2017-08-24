@@ -92,6 +92,7 @@ public class GameScreen extends BaseScreen{
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        //if lunar module is next to the world's border (left/right) world generates left of right
         if (lunarModule.getPosition().x < worldLeftBorder) {
             moon.generateLeft();
             background.extend(-7);
@@ -102,7 +103,7 @@ public class GameScreen extends BaseScreen{
             worldRightBorder += 5f;
         }
 
-        //check if lunar module has crossed the game world border
+        //check if lunar module has crossed the upper world's border
         if (lunarModule.getPosition().y > (1250 / PPM)) {
             lunarModule.destroy();
         }

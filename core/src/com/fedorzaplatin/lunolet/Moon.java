@@ -14,7 +14,8 @@ import java.util.Random;
 
 import static com.fedorzaplatin.lunolet.Constants.PPM;
 
-public class Moon extends Actor{
+public class Moon extends Actor {
+
     private World world;
     private Body body;
     private Fixture fixture;
@@ -25,7 +26,7 @@ public class Moon extends Actor{
 
     public Moon(World world, Texture texture, Vector2 position) {
         this.world = world;
-        position.y = position.y + 100 / PPM; //Lift the surface a little bit
+        position.y = position.y + 100 / PPM; //Lift the surface up a little bit
 
         texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         moonTexture = new TextureRegion(texture);
@@ -33,6 +34,7 @@ public class Moon extends Actor{
         vertices = generator.generate();
         short[] triangles = new EarClippingTriangulator().computeTriangles(vertices).toArray();
 
+        //create polygonRegion to fill the moon surface's body
         this.polygonRegion = new PolygonRegion(moonTexture, vertices, triangles);
         BodyDef def = new BodyDef();
         def.position.set(position);
