@@ -27,7 +27,7 @@ public class MainMenu extends BaseScreen{
 
         this.stage = new Stage(new FitViewport(width, height));
 
-        Image background = new Image((Texture) game.am.get("main-menu/Background.png"));
+        Image background = new Image((Texture) game.am.get("main-menu/background.png"));
 
         ImageButton.ImageButtonStyle style = new LunoletButtonsStyle((TextureAtlas) game.am.get("main-menu/startBtn.atlas"));
         ImageButton startBtn = new ImageButton(style);
