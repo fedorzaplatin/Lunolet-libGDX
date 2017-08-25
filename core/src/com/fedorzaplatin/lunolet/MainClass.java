@@ -25,6 +25,14 @@ public class MainClass extends Game {
 
 		am.load("bebas.fnt", BitmapFont.class);
 
+		// Assets of tutorial screen
+		am.load("tutorial-screen/tutorial.png", Texture.class);
+		am.load("tutorial-screen/1.png", Texture.class);
+		am.load("tutorial-screen/2.png", Texture.class);
+		am.load("tutorial-screen/3.png", Texture.class);
+		am.load("tutorial-screen/controls.png", Texture.class);
+		am.load("tutorial-screen/nextBtn.atlas", TextureAtlas.class);
+
 		// Assets of main menu
 		am.load("main-menu/background.png", Texture.class);
 		am.load("main-menu/startBtn.atlas", TextureAtlas.class);
