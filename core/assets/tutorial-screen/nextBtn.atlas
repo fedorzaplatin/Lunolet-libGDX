@@ -1,0 +1,27 @@
+
+nextBtn.png
+size: 109,170
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+btnDown
+  rotate: false
+  xy: 2, 2
+  size: 105, 54
+  orig: 105, 54
+  offset: 0, 0
+  index: -1
+btnOver
+  rotate: false
+  xy: 2, 114
+  size: 105, 54
+  orig: 105, 54
+  offset: 0, 0
+  index: -1
+btnUp
+  rotate: false
+  xy: 2, 58
+  size: 105, 54
+  orig: 105, 54
+  offset: 0, 0
+  index: -1
