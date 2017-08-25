@@ -49,6 +49,10 @@ public class MainMenu extends BaseScreen{
                 }
                 if (firstStart == 1) {
                     game.setScreen(game.sm.tutorialScreen);
+                } else {
+                    game.stopMainMenuMusic();
+                    game.playGameScreenMusic();
+                    game.setScreen(game.sm.gameScreen);
                 }
             }
         });

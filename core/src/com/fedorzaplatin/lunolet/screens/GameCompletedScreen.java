@@ -38,7 +38,8 @@ public class GameCompletedScreen extends BaseScreen {
         mainManuBtn.addCaptureListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.playMusic();
+                game.stopGameScreenMusic();
+                game.playMainMenuMusic();
                 game.setScreen(game.sm.mainMenu);
             }
         });

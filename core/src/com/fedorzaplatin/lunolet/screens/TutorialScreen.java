@@ -83,7 +83,8 @@ public class TutorialScreen extends BaseScreen{
                     e.printStackTrace();
                 }
 
-                game.stopMusic();
+                game.stopMainMenuMusic();
+                game.playGameScreenMusic();
                 game.setScreen(game.sm.gameScreen);
             }
         });
