@@ -36,6 +36,7 @@ public class MainClass extends Game {
 		// Assets of main menu
 		am.load("main-menu/background.png", Texture.class);
 		am.load("main-menu/startBtn.atlas", TextureAtlas.class);
+		am.load("main-menu/tutorialBtn.atlas", TextureAtlas.class);
 		am.load("main-menu/creditsBtn.atlas", TextureAtlas.class);
 		am.load("main-menu/exitBtn.atlas", TextureAtlas.class);
 		am.load("main-menu/mainMenuMusic.mp3", Music.class);

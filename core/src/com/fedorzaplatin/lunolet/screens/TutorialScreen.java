@@ -99,7 +99,6 @@ public class TutorialScreen extends BaseScreen{
 
     private void updateScreen() {
         Array<Actor> actors = stage.getActors();
-        System.out.println(actors.size);
         actors.get(0).remove();
         actors.get(0).remove();
 
