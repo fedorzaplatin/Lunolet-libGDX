@@ -14,6 +14,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.fedorzaplatin.lunolet.MainClass;
 import com.fedorzaplatin.lunolet.ui.LunoletButtonsStyle;
+import org.ini4j.Ini;
+import org.ini4j.Wini;
+
+import java.io.File;
+import java.io.IOException;
 
 public class MainMenu extends BaseScreen{
 
@@ -34,8 +39,20 @@ public class MainMenu extends BaseScreen{
         startBtn.addCaptureListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.stopMusic();
-                game.setScreen(game.sm.gameScreen);
+                int firstStart = 0;
+                try {
+                    Ini ini = new Ini(new File("config.ini"));
+                    Ini.Section section = ini.get("DEFAULT");
+                    firstStart = Integer.parseInt(section.get("firstStart"));
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+                if (firstStart == 1) {
+                    game.setScreen(game.sm.tutorialScreen);
+                } else {
+                    game.stopMusic();
+                    game.setScreen(game.sm.gameScreen);
+                }
             }
         });
 
