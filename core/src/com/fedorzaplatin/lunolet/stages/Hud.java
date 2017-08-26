@@ -14,9 +14,12 @@ public class Hud extends Stage {
     private Label velocity;
     private Label altitude;
     private Label fuelMass;
+    private float lunarModuleHeight;
 
-    public Hud(Viewport viewport, BitmapFont font) {
+    public Hud(Viewport viewport, BitmapFont font, float lunarModuleHeight) {
         super(viewport);
+
+        this.lunarModuleHeight = lunarModuleHeight;
 
         Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
         velocity = new Label("0", style);
@@ -38,7 +41,7 @@ public class Hud extends Stage {
 
     public void update(Vector2 velocity, Vector2 altitude, float fuel){
         this.velocity.setText(String.format("Velocity:  %02.2f   m/s", velocity.len()));
-        this.altitude.setText(String.format("Alt.:  %03.0f   m", altitude.len()));
+        this.altitude.setText(String.format("Alt.:  %03.0f   m", altitude.y - lunarModuleHeight));
         this.fuelMass.setText(String.format("Fuel:  %04.0f   kg", fuel));
     }
 }
