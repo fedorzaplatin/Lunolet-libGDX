@@ -59,8 +59,6 @@ public class GameScreen extends BaseScreen{
 
         world = new World(new Vector2(0, -1.62f), false);
         world.setContactListener(new GameContactListener());
-
-        hudStage = new Hud(new FitViewport(WIDTH, HEIGHT), (BitmapFont) game.am.get("bebas.fnt"));
     }
 
     @Override
@@ -84,6 +82,7 @@ public class GameScreen extends BaseScreen{
                 (Sound) game.am.get("game-screen/engineSound.mp3"));
         stage.addActor(lunarModule);
 
+        hudStage = new Hud(new FitViewport(WIDTH, HEIGHT), (BitmapFont) game.am.get("bebas.fnt"), lunarModule.getHeight());
         Gdx.input.setInputProcessor(new GameScreenInputProcessor());
     }
 
