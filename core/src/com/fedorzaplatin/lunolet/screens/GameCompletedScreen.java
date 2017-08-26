@@ -34,11 +34,12 @@ public class GameCompletedScreen extends BaseScreen {
         });
 
         style = new LunoletButtonsStyle((TextureAtlas) game.am.get("game-over-screen/mainMenuBtn.atlas"));
-        ImageButton mainManuBtn = new ImageButton(style);
-        mainManuBtn.addCaptureListener(new ClickListener() {
+        ImageButton mainMenuBtn = new ImageButton(style);
+        mainMenuBtn.addCaptureListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.playMusic();
+                game.stopGameScreenMusic();
+                game.playMainMenuMusic();
                 game.setScreen(game.sm.mainMenu);
             }
         });
@@ -48,7 +49,7 @@ public class GameCompletedScreen extends BaseScreen {
         table.center();
         table.setPosition(0, -140);
         table.add(againBtn).pad(8);
-        table.add(mainManuBtn).pad(8);
+        table.add(mainMenuBtn).pad(8);
 
         stage.addActor(background);
         stage.addActor(table);

@@ -15,7 +15,7 @@ public class MainClass extends Game {
 	public ScreensManager sm;
 	public AssetManager am;
 
-	private Music music;
+	private Music mainMenuMusic, gameScreenMusic;
 	
 	@Override
 	public void create () {
@@ -25,9 +25,18 @@ public class MainClass extends Game {
 
 		am.load("bebas.fnt", BitmapFont.class);
 
+		// Assets of tutorial screen
+		am.load("tutorial-screen/tutorial.png", Texture.class);
+		am.load("tutorial-screen/1.png", Texture.class);
+		am.load("tutorial-screen/2.png", Texture.class);
+		am.load("tutorial-screen/3.png", Texture.class);
+		am.load("tutorial-screen/controls.png", Texture.class);
+		am.load("tutorial-screen/nextBtn.atlas", TextureAtlas.class);
+
 		// Assets of main menu
 		am.load("main-menu/background.png", Texture.class);
 		am.load("main-menu/startBtn.atlas", TextureAtlas.class);
+		am.load("main-menu/tutorialBtn.atlas", TextureAtlas.class);
 		am.load("main-menu/creditsBtn.atlas", TextureAtlas.class);
 		am.load("main-menu/exitBtn.atlas", TextureAtlas.class);
 		am.load("main-menu/mainMenuMusic.mp3", Music.class);
@@ -42,6 +51,7 @@ public class MainClass extends Game {
 		am.load("game-screen/fire.atlas", TextureAtlas.class);
 		am.load("game-screen/moonTexture.png", Texture.class);
 		am.load("game-screen/engineSound.mp3", Sound.class);
+		am.load("game-screen/gameScreenMusic.mp3", Music.class);
 
 		// Assets of game over screen
 		am.load("game-over-screen/background.png", Texture.class);
@@ -67,17 +77,27 @@ public class MainClass extends Game {
 
 	public void finishLoad() {
 		sm.load();
-		music = am.get("main-menu/mainMenuMusic.mp3");
-		music.setLooping(true);
-		music.play();
+		gameScreenMusic = am.get("game-screen/gameScreenMusic.mp3");
+		gameScreenMusic.setLooping(true);
+		mainMenuMusic = am.get("main-menu/mainMenuMusic.mp3");
+		mainMenuMusic.setLooping(true);
+		mainMenuMusic.play();
 		setScreen(sm.mainMenu);
 	}
 
-	public void playMusic() {
-		music.play();
+	public void playMainMenuMusic() {
+		mainMenuMusic.play();
 	}
 
-	public void stopMusic() {
-		music.stop();
+	public void stopMainMenuMusic() {
+		mainMenuMusic.stop();
+	}
+
+	public void playGameScreenMusic () {
+		gameScreenMusic.play();
+	}
+
+	public void stopGameScreenMusic () {
+		gameScreenMusic.stop();
 	}
 }

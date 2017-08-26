@@ -1,19 +1,24 @@
 package com.fedorzaplatin.lunolet.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.fedorzaplatin.lunolet.MainClass;
 import com.fedorzaplatin.lunolet.ui.LunoletButtonsStyle;
+import org.ini4j.Ini;
+
+import java.io.File;
+import java.io.IOException;
 
 public class MainMenu extends BaseScreen{
 
@@ -34,8 +39,30 @@ public class MainMenu extends BaseScreen{
         startBtn.addCaptureListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.stopMusic();
-                game.setScreen(game.sm.gameScreen);
+                int firstStart = 0;
+                try {
+                    Ini ini = new Ini(new File("config.ini"));
+                    Ini.Section section = ini.get("DEFAULT");
+                    firstStart = Integer.parseInt(section.get("firstStart"));
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+                if (firstStart == 1) {
+                    game.setScreen(game.sm.tutorialScreen);
+                } else {
+                    game.stopMainMenuMusic();
+                    game.playGameScreenMusic();
+                    game.setScreen(game.sm.gameScreen);
+                }
+            }
+        });
+
+        style = new LunoletButtonsStyle((TextureAtlas) game.am.get("main-menu/tutorialBtn.atlas"));
+        ImageButton tutorialBtn = new ImageButton(style);
+        tutorialBtn.addCaptureListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(game.sm.tutorialScreen);
             }
         });
 
@@ -58,11 +85,13 @@ public class MainMenu extends BaseScreen{
         });
 
         Table table = new Table();
-        table.setPosition(0, 14);
+        table.setPosition(0, -5);
         table.setFillParent(true);
         table.left();
         table.pad(38);
         table.add(startBtn).pad(8).left();
+        table.row();
+        table.add(tutorialBtn).pad(8).left();
         table.row();
         table.add(creditsBtn).pad(8).left();
         table.row();

@@ -14,7 +14,7 @@ allprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
 
-    version = '0.7.6'
+    version = '0.7.7'
     ext {
         appName = "Lunolet"
         gdxVersion = '1.9.6'
@@ -53,6 +53,7 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+        compile group: 'org.ini4j', name: 'ini4j', version: '0.5.4'
     }
 }
 

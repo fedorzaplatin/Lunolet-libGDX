@@ -71,12 +71,12 @@ public class GameScreen extends BaseScreen{
         background = new Background((Texture) game.am.get("game-screen/background.png"), 45, 60);
         stage.addActor(background);
         
-        Texture moonSurface = game.am.get("game-screen/moonTexture.png");
+        Texture moonSurface = (Texture) game.am.get("game-screen/moonTexture.png");
         moon = new Moon(world, moonSurface, new Vector2(0, 0));
         stage.addActor(moon);
 
-        Texture lunarModuleTexture = game.am.get("game-screen/lunarModuleTexture.png");
-        TextureAtlas fireSprite = game.am.get("game-screen/fire.atlas");
+        Texture lunarModuleTexture = (Texture) game.am.get("game-screen/lunarModuleTexture.png");
+        TextureAtlas fireSprite = (TextureAtlas) game.am.get("game-screen/fire.atlas");
         lunarModule = new LunarModule(world,
                 lunarModuleTexture,
                 fireSprite,
