@@ -57,7 +57,7 @@ public class MainMenu extends BaseScreen{
             }
         });
 
-        style = new LunoletButtonsStyle(game.am.get("main-menu/tutorialBtn.atlas"));
+        style = new LunoletButtonsStyle((TextureAtlas) game.am.get("main-menu/tutorialBtn.atlas"));
         ImageButton tutorialBtn = new ImageButton(style);
         tutorialBtn.addCaptureListener(new ChangeListener() {
             @Override
