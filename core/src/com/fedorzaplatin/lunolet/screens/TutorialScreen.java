@@ -3,6 +3,7 @@ package com.fedorzaplatin.lunolet.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -36,7 +37,7 @@ public class TutorialScreen extends BaseScreen{
      * Constructor
      * @param game main class that extends class Game
      */
-    public TutorialScreen(MainClass game) {
+    public TutorialScreen(final MainClass game) {
         super(game);
 
         this.stage = new Stage();
@@ -50,7 +51,7 @@ public class TutorialScreen extends BaseScreen{
         index = 0;
 
         ImageButton.ImageButtonStyle style;
-        style = new LunoletButtonsStyle(game.am.get("tutorial-screen/nextBtn.atlas"));
+        style = new LunoletButtonsStyle((TextureAtlas) game.am.get("tutorial-screen/nextBtn.atlas"));
         nextBtn = new ImageButton(style);
         nextBtn.addCaptureListener(new ChangeListener() {
             @Override
@@ -60,7 +61,7 @@ public class TutorialScreen extends BaseScreen{
             }
         });
 
-        style = new LunoletButtonsStyle(game.am.get("credits-screen/backBtn.atlas"));
+        style = new LunoletButtonsStyle((TextureAtlas) game.am.get("credits-screen/backBtn.atlas"));
         backBtn = new ImageButton(style);
         backBtn.addCaptureListener(new ChangeListener() {
             @Override
@@ -70,7 +71,7 @@ public class TutorialScreen extends BaseScreen{
             }
         });
 
-        style = new LunoletButtonsStyle(game.am.get("main-menu/startBtn.atlas"));
+        style = new LunoletButtonsStyle((TextureAtlas) game.am.get("main-menu/startBtn.atlas"));
         startBtn = new ImageButton(style);
         startBtn.addCaptureListener(new ChangeListener() {
             @Override

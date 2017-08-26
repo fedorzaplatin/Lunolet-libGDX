@@ -3,6 +3,7 @@ package com.fedorzaplatin.lunolet.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -23,7 +24,7 @@ public class GameCompletedScreen extends BaseScreen {
 
         Image background = new Image((Texture) game.am.get("game-completed-screen/background.png"));
 
-        ImageButton.ImageButtonStyle style = new LunoletButtonsStyle(game.am.get("game-over-screen/againBtn.atlas"));
+        ImageButton.ImageButtonStyle style = new LunoletButtonsStyle((TextureAtlas) game.am.get("game-over-screen/againBtn.atlas"));
         ImageButton againBtn = new ImageButton(style);
         againBtn.addCaptureListener(new ClickListener() {
             @Override
@@ -32,7 +33,7 @@ public class GameCompletedScreen extends BaseScreen {
             }
         });
 
-        style = new LunoletButtonsStyle(game.am.get("game-over-screen/mainMenuBtn.atlas"));
+        style = new LunoletButtonsStyle((TextureAtlas) game.am.get("game-over-screen/mainMenuBtn.atlas"));
         ImageButton mainMenuBtn = new ImageButton(style);
         mainMenuBtn.addCaptureListener(new ClickListener() {
             @Override
