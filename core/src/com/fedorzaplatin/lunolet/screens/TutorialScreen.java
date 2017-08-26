@@ -37,7 +37,7 @@ public class TutorialScreen extends BaseScreen{
      * Constructor
      * @param game main class that extends class Game
      */
-    public TutorialScreen(MainClass game) {
+    public TutorialScreen(final MainClass game) {
         super(game);
 
         this.stage = new Stage();
