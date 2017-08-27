@@ -34,8 +34,10 @@ public class GameScreen extends BaseScreen{
     private LunarModule lunarModule;
     private Moon moon;
     private Background background;
-    private float worldLeftBorder = 20;
-    private float worldRightBorder = 26;
+    private final float worldLeftBorder = 20;
+    private final float worldRightBorder = 26;
+    private float currentWorldLeftBorder = 0;
+    private float currentWorldRightBorder = 0;
 
     private boolean isLanded;
     private float contactTime;
@@ -66,6 +68,9 @@ public class GameScreen extends BaseScreen{
         isLanded = false;
         contactTime = 0;
 
+        currentWorldLeftBorder = worldLeftBorder;
+        currentWorldRightBorder = worldRightBorder;
+
         background = new Background((Texture) game.am.get("game-screen/background.png"), 45, 60);
         stage.addActor(background);
         
@@ -95,11 +100,11 @@ public class GameScreen extends BaseScreen{
         if (lunarModule.getPosition().x < worldLeftBorder) {
             moon.generateLeft();
             background.extend(-7);
-            worldLeftBorder -= 5f;
+            currentWorldLeftBorder -= 5f;
         } else if (lunarModule.getPosition().x > worldRightBorder) {
             moon.generateRight();
             background.extend(7);
-            worldRightBorder += 5f;
+            currentWorldRightBorder += 5f;
         }
 
         //check if lunar module has crossed the upper world's border
