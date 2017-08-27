@@ -97,11 +97,11 @@ public class GameScreen extends BaseScreen{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         //if lunar module is next to the world's border (left/right) world generates left of right
-        if (lunarModule.getPosition().x < worldLeftBorder) {
+        if (lunarModule.getPosition().x < currentWorldLeftBorder) {
             moon.generateLeft();
             background.extend(-7);
             currentWorldLeftBorder -= 5f;
-        } else if (lunarModule.getPosition().x > worldRightBorder) {
+        } else if (lunarModule.getPosition().x > currentWorldRightBorder) {
             moon.generateRight();
             background.extend(7);
             currentWorldRightBorder += 5f;
