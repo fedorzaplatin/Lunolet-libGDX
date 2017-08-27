@@ -12,8 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import java.util.Random;
 
-import static com.fedorzaplatin.lunolet.Constants.PPM;
-
 public class Moon extends Actor {
 
     private World world;
@@ -87,17 +85,42 @@ public class Moon extends Actor {
         this.update();
     }
 
+    /**
+     * Moon surface generator
+     * v.2
+     */
     private class SurfaceGenerator{
 
         private Random rand = new Random();
 
-        final int max = 5; // max surface height
-        final int min = 0; // min surface height
+        final float surfaceMaxHeight = 8f;
+        final float surfaceMinHeight = 0f;
 
+        // normal plane length
+        final float npMin = 5f;
+        final float npMax = 5.5f;
+
+        // small plane length
+        final float spMin = 1f;
+        final float spMax = 3f;
+
+        // big plane length
+        final float bpMin = 5.5f;
+        final float bpMax = 6f;
+
+        // interval
+        final float intervalMin = 2.7f;
+        final float intervalMax = 5f;
+
+        /**
+         * Generate initial surface
+         * @return array of vertexes (float[]) in format {x1, y1, x2, y2,...}
+         */
         public float[] generate() {
             float[] vertices = new float[16 * 2 + 4];
-            int x = 0;
+            float x = 0;
             float y;
+            float randomLength;
 
             //Set start vertex
             vertices[0] = 0;
@@ -105,50 +128,135 @@ public class Moon extends Actor {
 
             //Generate horizontal planes
             for (int i = 2; i < 34; i += 4) {
-                y = rand.nextInt(max - min + 1) + min;
-                vertices[i] = x / PPM;
+                y = generateRandomY(-1);
+                vertices[i] = x;
                 vertices[i + 1] = y;
-                vertices[i + 2] = (x + 90) / PPM;
+
+                randomLength = generateRandomLength();
+                vertices[i + 2] = x + randomLength;
+
+                if (rand.nextFloat() > 0.6f) {
+                    if (rand.nextFloat() < 0.5f) {
+                        y -= rand.nextFloat() * 2 + 1;
+                    } else {
+                        y += rand.nextFloat() * 2 + 1;
+                    }
+                }
                 vertices[i + 3] = y;
-                x += 54 + 90;
+
+                x += randomLength + generateRandomInterval();
             }
 
             //Set end vertex
-            vertices[vertices.length - 2] = x / PPM;
+            vertices[vertices.length - 2] = x;
             vertices[vertices.length - 1] = -5;
             return vertices;
         }
 
+        /**
+         * Generate new surface on the left side of the old surface
+         * @param oldVertices vertices of the old surface
+         * @return new surface with generated part
+         */
         public float[] generateLeft(float[] oldVertices) {
             float[] newVertices = new float[oldVertices.length + 4];
+            float randomLength;
             System.arraycopy(oldVertices, 2, newVertices, 6, oldVertices.length - 2);
-            float x = oldVertices[2] * PPM - 54;
-            float y = rand.nextInt(max - min + 1) + min;
 
-            newVertices[4] = x / PPM;
+            float x = oldVertices[2] - generateRandomInterval();
+            float y = generateRandomY(oldVertices[3]);
+            newVertices[4] = x;
             newVertices[5] = y;
-            newVertices[2] = (x - 90) / PPM;
+
+            randomLength = generateRandomLength();
+            newVertices[2] = x - randomLength;
+
+            if (rand.nextFloat() > 0.6f) {
+                if (rand.nextFloat() < 0.5f) {
+                    y -= rand.nextFloat() * 2 + 1;
+                } else {
+                    y += rand.nextFloat() * 2 + 1;
+                }
+            }
             newVertices[3] = y;
-            newVertices[0] = (x - 90) / PPM;
+            newVertices[0] = x - randomLength;
             newVertices[1] = -5;
 
             return newVertices;
         }
 
+        /**
+         * Generate new surface on the right side of the old surface
+         * @param oldVertices vertices of the old surface
+         * @return new surface with generated part
+         */
         public float[] generateRight(float[] oldVertices) {
             float[] newVertices = new float[oldVertices.length + 4];
             System.arraycopy(oldVertices, 0, newVertices, 0, oldVertices.length - 2);
-            float x = oldVertices[oldVertices.length - 4] * PPM + 54;
-            float y = rand.nextInt(max - min + 1) + min;
+            float x = oldVertices[oldVertices.length - 4] + generateRandomInterval();
+            float y = generateRandomY(oldVertices[oldVertices.length - 3]);
+            float randomLength;
 
-            newVertices[oldVertices.length - 2] = x / PPM;
+            newVertices[oldVertices.length - 2] = x;
             newVertices[oldVertices.length - 1] = y;
-            newVertices[oldVertices.length] = (x + 90) / PPM;
+
+            randomLength = generateRandomLength();
+            newVertices[oldVertices.length] = x + randomLength;
+
+            if (rand.nextFloat() > 0.6f) {
+                if (rand.nextFloat() < 0.5f) {
+                    y -= rand.nextFloat() * 2 + 1;
+                } else {
+                    y += rand.nextFloat() * 2 + 1;
+                }
+            }
             newVertices[oldVertices.length + 1] = y;
-            newVertices[oldVertices.length + 2] = (x + 90) / PPM;
+
+            newVertices[oldVertices.length + 2] = x + randomLength;
             newVertices[oldVertices.length + 3] = -5;
 
             return newVertices;
+        }
+
+        /**
+         * Generate random value which is length of a horizontal plane
+         * @return generated length in meters
+         */
+        private float generateRandomLength() {
+            float length;
+
+            if (rand.nextFloat() > 0.35f) {
+                if (rand.nextFloat() > 0.35f) {
+                    length = rand.nextFloat() * (spMax - spMin) + spMin;
+                } else {
+                    length = rand.nextFloat() * (bpMax - bpMin) + bpMin;
+                }
+            } else {
+                length = rand.nextFloat() * (npMax - npMin) + npMin;
+            }
+
+            return length;
+        }
+
+        /**
+         * Generate random value which is height of a plane
+         * @param previousY y coordinate of the previous vertex
+         * @return generated coordinate in meters
+         */
+        private float generateRandomY(float previousY) {
+            float y = rand.nextFloat() * (surfaceMaxHeight - surfaceMinHeight) + surfaceMinHeight;
+            while (Math.abs(previousY - y) < 0.3f){
+                y = rand.nextFloat() * (surfaceMaxHeight - surfaceMinHeight) + surfaceMinHeight;
+            }
+            return y;
+        }
+
+        /**
+         * Generate random value which is length of a interval between two horizontal planes
+         * @return generated length in meters
+         */
+        private float generateRandomInterval() {
+            return rand.nextFloat() * (intervalMax - intervalMin) + intervalMin;
         }
     }
 }
