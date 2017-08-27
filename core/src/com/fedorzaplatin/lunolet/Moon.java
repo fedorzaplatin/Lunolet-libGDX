@@ -26,7 +26,7 @@ public class Moon extends Actor {
 
     public Moon(World world, Texture texture, Vector2 position) {
         this.world = world;
-        position.y = position.y + 100 / PPM; //Lift the surface up a little bit
+        position.y = position.y + 6; //Lift the surface up a little bit
 
         texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         moonTexture = new TextureRegion(texture);
@@ -91,6 +91,9 @@ public class Moon extends Actor {
 
         private Random rand = new Random();
 
+        final int max = 5; // max surface height
+        final int min = 0; // min surface height
+
         public float[] generate() {
             float[] vertices = new float[16 * 2 + 4];
             int x = 0;
@@ -98,15 +101,15 @@ public class Moon extends Actor {
 
             //Set start vertex
             vertices[0] = 0;
-            vertices[1] = -50;
+            vertices[1] = -5;
 
             //Generate horizontal planes
             for (int i = 2; i < 34; i += 4) {
-                y = rand.nextInt(131) + 20f;
+                y = rand.nextInt(max - min + 1) + min;
                 vertices[i] = x / PPM;
-                vertices[i + 1] = y / PPM;
+                vertices[i + 1] = y;
                 vertices[i + 2] = (x + 90) / PPM;
-                vertices[i + 3] = y / PPM;
+                vertices[i + 3] = y;
                 x += 54 + 90;
             }
 
@@ -120,14 +123,14 @@ public class Moon extends Actor {
             float[] newVertices = new float[oldVertices.length + 4];
             System.arraycopy(oldVertices, 2, newVertices, 6, oldVertices.length - 2);
             float x = oldVertices[2] * PPM - 54;
-            float y = rand.nextInt(131) + 20f;
+            float y = rand.nextInt(max - min + 1) + min;
 
             newVertices[4] = x / PPM;
-            newVertices[5] = y / PPM;
+            newVertices[5] = y;
             newVertices[2] = (x - 90) / PPM;
-            newVertices[3] = y / PPM;
+            newVertices[3] = y;
             newVertices[0] = (x - 90) / PPM;
-            newVertices[1] = -50;
+            newVertices[1] = -5;
 
             return newVertices;
         }
@@ -136,14 +139,14 @@ public class Moon extends Actor {
             float[] newVertices = new float[oldVertices.length + 4];
             System.arraycopy(oldVertices, 0, newVertices, 0, oldVertices.length - 2);
             float x = oldVertices[oldVertices.length - 4] * PPM + 54;
-            float y = rand.nextInt(131) + 20f;
+            float y = rand.nextInt(max - min + 1) + min;
 
             newVertices[oldVertices.length - 2] = x / PPM;
-            newVertices[oldVertices.length - 1] = y / PPM;
+            newVertices[oldVertices.length - 1] = y;
             newVertices[oldVertices.length] = (x + 90) / PPM;
-            newVertices[oldVertices.length + 1] = y / PPM;
+            newVertices[oldVertices.length + 1] = y;
             newVertices[oldVertices.length + 2] = (x + 90) / PPM;
-            newVertices[oldVertices.length + 3] = -50;
+            newVertices[oldVertices.length + 3] = -5;
 
             return newVertices;
         }
