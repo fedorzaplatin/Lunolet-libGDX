@@ -26,7 +26,7 @@ public class CreditsScreen extends BaseScreen {
 
         Image background = new Image((Texture) game.am.get("credits-screen/background.png"));
 
-        ImageButton backBtn = new ImageButton(new LunoletButtonsStyle((TextureAtlas) game.am.get("credits-screen/backBtn.atlas")));
+        ImageButton backBtn = new ImageButton(new LunoletButtonsStyle((TextureAtlas) game.am.get("buttons.atlas"), "back"));
         backBtn.setPosition(346, 49);
         backBtn.addCaptureListener(new ChangeListener() {
             @Override

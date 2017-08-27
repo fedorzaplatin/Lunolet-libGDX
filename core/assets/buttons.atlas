@@ -1,0 +1,174 @@
+
+buttons.png
+size: 455,455
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+againDown
+  rotate: false
+  xy: 2, 7
+  size: 121, 54
+  orig: 121, 54
+  offset: 0, 0
+  index: -1
+againOver
+  rotate: false
+  xy: 2, 119
+  size: 121, 54
+  orig: 121, 54
+  offset: 0, 0
+  index: -1
+againUp
+  rotate: false
+  xy: 2, 63
+  size: 121, 54
+  orig: 121, 54
+  offset: 0, 0
+  index: -1
+backDown
+  rotate: false
+  xy: 345, 119
+  size: 108, 54
+  orig: 108, 54
+  offset: 0, 0
+  index: -1
+backOver
+  rotate: false
+  xy: 125, 119
+  size: 108, 54
+  orig: 108, 54
+  offset: 0, 0
+  index: -1
+backUp
+  rotate: false
+  xy: 235, 119
+  size: 108, 54
+  orig: 108, 54
+  offset: 0, 0
+  index: -1
+creditsDown
+  rotate: false
+  xy: 2, 175
+  size: 156, 54
+  orig: 156, 54
+  offset: 0, 0
+  index: -1
+creditsOver
+  rotate: false
+  xy: 2, 231
+  size: 156, 54
+  orig: 156, 54
+  offset: 0, 0
+  index: -1
+creditsUp
+  rotate: false
+  xy: 160, 231
+  size: 156, 54
+  orig: 156, 54
+  offset: 0, 0
+  index: -1
+exitDown
+  rotate: false
+  xy: 232, 7
+  size: 90, 54
+  orig: 90, 54
+  offset: 0, 0
+  index: -1
+exitOver
+  rotate: false
+  xy: 339, 63
+  size: 90, 54
+  orig: 90, 54
+  offset: 0, 0
+  index: -1
+exitUp
+  rotate: false
+  xy: 324, 7
+  size: 90, 54
+  orig: 90, 54
+  offset: 0, 0
+  index: -1
+mainMenuDown
+  rotate: false
+  xy: 2, 343
+  size: 205, 54
+  orig: 205, 54
+  offset: 0, 0
+  index: -1
+mainMenuOver
+  rotate: false
+  xy: 2, 399
+  size: 205, 54
+  orig: 205, 54
+  offset: 0, 0
+  index: -1
+mainMenuUp
+  rotate: false
+  xy: 209, 399
+  size: 205, 54
+  orig: 205, 54
+  offset: 0, 0
+  index: -1
+nextDown
+  rotate: false
+  xy: 232, 63
+  size: 105, 54
+  orig: 105, 54
+  offset: 0, 0
+  index: -1
+nextOver
+  rotate: false
+  xy: 125, 7
+  size: 105, 54
+  orig: 105, 54
+  offset: 0, 0
+  index: -1
+nextUp
+  rotate: false
+  xy: 125, 63
+  size: 105, 54
+  orig: 105, 54
+  offset: 0, 0
+  index: -1
+startDown
+  rotate: false
+  xy: 285, 175
+  size: 123, 54
+  orig: 123, 54
+  offset: 0, 0
+  index: -1
+startOver
+  rotate: false
+  xy: 318, 231
+  size: 123, 54
+  orig: 123, 54
+  offset: 0, 0
+  index: -1
+startUp
+  rotate: false
+  xy: 160, 175
+  size: 123, 54
+  orig: 123, 54
+  offset: 0, 0
+  index: -1
+tutorialDown
+  rotate: false
+  xy: 209, 343
+  size: 180, 54
+  orig: 180, 54
+  offset: 0, 0
+  index: -1
+tutorialOver
+  rotate: false
+  xy: 2, 287
+  size: 180, 54
+  orig: 180, 54
+  offset: 0, 0
+  index: -1
+tutorialUp
+  rotate: false
+  xy: 184, 287
+  size: 180, 54
+  orig: 180, 54
+  offset: 0, 0
+  index: -1

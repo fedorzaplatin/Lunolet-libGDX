@@ -24,6 +24,7 @@ public class MainClass extends Game {
 		am = new AssetManager();
 
 		am.load("bebas.fnt", BitmapFont.class);
+		am.load("buttons.atlas", TextureAtlas.class);
 
 		// Assets of tutorial screen
 		am.load("tutorial-screen/tutorial.png", Texture.class);
@@ -31,19 +32,13 @@ public class MainClass extends Game {
 		am.load("tutorial-screen/2.png", Texture.class);
 		am.load("tutorial-screen/3.png", Texture.class);
 		am.load("tutorial-screen/controls.png", Texture.class);
-		am.load("tutorial-screen/nextBtn.atlas", TextureAtlas.class);
 
 		// Assets of main menu
 		am.load("main-menu/background.png", Texture.class);
-		am.load("main-menu/startBtn.atlas", TextureAtlas.class);
-		am.load("main-menu/tutorialBtn.atlas", TextureAtlas.class);
-		am.load("main-menu/creditsBtn.atlas", TextureAtlas.class);
-		am.load("main-menu/exitBtn.atlas", TextureAtlas.class);
 		am.load("main-menu/mainMenuMusic.mp3", Music.class);
 
 		// Assets of credits screen
 		am.load("credits-screen/background.png", Texture.class);
-		am.load("credits-screen/backBtn.atlas", TextureAtlas.class);
 
 		// Assets of game screen
 		am.load("game-screen/background.png", Texture.class);
@@ -55,8 +50,6 @@ public class MainClass extends Game {
 
 		// Assets of game over screen
 		am.load("game-over-screen/background.png", Texture.class);
-		am.load("game-over-screen/againBtn.atlas", TextureAtlas.class);
-		am.load("game-over-screen/mainMenuBtn.atlas", TextureAtlas.class);
 
 		//Assets of game completed screen
 		am.load("game-completed-screen/background.png", Texture.class);

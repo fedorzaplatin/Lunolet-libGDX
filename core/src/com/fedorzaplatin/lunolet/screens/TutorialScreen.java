@@ -51,7 +51,7 @@ public class TutorialScreen extends BaseScreen{
         index = 0;
 
         ImageButton.ImageButtonStyle style;
-        style = new LunoletButtonsStyle((TextureAtlas) game.am.get("tutorial-screen/nextBtn.atlas"));
+        style = new LunoletButtonsStyle((TextureAtlas) game.am.get("buttons.atlas"), "next");
         nextBtn = new ImageButton(style);
         nextBtn.addCaptureListener(new ChangeListener() {
             @Override
@@ -61,7 +61,7 @@ public class TutorialScreen extends BaseScreen{
             }
         });
 
-        style = new LunoletButtonsStyle((TextureAtlas) game.am.get("credits-screen/backBtn.atlas"));
+        style = new LunoletButtonsStyle((TextureAtlas) game.am.get("buttons.atlas"), "back");
         backBtn = new ImageButton(style);
         backBtn.addCaptureListener(new ChangeListener() {
             @Override
@@ -71,7 +71,7 @@ public class TutorialScreen extends BaseScreen{
             }
         });
 
-        style = new LunoletButtonsStyle((TextureAtlas) game.am.get("main-menu/startBtn.atlas"));
+        style = new LunoletButtonsStyle((TextureAtlas) game.am.get("buttons.atlas"), "start");
         startBtn = new ImageButton(style);
         startBtn.addCaptureListener(new ChangeListener() {
             @Override

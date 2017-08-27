@@ -23,7 +23,7 @@ public class GameOverScreen extends BaseScreen{
 
         Image background = new Image((Texture) game.am.get("game-over-screen/background.png"));
 
-        ImageButton.ImageButtonStyle style = new LunoletButtonsStyle((TextureAtlas) game.am.get("game-over-screen/againBtn.atlas"));
+        ImageButton.ImageButtonStyle style = new LunoletButtonsStyle((TextureAtlas) game.am.get("buttons.atlas"), "again");
         ImageButton againBtn = new ImageButton(style);
         againBtn.addCaptureListener(new ClickListener() {
             @Override
@@ -32,7 +32,7 @@ public class GameOverScreen extends BaseScreen{
             }
         });
 
-        style = new LunoletButtonsStyle((TextureAtlas) game.am.get("game-over-screen/mainMenuBtn.atlas"));
+        style = new LunoletButtonsStyle((TextureAtlas) game.am.get("buttons.atlas"), "mainMenu");
         ImageButton mainMenuBtn = new ImageButton(style);
         mainMenuBtn.addCaptureListener(new ClickListener() {
             @Override

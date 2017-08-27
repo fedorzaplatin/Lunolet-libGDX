@@ -34,7 +34,7 @@ public class MainMenu extends BaseScreen{
 
         Image background = new Image((Texture) game.am.get("main-menu/background.png"));
 
-        ImageButton.ImageButtonStyle style = new LunoletButtonsStyle((TextureAtlas) game.am.get("main-menu/startBtn.atlas"));
+        ImageButton.ImageButtonStyle style = new LunoletButtonsStyle((TextureAtlas) game.am.get("buttons.atlas"), "start");
         ImageButton startBtn = new ImageButton(style);
         startBtn.addCaptureListener(new ClickListener() {
             @Override
@@ -57,7 +57,7 @@ public class MainMenu extends BaseScreen{
             }
         });
 
-        style = new LunoletButtonsStyle((TextureAtlas) game.am.get("main-menu/tutorialBtn.atlas"));
+        style = new LunoletButtonsStyle((TextureAtlas) game.am.get("buttons.atlas"), "tutorial");
         ImageButton tutorialBtn = new ImageButton(style);
         tutorialBtn.addCaptureListener(new ChangeListener() {
             @Override
@@ -66,7 +66,7 @@ public class MainMenu extends BaseScreen{
             }
         });
 
-        style = new LunoletButtonsStyle((TextureAtlas) game.am.get("main-menu/creditsBtn.atlas"));
+        style = new LunoletButtonsStyle((TextureAtlas) game.am.get("buttons.atlas"), "credits");
         ImageButton creditsBtn = new ImageButton(style);
         creditsBtn.addCaptureListener(new ClickListener() {
             @Override
@@ -75,7 +75,7 @@ public class MainMenu extends BaseScreen{
             }
         });
 
-        style = new LunoletButtonsStyle((TextureAtlas) game.am.get("main-menu/exitBtn.atlas"));
+        style = new LunoletButtonsStyle((TextureAtlas) game.am.get("buttons.atlas"), "exit");
         ImageButton exitBtn = new ImageButton(style);
         exitBtn.addCaptureListener(new ClickListener() {
             @Override
