@@ -9,17 +9,29 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.fedorzaplatin.lunolet.screens.SplashScreen;
+import org.ini4j.Ini;
+
+import java.io.File;
+import java.io.IOException;
 
 public class MainClass extends Game {
 
 	public ScreensManager sm;
 	public AssetManager am;
+	private Ini config;
 
 	private Music mainMenuMusic, gameScreenMusic;
 	
 	@Override
 	public void create () {
 		Gdx.graphics.setResizable(false);
+
+		try {
+			config = new Ini(new File("config.ini"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		sm = new ScreensManager(this);
 		am = new AssetManager();
 
@@ -39,6 +51,10 @@ public class MainClass extends Game {
 
 		// Assets of credits screen
 		am.load("credits-screen/background.png", Texture.class);
+
+		// Assets of settings screen
+		am.load("settings-screen/background.png", Texture.class);
+		am.load("settings-screen/slider.atlas", TextureAtlas.class);
 
 		// Assets of game screen
 		am.load("game-screen/background.png", Texture.class);
@@ -70,7 +86,7 @@ public class MainClass extends Game {
 	}
 
 	public void finishLoad() {
-		sm.load();
+		sm.load(config);
 		gameScreenMusic = am.get("game-screen/gameScreenMusic.mp3");
 		gameScreenMusic.setLooping(true);
 		mainMenuMusic = am.get("main-menu/mainMenuMusic.mp3");
@@ -93,5 +109,13 @@ public class MainClass extends Game {
 
 	public void stopGameScreenMusic () {
 		gameScreenMusic.stop();
+	}
+
+	public void setMusicVolume(float value) {
+		mainMenuMusic.setVolume(value);
+		gameScreenMusic.setVolume(value);
+	}
+
+	public void setEffectsVolume(float value) {
 	}
 }

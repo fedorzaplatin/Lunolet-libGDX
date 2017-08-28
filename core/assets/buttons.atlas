@@ -1,173 +1,215 @@
 
 buttons.png
-size: 455,455
+size: 513,513
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 againDown
   rotate: false
-  xy: 2, 7
+  xy: 125, 9
   size: 121, 54
   orig: 121, 54
   offset: 0, 0
   index: -1
 againOver
   rotate: false
-  xy: 2, 119
+  xy: 2, 9
   size: 121, 54
   orig: 121, 54
   offset: 0, 0
   index: -1
 againUp
   rotate: false
-  xy: 2, 63
+  xy: 127, 65
   size: 121, 54
   orig: 121, 54
   offset: 0, 0
   index: -1
+applyDown
+  rotate: false
+  xy: 366, 289
+  size: 120, 54
+  orig: 120, 54
+  offset: 0, 0
+  index: -1
+applyOver
+  rotate: false
+  xy: 366, 345
+  size: 120, 54
+  orig: 120, 54
+  offset: 0, 0
+  index: -1
+applyUp
+  rotate: false
+  xy: 391, 401
+  size: 120, 54
+  orig: 120, 54
+  offset: 0, 0
+  index: -1
 backDown
   rotate: false
-  xy: 345, 119
+  xy: 285, 121
   size: 108, 54
   orig: 108, 54
   offset: 0, 0
   index: -1
 backOver
   rotate: false
-  xy: 125, 119
+  xy: 342, 233
   size: 108, 54
   orig: 108, 54
   offset: 0, 0
   index: -1
 backUp
   rotate: false
-  xy: 235, 119
+  xy: 285, 177
   size: 108, 54
   orig: 108, 54
   offset: 0, 0
   index: -1
 creditsDown
   rotate: false
-  xy: 2, 175
+  xy: 2, 121
   size: 156, 54
   orig: 156, 54
   offset: 0, 0
   index: -1
 creditsOver
   rotate: false
-  xy: 2, 231
+  xy: 2, 177
   size: 156, 54
   orig: 156, 54
   offset: 0, 0
   index: -1
 creditsUp
   rotate: false
-  xy: 160, 231
+  xy: 184, 233
   size: 156, 54
   orig: 156, 54
   offset: 0, 0
   index: -1
 exitDown
   rotate: false
-  xy: 232, 7
+  xy: 395, 121
   size: 90, 54
   orig: 90, 54
   offset: 0, 0
   index: -1
 exitOver
   rotate: false
-  xy: 339, 63
+  xy: 416, 457
   size: 90, 54
   orig: 90, 54
   offset: 0, 0
   index: -1
 exitUp
   rotate: false
-  xy: 324, 7
+  xy: 395, 177
   size: 90, 54
   orig: 90, 54
   offset: 0, 0
   index: -1
 mainMenuDown
   rotate: false
-  xy: 2, 343
+  xy: 209, 457
   size: 205, 54
   orig: 205, 54
   offset: 0, 0
   index: -1
 mainMenuOver
   rotate: false
-  xy: 2, 399
+  xy: 2, 457
   size: 205, 54
   orig: 205, 54
   offset: 0, 0
   index: -1
 mainMenuUp
   rotate: false
-  xy: 209, 399
+  xy: 2, 401
   size: 205, 54
   orig: 205, 54
   offset: 0, 0
   index: -1
 nextDown
   rotate: false
-  xy: 232, 63
+  xy: 357, 65
   size: 105, 54
   orig: 105, 54
   offset: 0, 0
   index: -1
 nextOver
   rotate: false
-  xy: 125, 7
+  xy: 248, 9
   size: 105, 54
   orig: 105, 54
   offset: 0, 0
   index: -1
 nextUp
   rotate: false
-  xy: 125, 63
+  xy: 250, 65
   size: 105, 54
   orig: 105, 54
   offset: 0, 0
   index: -1
+settingsDown
+  rotate: false
+  xy: 184, 345
+  size: 180, 54
+  orig: 180, 54
+  offset: 0, 0
+  index: -1
+settingsOver
+  rotate: false
+  xy: 209, 401
+  size: 180, 54
+  orig: 180, 54
+  offset: 0, 0
+  index: -1
+settingsUp
+  rotate: false
+  xy: 2, 289
+  size: 180, 54
+  orig: 180, 54
+  offset: 0, 0
+  index: -1
 startDown
   rotate: false
-  xy: 285, 175
+  xy: 160, 177
   size: 123, 54
   orig: 123, 54
   offset: 0, 0
   index: -1
 startOver
   rotate: false
-  xy: 318, 231
+  xy: 2, 65
   size: 123, 54
   orig: 123, 54
   offset: 0, 0
   index: -1
 startUp
   rotate: false
-  xy: 160, 175
+  xy: 160, 121
   size: 123, 54
   orig: 123, 54
   offset: 0, 0
   index: -1
 tutorialDown
   rotate: false
-  xy: 209, 343
+  xy: 184, 289
   size: 180, 54
   orig: 180, 54
   offset: 0, 0
   index: -1
 tutorialOver
   rotate: false
-  xy: 2, 287
+  xy: 2, 345
   size: 180, 54
   orig: 180, 54
   offset: 0, 0
   index: -1
 tutorialUp
   rotate: false
-  xy: 184, 287
+  xy: 2, 233
   size: 180, 54
   orig: 180, 54
   offset: 0, 0

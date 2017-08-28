@@ -66,6 +66,15 @@ public class MainMenu extends BaseScreen{
             }
         });
 
+        style = new LunoletButtonsStyle((TextureAtlas) game.am.get("buttons.atlas"), "settings");
+        ImageButton settingsBtn = new ImageButton(style);
+        settingsBtn.addCaptureListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(game.sm.settingsScreen);
+            }
+        });
+
         style = new LunoletButtonsStyle((TextureAtlas) game.am.get("buttons.atlas"), "credits");
         ImageButton creditsBtn = new ImageButton(style);
         creditsBtn.addCaptureListener(new ClickListener() {
@@ -85,13 +94,15 @@ public class MainMenu extends BaseScreen{
         });
 
         Table table = new Table();
-        table.setPosition(0, -5);
+        table.setPosition(0, -30);
         table.setFillParent(true);
         table.left();
         table.pad(38);
         table.add(startBtn).pad(8).left();
         table.row();
         table.add(tutorialBtn).pad(8).left();
+        table.row();
+        table.add(settingsBtn).pad(8).left();
         table.row();
         table.add(creditsBtn).pad(8).left();
         table.row();

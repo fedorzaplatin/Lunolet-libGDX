@@ -176,6 +176,10 @@ public class GameScreen extends BaseScreen{
         super.dispose();
     }
 
+    public void setEffectsVolume(float value) {
+        lunarModule.setEffectsVolume(value);
+    }
+
     private class GameContactListener implements ContactListener {
 
         @Override

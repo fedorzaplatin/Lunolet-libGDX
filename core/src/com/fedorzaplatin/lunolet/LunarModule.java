@@ -27,6 +27,7 @@ public class LunarModule extends Actor {
     private Body body;
     private Fixture fixture;
     private Sound engineSound;
+    private long soundId;
     private float angle;
 
     //variables related to the main engine's fire sprite
@@ -80,7 +81,7 @@ public class LunarModule extends Actor {
         time = 0;
 
         //Star and pause the engine's sound to resume it when space key is pressed
-        engineSound.loop();
+        soundId = engineSound.loop();
         engineSound.pause();
     }
 
@@ -243,5 +244,9 @@ public class LunarModule extends Actor {
 
     public void setActivateAuxiliaryEnginesRight(boolean activateAuxiliaryEnginesRight) {
         this.activateAuxiliaryEnginesRight = activateAuxiliaryEnginesRight;
+    }
+
+    public void setEffectsVolume(float value){
+        engineSound.setVolume(soundId, value);
     }
 }
