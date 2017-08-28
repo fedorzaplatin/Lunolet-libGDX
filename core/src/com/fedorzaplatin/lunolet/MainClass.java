@@ -8,6 +8,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.fedorzaplatin.lunolet.screens.GameScreen;
 import com.fedorzaplatin.lunolet.screens.SplashScreen;
 import org.ini4j.Ini;
 
@@ -37,6 +38,8 @@ public class MainClass extends Game {
 
 		am.load("bebas.fnt", BitmapFont.class);
 		am.load("buttons.atlas", TextureAtlas.class);
+		am.load("fonts/courierNew30.fnt", BitmapFont.class);
+		am.load("fonts/bebas52.fnt", BitmapFont.class);
 
 		// Assets of tutorial screen
 		am.load("tutorial-screen/tutorial.png", Texture.class);
@@ -53,7 +56,6 @@ public class MainClass extends Game {
 		am.load("credits-screen/background.png", Texture.class);
 
 		// Assets of settings screen
-		am.load("settings-screen/background.png", Texture.class);
 		am.load("settings-screen/slider.atlas", TextureAtlas.class);
 
 		// Assets of game screen
@@ -117,5 +119,6 @@ public class MainClass extends Game {
 	}
 
 	public void setEffectsVolume(float value) {
+		//((GameScreen) sm.gameScreen).setEffectsVolume(value);
 	}
 }
