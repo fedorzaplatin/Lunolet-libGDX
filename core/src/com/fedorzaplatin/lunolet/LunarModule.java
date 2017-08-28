@@ -21,6 +21,8 @@ public class LunarModule extends Actor {
     private MassData massData;
     private boolean alive;
     private boolean activateEngine = false;
+    private boolean activateAuxiliaryEnginesLeft = false;
+    private boolean activateAuxiliaryEnginesRight = false;
     private Texture lunarModuleTexture;
     private Body body;
     private Fixture fixture;
@@ -28,14 +30,27 @@ public class LunarModule extends Actor {
     private float angle;
 
     //variables related to the main engine's fire sprite
-    private float fireSpriteWidth = 0.6f;
+    final private float fireSpriteWidth = 0.6f;
     private float fireSpriteHeight = fireSpriteWidth * 162 / 131;
     private Animation fireAnimation;
+    final float fireSpriteOriginX = fireSpriteWidth / 2;
+    final float fireSpriteOriginY = fireSpriteHeight / 2 + 1.65f;
+
+    //variables related to auxiliary engines's smoke sprite
+    final private float smokeSpriteWidth = 0.5f;
+    private float smokeSpriteHeight = 0;
+    private Animation smokeAnimation;
+    //for top left and bottom right engines
+    final float smokeSpriteOriginX = smokeSpriteWidth / 2 + 1.218f;
+    final float smokeSpriteOriginY = smokeSpriteHeight / 2 - 1.2f;
+    //for top right and bottom left engines
+    final float smokeSpriteOriginX2 = smokeSpriteWidth / 2 - 1.218f;
+    final float smokeSpriteOriginY2 = smokeSpriteHeight / 2 - 1.2f;
 
     private float time;
     private World world;
 
-    public LunarModule(World world, Texture texture, TextureAtlas fireSprite, Vector2 position, final Sound engineSound) {
+    public LunarModule(World world, Texture texture, TextureAtlas fireSprite, TextureAtlas smokeSprite, Vector2 position, final Sound engineSound) {
         this.alive = true;
         this.world = world;
         this.lunarModuleTexture = texture;
@@ -60,6 +75,8 @@ public class LunarModule extends Actor {
         massData = body.getMassData();
 
         fireAnimation = new Animation<TextureRegion>(0.04f, fireSprite.findRegions("frame"), Animation.PlayMode.LOOP);
+        smokeAnimation = new Animation<TextureRegion>(0.04f, smokeSprite.findRegions("smoke"), Animation.PlayMode.LOOP);
+        smokeSpriteHeight = fireSpriteWidth * 80 / 40;
         time = 0;
 
         //Star and pause the engine's sound to resume it when space key is pressed
@@ -69,7 +86,7 @@ public class LunarModule extends Actor {
 
     @Override
     public void act(float delta) {
-        time += delta;
+        time += delta; //Count game time to get animation frames
 
         //get an angle which the lunar module is tilted relative to a perpendicular to the moon surface
         angle = body.getAngle() * MathUtils.radiansToDegrees + 90f;
@@ -81,6 +98,15 @@ public class LunarModule extends Actor {
             body.setMassData(massData);
             fuelMass -= 0.03f;
         }
+        if (activateAuxiliaryEnginesLeft) {
+            body.applyForce(new Vector2(0, 1000f).setAngle(angle), body.getWorldPoint(new Vector2(2.0f, 3.2f)), true);
+            body.applyForce(new Vector2(0, 1000f).setAngle(-angle), body.getWorldPoint(new Vector2(-2.0f, 3.2f)), true);
+        }
+
+        if (activateAuxiliaryEnginesRight) {
+            body.applyForce(new Vector2(0, 1000f).setAngle(angle), body.getWorldPoint(new Vector2(-2.0f , 3.2f)), true);
+            body.applyForce(new Vector2(0, 1000f).setAngle(-angle), body.getWorldPoint(new Vector2(2.0f, 3.2f)), true);
+        }
     }
 
     @Override
@@ -89,8 +115,6 @@ public class LunarModule extends Actor {
         setPosition(body.getPosition().x, body.getPosition().y);
 
         //Draw the main engine's fire
-        float fireSpriteOriginX = fireSpriteWidth / 2;
-        float fireSpriteOriginY = fireSpriteHeight / 2 + 1.65f;
         if (activateEngine) {
             batch.draw((TextureRegion) fireAnimation.getKeyFrame(time, true),
                     getX() - fireSpriteOriginX,
@@ -102,6 +126,52 @@ public class LunarModule extends Actor {
                     1,
                     1,
                     body.getAngle() * MathUtils.radiansToDegrees);
+        }
+
+        if (activateAuxiliaryEnginesLeft) {
+            batch.draw((TextureRegion) smokeAnimation.getKeyFrame(time, true),
+                    getX() - smokeSpriteOriginX,
+                    getY() - smokeSpriteOriginY,
+                    smokeSpriteOriginX,
+                    smokeSpriteOriginY,
+                    smokeSpriteWidth,
+                    smokeSpriteHeight,
+                    1,
+                    1,
+                    body.getAngle() * MathUtils.radiansToDegrees);
+            batch.draw((TextureRegion) smokeAnimation.getKeyFrame(time, true),
+                    getX() - smokeSpriteOriginX,
+                    getY() - smokeSpriteOriginY,
+                    smokeSpriteOriginX,
+                    smokeSpriteOriginY,
+                    smokeSpriteWidth,
+                    smokeSpriteHeight,
+                    1,
+                    1,
+                    body.getAngle() * MathUtils.radiansToDegrees + 180);
+        }
+
+        if (activateAuxiliaryEnginesRight) {
+            batch.draw((TextureRegion) smokeAnimation.getKeyFrame(time, true),
+                    getX() - smokeSpriteOriginX2,
+                    getY() - smokeSpriteOriginY2,
+                    smokeSpriteOriginX2,
+                    smokeSpriteOriginY2,
+                    smokeSpriteWidth,
+                    smokeSpriteHeight,
+                    1,
+                    1,
+                    body.getAngle() * MathUtils.radiansToDegrees);
+            batch.draw((TextureRegion) smokeAnimation.getKeyFrame(time, true),
+                    getX() - smokeSpriteOriginX2,
+                    getY() - smokeSpriteOriginY2,
+                    smokeSpriteOriginX2,
+                    smokeSpriteOriginY2,
+                    smokeSpriteWidth,
+                    smokeSpriteHeight,
+                    1,
+                    1,
+                    body.getAngle() * MathUtils.radiansToDegrees + 180);
         }
 
         //Draw thr lunar module's texture
@@ -167,13 +237,11 @@ public class LunarModule extends Actor {
         }
     }
 
-    public void rotateLeft() {
-        body.applyForce(new Vector2(0, 11000f).setAngle(angle), body.getWorldPoint(new Vector2(2.0f, 3.2f)), true);
-        body.applyForce(new Vector2(0, 11000f).setAngle(-angle), body.getWorldPoint(new Vector2(-2.0f, 3.2f)), true);
+    public void setActivateAuxiliaryEnginesLeft(boolean activateAuxiliaryEnginesLeft) {
+        this.activateAuxiliaryEnginesLeft = activateAuxiliaryEnginesLeft;
     }
 
-    public void rotateRight() {
-        body.applyForce(new Vector2(0, 11000f).setAngle(angle), body.getWorldPoint(new Vector2(-2.0f , 3.2f)), true);
-        body.applyForce(new Vector2(0, 11000f).setAngle(-angle), body.getWorldPoint(new Vector2(2.0f, 3.2f)), true);
+    public void setActivateAuxiliaryEnginesRight(boolean activateAuxiliaryEnginesRight) {
+        this.activateAuxiliaryEnginesRight = activateAuxiliaryEnginesRight;
     }
 }

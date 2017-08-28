@@ -14,9 +14,9 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.fedorzaplatin.lunolet.Background;
+import com.fedorzaplatin.lunolet.LunarModule;
 import com.fedorzaplatin.lunolet.MainClass;
 import com.fedorzaplatin.lunolet.Moon;
-import com.fedorzaplatin.lunolet.LunarModule;
 import com.fedorzaplatin.lunolet.stages.Hud;
 
 import static com.fedorzaplatin.lunolet.Constants.PPM;
@@ -80,9 +80,11 @@ public class GameScreen extends BaseScreen{
 
         Texture lunarModuleTexture = (Texture) game.am.get("game-screen/lunarModuleTexture.png");
         TextureAtlas fireSprite = (TextureAtlas) game.am.get("game-screen/fire.atlas");
+        TextureAtlas smokeSprite = (TextureAtlas) game.am.get("game-screen/smoke.atlas");
         lunarModule = new LunarModule(world,
                 lunarModuleTexture,
                 fireSprite,
+                smokeSprite,
                 new Vector2(25, 1130 / PPM ),
                 (Sound) game.am.get("game-screen/engineSound.mp3"));
         stage.addActor(lunarModule);
@@ -210,10 +212,10 @@ public class GameScreen extends BaseScreen{
                     lunarModule.activateMainEngine();
                     break;
                 case Input.Keys.A:
-                    lunarModule.rotateLeft();
+                    lunarModule.setActivateAuxiliaryEnginesLeft(true);
                     break;
                 case Input.Keys.D:
-                    lunarModule.rotateRight();
+                    lunarModule.setActivateAuxiliaryEnginesRight(true);
                     break;
             }
             return false;
@@ -224,6 +226,12 @@ public class GameScreen extends BaseScreen{
             switch(i){
                 case Input.Keys.SPACE:
                     lunarModule.deactivateMainEngine();
+                    break;
+                case Input.Keys.A:
+                    lunarModule.setActivateAuxiliaryEnginesLeft(false);
+                    break;
+                case Input.Keys.D:
+                    lunarModule.setActivateAuxiliaryEnginesRight(false);
                     break;
             }
             return false;
