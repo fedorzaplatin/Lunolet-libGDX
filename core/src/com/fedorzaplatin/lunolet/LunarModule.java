@@ -11,6 +11,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
+
+/**
+ * Class describes the lunar module
+ */
 public class LunarModule extends Actor {
 
     //variables related to the lunar module
@@ -52,6 +56,15 @@ public class LunarModule extends Actor {
     private float time;
     private World world;
 
+    /**
+     * Constructor
+     * @param world world which into lunar module'b body must be created
+     * @param texture lunar module's texture
+     * @param fireSprite sprite sheet of lunar module's mine engine
+     * @param smokeSprite sprite sheet of lunar module's auxiliary engines
+     * @param position position of the lunar module
+     * @param engineSound sound of main engine
+     */
     public LunarModule(World world, Texture texture, TextureAtlas fireSprite, TextureAtlas smokeSprite, Vector2 position, final Sound engineSound) {
         this.time = 0;
         this.world = world;
@@ -72,9 +85,9 @@ public class LunarModule extends Actor {
 
     @Override
     public void act(float delta) {
-        time += delta; //Count game time to get animation frames
+        time += delta; // Count game time to get animation frames
 
-        //get an angle which the lunar module is tilted relative to a perpendicular to the moon surface
+        // Get an angle which the lunar module is tilted relative to a perpendicular to the moon surface
         angle = body.getAngle() * MathUtils.radiansToDegrees + 90f;
 
         if (activateEngine) {
@@ -98,10 +111,10 @@ public class LunarModule extends Actor {
 
     @Override
     public void draw (Batch batch, float parentAlpha) {
-        //Set the actor's position to draw lunar module's lunarModuleTexture according to the body's position
+        // Set the actor's position to draw lunar module's lunarModuleTexture according to the body's position
         setPosition(body.getPosition().x, body.getPosition().y);
 
-        //Draw the main engine's fire
+        // Draw the main engine's fire
         if (activateEngine) {
             batch.draw((TextureRegion) fireAnimation.getKeyFrame(time, true),
                     getX() - fireSpriteOriginX,
@@ -115,6 +128,7 @@ public class LunarModule extends Actor {
                     body.getAngle() * MathUtils.radiansToDegrees);
         }
 
+        // Draw top left and bottom right auxiliary engines if they are activated
         if (activateAuxiliaryEnginesLeft) {
             batch.draw((TextureRegion) smokeAnimation.getKeyFrame(time, true),
                     getX() - smokeSpriteOriginX,
@@ -138,6 +152,7 @@ public class LunarModule extends Actor {
                     body.getAngle() * MathUtils.radiansToDegrees + 180);
         }
 
+        // Draw bottom left and top right auxiliary engines if they are activated
         if (activateAuxiliaryEnginesRight) {
             batch.draw((TextureRegion) smokeAnimation.getKeyFrame(time, true),
                     getX() - smokeSpriteOriginX2,
@@ -161,7 +176,7 @@ public class LunarModule extends Actor {
                     body.getAngle() * MathUtils.radiansToDegrees + 180);
         }
 
-        //Draw thr lunar module's texture
+        // Draw thr lunar module's texture
         batch.draw(lunarModuleTexture,
                 getX() - getWidth() / 2,
                 getY() - getHeight() / 2,
@@ -184,6 +199,9 @@ public class LunarModule extends Actor {
         return alive;
     }
 
+    /**
+     * Create physic body into the world which was passed into constructor
+     */
     public void createBody(){
         BodyDef def = new BodyDef();
         def.position.set(initPosition);
@@ -206,32 +224,53 @@ public class LunarModule extends Actor {
         this.activateAuxiliaryEnginesRight = false;
     }
 
+    /**
+     * Changed lunar module state to "is not alive"
+     */
     public void destroy() {
         this.alive = false;
     }
 
+    /**
+     * Destroy physics body and the body's fixture
+     */
     public void detach() {
         body.destroyFixture(fixture);
         world.destroyBody(body);
         engineSound.stop();
     }
 
+    /**
+     * @return Lunar module's velocity vector
+     */
     public Vector2 getVelocity() {
         return body.getLinearVelocity();
     }
 
+    /**
+     * @return Lunar module's position vector
+     */
     public Vector2 getPosition() {
         return body.getPosition();
     }
 
+    /**
+     * @return An angle which the lunar module is tilted relative to a perpendicular to the moon surface
+     */
     public float getAngle() {
         return angle;
     }
 
+    /**
+     * @return Mass of lunar module's fuel
+     */
     public float getFuelMass() {
         return fuelMass;
     }
 
+    /**
+     * Activate main engine
+     */
     public void activateMainEngine() {
         if (fuelMass > 0) {
             this.activateEngine = true;
