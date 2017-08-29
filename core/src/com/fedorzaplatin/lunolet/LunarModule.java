@@ -20,15 +20,16 @@ public class LunarModule extends Actor {
     private float fuelMass = 400f;
     private MassData massData;
     private boolean alive;
-    private boolean activateEngine = false;
-    private boolean activateAuxiliaryEnginesLeft = false;
-    private boolean activateAuxiliaryEnginesRight = false;
+    private boolean activateEngine;
+    private boolean activateAuxiliaryEnginesLeft;
+    private boolean activateAuxiliaryEnginesRight;
     private Texture lunarModuleTexture;
     private Body body;
     private Fixture fixture;
     private Sound engineSound;
-    private long soundId;
+    private float soundVolume;
     private float angle;
+    private Vector2 initPosition;
 
     //variables related to the main engine's fire sprite
     final private float fireSpriteWidth = 0.6f;
@@ -52,36 +53,20 @@ public class LunarModule extends Actor {
     private World world;
 
     public LunarModule(World world, Texture texture, TextureAtlas fireSprite, TextureAtlas smokeSprite, Vector2 position, final Sound engineSound) {
-        this.alive = true;
+        this.time = 0;
         this.world = world;
         this.lunarModuleTexture = texture;
-
-        lunarModuleHeight = lunarModuleWidth * texture.getHeight() / texture.getWidth();
-
         this.lunarModuleTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        this.initPosition = position;
         this.engineSound = engineSound;
-
-        //Create box body
-        BodyDef def = new BodyDef();
-        def.position.set(position);
-        def.type = BodyDef.BodyType.DynamicBody;
-        body = world.createBody(def);
-        PolygonShape box = new PolygonShape();
-        box.setAsBox(lunarModuleWidth / 2, lunarModuleHeight / 2);
-        fixture = body.createFixture(box, (lunarModuleMass + fuelMass) / (lunarModuleWidth * lunarModuleHeight));
-        fixture.setUserData("lunar module");
-        fixture.setFriction(0.4f);
-        box.dispose();
-        setSize(lunarModuleWidth, lunarModuleHeight);
-        massData = body.getMassData();
+        this.lunarModuleHeight = lunarModuleWidth * texture.getHeight() / texture.getWidth();
 
         fireAnimation = new Animation<TextureRegion>(0.04f, fireSprite.findRegions("frame"), Animation.PlayMode.LOOP);
         smokeAnimation = new Animation<TextureRegion>(0.04f, smokeSprite.findRegions("smoke"), Animation.PlayMode.LOOP);
         smokeSpriteHeight = fireSpriteWidth * 80 / 40;
-        time = 0;
 
         //Star and pause the engine's sound to resume it when space key is pressed
-        soundId = engineSound.loop();
+        engineSound.loop(soundVolume);
         engineSound.pause();
     }
 
@@ -99,6 +84,7 @@ public class LunarModule extends Actor {
             body.setMassData(massData);
             fuelMass -= 0.03f;
         }
+
         if (activateAuxiliaryEnginesLeft) {
             body.applyForce(new Vector2(0, 1000f).setAngle(angle), body.getWorldPoint(new Vector2(2.0f, 3.2f)), true);
             body.applyForce(new Vector2(0, 1000f).setAngle(-angle), body.getWorldPoint(new Vector2(-2.0f, 3.2f)), true);
@@ -198,6 +184,28 @@ public class LunarModule extends Actor {
         return alive;
     }
 
+    public void createBody(){
+        BodyDef def = new BodyDef();
+        def.position.set(initPosition);
+        def.type = BodyDef.BodyType.DynamicBody;
+        body = world.createBody(def);
+
+        PolygonShape box = new PolygonShape();
+        box.setAsBox(lunarModuleWidth / 2, lunarModuleHeight / 2);
+        fixture = body.createFixture(box, (lunarModuleMass + fuelMass) / (lunarModuleHeight * lunarModuleWidth));
+        box.dispose();
+
+        fixture.setUserData("lunar module");
+        fixture.setFriction(0.4f);
+        massData = body.getMassData();
+        setSize(lunarModuleWidth, lunarModuleHeight);
+
+        this.alive = true;
+        this.activateEngine = false;
+        this.activateAuxiliaryEnginesLeft = false;
+        this.activateAuxiliaryEnginesRight = false;
+    }
+
     public void destroy() {
         this.alive = false;
     }
@@ -227,7 +235,7 @@ public class LunarModule extends Actor {
     public void activateMainEngine() {
         if (fuelMass > 0) {
             this.activateEngine = true;
-            engineSound.play();
+            engineSound.play(soundVolume);
         }
     }
 
@@ -247,6 +255,6 @@ public class LunarModule extends Actor {
     }
 
     public void setEffectsVolume(float value){
-        engineSound.setVolume(soundId, value);
+        soundVolume = value;
     }
 }

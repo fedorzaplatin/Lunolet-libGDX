@@ -89,11 +89,21 @@ public class MainClass extends Game {
 
 	public void finishLoad() {
 		sm.load(config);
+
 		gameScreenMusic = am.get("game-screen/gameScreenMusic.mp3");
 		gameScreenMusic.setLooping(true);
+
 		mainMenuMusic = am.get("main-menu/mainMenuMusic.mp3");
 		mainMenuMusic.setLooping(true);
 		mainMenuMusic.play();
+
+		Ini.Section section = config.get("SETTINGS");
+        float musicVolume = Float.parseFloat(section.get("musicVolume"));
+        float effectsVolume = Float.parseFloat(section.get("effectsVolume"));
+
+        this.setMusicVolume(musicVolume);
+        this.setEffectsVolume(effectsVolume);
+
 		setScreen(sm.mainMenu);
 	}
 
@@ -119,6 +129,6 @@ public class MainClass extends Game {
 	}
 
 	public void setEffectsVolume(float value) {
-		//((GameScreen) sm.gameScreen).setEffectsVolume(value);
+		((GameScreen) sm.gameScreen).setEffectsVolume(value);
 	}
 }

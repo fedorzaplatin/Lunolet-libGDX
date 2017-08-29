@@ -61,6 +61,16 @@ public class GameScreen extends BaseScreen{
 
         world = new World(new Vector2(0, -1.62f), false);
         world.setContactListener(new GameContactListener());
+
+        Texture lunarModuleTexture = (Texture) game.am.get("game-screen/lunarModuleTexture.png");
+        TextureAtlas fireSprite = (TextureAtlas) game.am.get("game-screen/fire.atlas");
+        TextureAtlas smokeSprite = (TextureAtlas) game.am.get("game-screen/smoke.atlas");
+        lunarModule = new LunarModule(world,
+                lunarModuleTexture,
+                fireSprite,
+                smokeSprite,
+                new Vector2(25, 1130 / PPM ),
+                (Sound) game.am.get("game-screen/engineSound.mp3"));
     }
 
     @Override
@@ -78,15 +88,7 @@ public class GameScreen extends BaseScreen{
         moon = new Moon(world, moonSurface, new Vector2(0, 0));
         stage.addActor(moon);
 
-        Texture lunarModuleTexture = (Texture) game.am.get("game-screen/lunarModuleTexture.png");
-        TextureAtlas fireSprite = (TextureAtlas) game.am.get("game-screen/fire.atlas");
-        TextureAtlas smokeSprite = (TextureAtlas) game.am.get("game-screen/smoke.atlas");
-        lunarModule = new LunarModule(world,
-                lunarModuleTexture,
-                fireSprite,
-                smokeSprite,
-                new Vector2(25, 1130 / PPM ),
-                (Sound) game.am.get("game-screen/engineSound.mp3"));
+        lunarModule.createBody();
         stage.addActor(lunarModule);
 
         hudStage = new Hud(new FitViewport(WIDTH, HEIGHT), (BitmapFont) game.am.get("bebas.fnt"), lunarModule.getHeight());
