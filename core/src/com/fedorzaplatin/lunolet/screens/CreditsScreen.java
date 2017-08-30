@@ -32,15 +32,15 @@ public class CreditsScreen extends BaseScreen {
         Label creditsLabel = new Label("Credits", labelStyle);
 
         labelStyle = new Label.LabelStyle((BitmapFont) game.am.get("fonts/courierNew30.fnt"), Color.WHITE);
-        String labelText = "Developer\n" +
+        String text = "Developer\n" +
                 "Fedor Zaplatin\n\n" +
                 "Music\n" +
                 "Borrtex - Our Home\n" +
                 "Parvus Decree - Space Travel\n\n" +
                 "Source code\n" +
                 "github.com/fedorzaplatin/lunolet-libgdx";
-        Label text = new Label(labelText, labelStyle);
-        text.setAlignment(Align.center);
+        Label textLabel = new Label(text, labelStyle);
+        textLabel.setAlignment(Align.center);
 
         ImageButton backBtn = new ImageButton(new LunoletButtonsStyle((TextureAtlas) game.am.get("buttons.atlas"), "back"));
         backBtn.addCaptureListener(new ChangeListener() {
@@ -54,7 +54,7 @@ public class CreditsScreen extends BaseScreen {
         table.setFillParent(true);
         table.add(creditsLabel).pad(26).expandX().center().top();
         table.row().expand();
-        table.add(text).center();
+        table.add(textLabel).center();
         table.row().expand();
         table.add(backBtn).pad(23).expandX().bottom().left();
         stage.addActor(table);

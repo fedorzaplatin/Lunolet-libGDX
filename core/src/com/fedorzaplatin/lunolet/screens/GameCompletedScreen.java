@@ -1,15 +1,17 @@
 package com.fedorzaplatin.lunolet.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.fedorzaplatin.lunolet.MainClass;
 import com.fedorzaplatin.lunolet.ui.LunoletButtonsStyle;
@@ -22,7 +24,9 @@ public class GameCompletedScreen extends BaseScreen {
         super(game);
         stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 
-        Image background = new Image((Texture) game.am.get("game-completed-screen/background.png"));
+        Label.LabelStyle labelStyle = new Label.LabelStyle((BitmapFont) game.am.get("fonts/bebas52.fnt"), Color.WHITE);
+        Label textLabel = new Label("congratulations!\nlanding   is   successful", labelStyle);
+        textLabel.setAlignment(Align.center);
 
         ImageButton.ImageButtonStyle style = new LunoletButtonsStyle((TextureAtlas) game.am.get("buttons.atlas"), "again");
         ImageButton againBtn = new ImageButton(style);
@@ -47,11 +51,11 @@ public class GameCompletedScreen extends BaseScreen {
         Table table = new Table();
         table.setFillParent(true);
         table.center();
-        table.setPosition(0, -140);
-        table.add(againBtn).pad(8);
-        table.add(mainMenuBtn).pad(8);
+        table.add(textLabel).colspan(2);
+        table.row();
+        table.add(againBtn).pad(23);
+        table.add(mainMenuBtn).pad(23);
 
-        stage.addActor(background);
         stage.addActor(table);
     }
 

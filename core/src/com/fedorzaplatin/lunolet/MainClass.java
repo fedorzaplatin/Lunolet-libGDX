@@ -52,9 +52,6 @@ public class MainClass extends Game {
 		am.load("main-menu/background.png", Texture.class);
 		am.load("main-menu/mainMenuMusic.mp3", Music.class);
 
-		// Assets of credits screen
-		am.load("credits-screen/background.png", Texture.class);
-
 		// Assets of settings screen
 		am.load("settings-screen/slider.atlas", TextureAtlas.class);
 
@@ -69,9 +66,6 @@ public class MainClass extends Game {
 
 		// Assets of game over screen
 		am.load("game-over-screen/background.png", Texture.class);
-
-		//Assets of game completed screen
-		am.load("game-completed-screen/background.png", Texture.class);
 
 		this.setScreen(new SplashScreen(this));
 	}
