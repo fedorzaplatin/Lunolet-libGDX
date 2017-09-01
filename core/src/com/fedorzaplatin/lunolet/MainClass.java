@@ -64,9 +64,6 @@ public class MainClass extends Game {
 		am.load("game-screen/engineSound.mp3", Sound.class);
 		am.load("game-screen/gameScreenMusic.mp3", Music.class);
 
-		// Assets of game over screen
-		am.load("game-over-screen/background.png", Texture.class);
-
 		this.setScreen(new SplashScreen(this));
 	}
 

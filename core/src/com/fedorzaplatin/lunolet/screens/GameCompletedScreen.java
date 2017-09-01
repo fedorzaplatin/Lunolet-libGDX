@@ -53,8 +53,8 @@ public class GameCompletedScreen extends BaseScreen {
         table.center();
         table.add(textLabel).colspan(2);
         table.row();
-        table.add(againBtn).pad(23);
         table.add(mainMenuBtn).pad(23);
+        table.add(againBtn).pad(23);
 
         stage.addActor(table);
     }
