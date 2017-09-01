@@ -91,7 +91,7 @@ public class GameScreen extends BaseScreen{
         lunarModule.createBody();
         stage.addActor(lunarModule);
 
-        hudStage = new Hud(new FitViewport(WIDTH, HEIGHT), (BitmapFont) game.am.get("bebas.fnt"), lunarModule.getHeight());
+        hudStage = new Hud(new FitViewport(WIDTH, HEIGHT), (BitmapFont) game.am.get("fonts/bebas28.fnt"), lunarModule.getHeight());
         Gdx.input.setInputProcessor(new GameScreenInputProcessor());
     }
 
