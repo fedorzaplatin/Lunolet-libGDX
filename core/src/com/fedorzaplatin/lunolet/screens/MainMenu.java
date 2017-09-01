@@ -94,10 +94,10 @@ public class MainMenu extends BaseScreen{
         });
 
         Table table = new Table();
-        table.setPosition(0, -30);
         table.setFillParent(true);
         table.left();
         table.pad(38);
+        table.padTop(150);
         table.add(startBtn).pad(8).left();
         table.row();
         table.add(tutorialBtn).pad(8).left();
