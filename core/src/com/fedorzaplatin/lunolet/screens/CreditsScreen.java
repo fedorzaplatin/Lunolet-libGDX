@@ -67,7 +67,7 @@ public class CreditsScreen extends BaseScreen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(3 / 255, 4 / 255,3 / 255, 0);
+        Gdx.gl.glClearColor(0, 0,0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act();

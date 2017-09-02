@@ -31,7 +31,7 @@ public class SplashScreen extends BaseScreen{
         firstImage = new Image(new Texture("splash-screen/splashImageFZ.png"));
         secondImage = new Image(new Texture("splash-screen/splashImageLunolet.png"));
 
-        loadingProgress = new Label("Loading...    0%", new Label.LabelStyle(new BitmapFont(Gdx.files.internal("bebas.fnt")), Color.WHITE));
+        loadingProgress = new Label("Loading...    0%", new Label.LabelStyle(new BitmapFont(Gdx.files.internal("fonts/bebas28.fnt")), Color.WHITE));
         loadingProgress.setAlignment(Align.left);
         loadingProgress.setPosition(10, 10);
 

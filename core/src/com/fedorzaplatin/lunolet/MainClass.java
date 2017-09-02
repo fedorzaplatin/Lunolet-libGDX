@@ -35,18 +35,15 @@ public class MainClass extends Game {
 
 		sm = new ScreensManager(this);
 		am = new AssetManager();
-		
+
 		am.load("buttons.atlas", TextureAtlas.class);
 		am.load("fonts/courierNew30.fnt", BitmapFont.class);
 		am.load("fonts/bebas52.fnt", BitmapFont.class);
 		am.load("fonts/bebas28.fnt", BitmapFont.class);
+		am.load("fonts/bebas63.fnt", BitmapFont.class);
 
 		// Assets of tutorial screen
-		am.load("tutorial-screen/tutorial.png", Texture.class);
-		am.load("tutorial-screen/1.png", Texture.class);
-		am.load("tutorial-screen/2.png", Texture.class);
-		am.load("tutorial-screen/3.png", Texture.class);
-		am.load("tutorial-screen/controls.png", Texture.class);
+		am.load("tutorial-screen/tutorialScreenTextures.atlas", TextureAtlas.class);
 
 		// Assets of main menu
 		am.load("main-menu/background.png", Texture.class);
