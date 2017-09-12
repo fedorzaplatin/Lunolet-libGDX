@@ -16,6 +16,13 @@ public class Hud extends Stage {
     private Label fuelMass;
     private float lunarModuleHeight;
 
+
+    /**
+     * Game screen's HUD
+     * @param viewport
+     * @param font BitmapFont which wil be used to create labels
+     * @param lunarModuleHeight
+     */
     public Hud(Viewport viewport, BitmapFont font, float lunarModuleHeight) {
         super(viewport);
 
@@ -39,9 +46,10 @@ public class Hud extends Stage {
         addActor(table);
     }
 
-    public void update(Vector2 velocity, Vector2 altitude, float fuel){
+    public void act(Vector2 velocity, Vector2 altitude, float fuel) {
         this.velocity.setText(String.format("Velocity:  %02.2f   m/s", velocity.len()));
         this.altitude.setText(String.format("Alt.:  %03.0f   m", altitude.y - lunarModuleHeight));
         this.fuelMass.setText(String.format("Fuel:  %04.0f   kg", fuel));
+        super.act();
     }
 }

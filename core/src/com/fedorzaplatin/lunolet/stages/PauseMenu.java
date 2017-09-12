@@ -21,6 +21,7 @@ public class PauseMenu extends Stage {
      * Constructor
      * @param viewport
      * @param buttons TextureAtlas that contains buttons textures (resume, mainMenu, exit)
+     * @param font BitmapFont which will be used to create heading label
      */
     public PauseMenu(Viewport viewport, TextureAtlas buttons, BitmapFont font) {
         super(viewport);
@@ -61,6 +62,7 @@ public class PauseMenu extends Stage {
             }
         });
 
+        // Create layout table
         Table table = new Table();
         table.setFillParent(true);
         table.add(headingLabel).top().pad(26);
@@ -78,6 +80,7 @@ public class PauseMenu extends Stage {
     public boolean keyDown(int keyCode) {
         boolean result = super.keyDown(keyCode);
 
+        // If Escape key pressed which the command to 'resume' (1)
         if (keyCode == Input.Keys.ESCAPE) {
             command = 1;
             return true;

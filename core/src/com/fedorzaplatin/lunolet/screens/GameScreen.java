@@ -167,13 +167,12 @@ public class GameScreen extends BaseScreen{
 
         if (gameState == 0) {
             world.step(1 / 60f, 6, 2);
-            hudStage.update(lunarModule.getVelocity(), lunarModule.getPosition(), lunarModule.getFuelMass());
+            hudStage.act(lunarModule.getVelocity(), lunarModule.getPosition(), lunarModule.getFuelMass());
             stage.act();
         }
 
         stage.draw();
         hudStage.draw();
-
         if (gameState == 1) {
             pauseMenuStage.act();
             pauseMenuStage.draw();

@@ -21,7 +21,8 @@ public class LunarModule extends Actor {
     final private float lunarModuleWidth = 4.2f;
     private float lunarModuleHeight = 0;
     final private float lunarModuleMass = 2150f;
-    private float fuelMass = 400f;
+    private float fuelMass;
+    final private float initFuelMass = 400f;
     private MassData massData;
     private boolean alive;
     private boolean activateEngine;
@@ -203,6 +204,7 @@ public class LunarModule extends Actor {
      * Create physic body into the world which was passed into constructor
      */
     public void createBody(){
+        this.fuelMass = this.initFuelMass;
         BodyDef def = new BodyDef();
         def.position.set(initPosition);
         def.type = BodyDef.BodyType.DynamicBody;
