@@ -29,7 +29,7 @@ public class SettingsScreen extends BaseScreen {
      * Constructor
      * @param game main class that extends class Game
      */
-    public SettingsScreen(MainClass game, Ini config) {
+    public SettingsScreen(final MainClass game, final Ini config) {
         super(game);
         this.stage = new Stage();
         this.changed = false;
