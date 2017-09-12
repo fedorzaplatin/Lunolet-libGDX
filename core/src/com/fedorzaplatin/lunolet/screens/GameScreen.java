@@ -18,6 +18,7 @@ import com.fedorzaplatin.lunolet.LunarModule;
 import com.fedorzaplatin.lunolet.MainClass;
 import com.fedorzaplatin.lunolet.Moon;
 import com.fedorzaplatin.lunolet.stages.Hud;
+import com.fedorzaplatin.lunolet.stages.PauseMenu;
 
 import static com.fedorzaplatin.lunolet.Constants.PPM;
 
@@ -31,6 +32,7 @@ public class GameScreen extends BaseScreen{
     private World world;
     private Stage stage;
     private Hud hudStage;
+    private PauseMenu pauseMenuStage;
     private LunarModule lunarModule;
     private Moon moon;
     private Background background;
@@ -41,6 +43,7 @@ public class GameScreen extends BaseScreen{
 
     private boolean isLanded;
     private float contactTime;
+    private int gameState; // 0 - game, 1 - pause
 
     private Box2DDebugRenderer b2ddr;
 
@@ -58,6 +61,10 @@ public class GameScreen extends BaseScreen{
 
         stage = new Stage(new FitViewport(WIDTH / PPM, HEIGHT / PPM), new PolygonSpriteBatch());
         stage.getCamera().position.set(new Vector2(WIDTH / 2 / PPM, HEIGHT / 2 / PPM), 0);
+
+        pauseMenuStage = new PauseMenu(new FitViewport(WIDTH, HEIGHT),
+                (TextureAtlas) game.am.get("buttons.atlas"),
+                (BitmapFont) game.am.get("fonts/bebas52.fnt"));
 
         world = new World(new Vector2(0, -1.62f), false);
         world.setContactListener(new GameContactListener());
@@ -77,6 +84,7 @@ public class GameScreen extends BaseScreen{
     public void show() {
         isLanded = false;
         contactTime = 0;
+        gameState = 0;
 
         currentWorldLeftBorder = worldLeftBorder;
         currentWorldRightBorder = worldRightBorder;
@@ -100,7 +108,26 @@ public class GameScreen extends BaseScreen{
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        //if lunar module is next to the world's border (left/right) world generates left of right
+        if (gameState == 1) {
+            switch (pauseMenuStage.getCommand()) {
+                case 1:
+                    gameState = 0;
+                    pauseMenuStage.reset();
+                    Gdx.input.setInputProcessor(new GameScreenInputProcessor());
+                    break;
+                case 2:
+                    pauseMenuStage.reset();
+                    game.stopGameScreenMusic();
+                    game.playMainMenuMusic();
+                    game.setScreen(game.sm.mainMenu);
+                    break;
+                case 3:
+                    Gdx.app.exit();
+                    break;
+            }
+        }
+
+        //if lunar module is next to the world's border (left/right) world generates left or right
         if (lunarModule.getPosition().x < currentWorldLeftBorder) {
             moon.generateLeft();
             background.extend(-7);
@@ -120,7 +147,7 @@ public class GameScreen extends BaseScreen{
             game.setScreen(game.sm.gameOverScreen);
         }
 
-        if (isLanded & lunarModule.getVelocity().len() < 0.01f){
+        if (isLanded & lunarModule.getVelocity().len() < 0.01f) {
             contactTime += delta;
         } else {
             contactTime = 0;
@@ -138,11 +165,19 @@ public class GameScreen extends BaseScreen{
             stage.getCamera().position.set(new float[]{lunarModule.getPosition().x, lunarModule.getPosition().y, 0});
         }
 
-        hudStage.update(lunarModule.getVelocity(), lunarModule.getPosition(), lunarModule.getFuelMass());
-        stage.act();
-        world.step(1 / 60f, 6, 2);
+        if (gameState == 0) {
+            world.step(1 / 60f, 6, 2);
+            hudStage.update(lunarModule.getVelocity(), lunarModule.getPosition(), lunarModule.getFuelMass());
+            stage.act();
+        }
+
         stage.draw();
         hudStage.draw();
+
+        if (gameState == 1) {
+            pauseMenuStage.act();
+            pauseMenuStage.draw();
+        }
 
         if (DEBUG) {
             b2ddr.render(world, stage.getCamera().combined);
@@ -222,6 +257,10 @@ public class GameScreen extends BaseScreen{
                     break;
                 case Input.Keys.D:
                     lunarModule.setActivateAuxiliaryEnginesRight(true);
+                    break;
+                case Input.Keys.ESCAPE:
+                    gameState = 1;
+                    Gdx.input.setInputProcessor(pauseMenuStage);
                     break;
             }
             return false;

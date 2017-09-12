@@ -2,6 +2,7 @@ package com.fedorzaplatin.lunolet;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -119,4 +120,9 @@ public class MainClass extends Game {
 	public void setEffectsVolume(float value) {
 		((GameScreen) sm.gameScreen).setEffectsVolume(value);
 	}
+
+    @Override
+    public void setScreen(Screen screen) {
+        super.setScreen(screen);
+    }
 }
