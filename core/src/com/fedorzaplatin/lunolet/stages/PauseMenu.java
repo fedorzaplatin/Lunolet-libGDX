@@ -1,5 +1,6 @@
 package com.fedorzaplatin.lunolet.stages;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -62,18 +63,34 @@ public class PauseMenu extends Stage {
 
         Table table = new Table();
         table.setFillParent(true);
-        table.add(headingLabel);
+        table.add(headingLabel).top().pad(26);
         table.row();
-        table.add(resumeBtn);
+        table.add(resumeBtn).pad(8);
         table.row();
-        table.add(mainMenuBtn);
+        table.add(mainMenuBtn).pad(8);
         table.row();
-        table.add(exitBtn);
+        table.add(exitBtn).pad(8);
 
         addActor(table);
     }
 
+    @Override
+    public boolean keyDown(int keyCode) {
+        boolean result = super.keyDown(keyCode);
+
+        if (keyCode == Input.Keys.ESCAPE) {
+            command = 1;
+            return true;
+        }
+
+        return result;
+    }
+
     public int getCommand() {
         return command;
+    }
+
+    public void reset() {
+        command = 0;
     }
 }
