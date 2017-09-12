@@ -80,7 +80,7 @@ public class PauseMenu extends Stage {
     public boolean keyDown(int keyCode) {
         boolean result = super.keyDown(keyCode);
 
-        // If Escape key pressed which the command to 'resume' (1)
+        // If Escape key pressed switch the command to 'resume' (1)
         if (keyCode == Input.Keys.ESCAPE) {
             command = 1;
             return true;
@@ -89,9 +89,13 @@ public class PauseMenu extends Stage {
         return result;
     }
 
+    /**
+     * @return Number of command which game screen have to execute. 0 - keep pause menu, 1 - resume game, 2 - switch to main menu, 3 - exit the game
+     */
     public int getCommand() {
         return command;
     }
+
 
     public void reset() {
         command = 0;

@@ -28,11 +28,13 @@ public class Hud extends Stage {
 
         this.lunarModuleHeight = lunarModuleHeight;
 
+        // Create labels
         Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
         velocity = new Label("0", style);
         altitude = new Label("0", style);
         fuelMass = new Label("0", style);
 
+        // Create table
         Table table = new Table();
         table.left().top();
         table.pad(10);
