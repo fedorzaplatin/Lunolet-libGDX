@@ -50,6 +50,7 @@ public class GameScreen extends BaseScreen{
     public GameScreen(final MainClass game) {
         super(game);
 
+        // If debug mode is active create Box2D debug renderer
         if (DEBUG) {
             b2ddr = new Box2DDebugRenderer(true,
                     true,
@@ -65,6 +66,7 @@ public class GameScreen extends BaseScreen{
         pauseMenuStage = new PauseMenu(new FitViewport(WIDTH, HEIGHT),
                 (TextureAtlas) game.am.get("buttons.atlas"),
                 (BitmapFont) game.am.get("fonts/bebas52.fnt"));
+        hudStage = new Hud(new FitViewport(WIDTH, HEIGHT), (BitmapFont) game.am.get("fonts/bebas28.fnt"), lunarModule.getHeight());
 
         world = new World(new Vector2(0, -1.62f), false);
         world.setContactListener(new GameContactListener());
@@ -99,7 +101,6 @@ public class GameScreen extends BaseScreen{
         lunarModule.createBody();
         stage.addActor(lunarModule);
 
-        hudStage = new Hud(new FitViewport(WIDTH, HEIGHT), (BitmapFont) game.am.get("fonts/bebas28.fnt"), lunarModule.getHeight());
         Gdx.input.setInputProcessor(new GameScreenInputProcessor());
     }
 
@@ -108,6 +109,7 @@ public class GameScreen extends BaseScreen{
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        // If game paused
         if (gameState == 1) {
             switch (pauseMenuStage.getCommand()) {
                 case 1:
