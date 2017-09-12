@@ -13,10 +13,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.fedorzaplatin.lunolet.Background;
-import com.fedorzaplatin.lunolet.LunarModule;
+import com.fedorzaplatin.lunolet.objects.Background;
+import com.fedorzaplatin.lunolet.objects.LunarModule;
 import com.fedorzaplatin.lunolet.MainClass;
-import com.fedorzaplatin.lunolet.Moon;
+import com.fedorzaplatin.lunolet.objects.Moon;
 import com.fedorzaplatin.lunolet.stages.Hud;
 import com.fedorzaplatin.lunolet.stages.PauseMenu;
 

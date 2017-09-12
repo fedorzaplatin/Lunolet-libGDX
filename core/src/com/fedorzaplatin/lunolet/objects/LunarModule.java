@@ -1,4 +1,4 @@
-package com.fedorzaplatin.lunolet;
+package com.fedorzaplatin.lunolet.objects;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
