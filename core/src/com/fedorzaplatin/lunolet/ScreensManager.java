@@ -6,7 +6,7 @@ import org.ini4j.Ini;
 public class ScreensManager {
     final private MainClass game;
 
-    public BaseScreen splashScreen, mainMenu, creditsScreen, tutorialScreen, gameScreen, gameOverScreen, gameCompletedScreen, settingsScreen;
+    public BaseScreen splashScreen, mainMenu, gameScreen, gameOverScreen, gameCompletedScreen;
 
     public ScreensManager(final MainClass game){
         this.game = game;
@@ -14,10 +14,7 @@ public class ScreensManager {
 
     public void load(Ini config){
         splashScreen = new SplashScreen(game);
-        mainMenu = new MainMenu(game);
-        creditsScreen = new CreditsScreen(game);
-        tutorialScreen = new TutorialScreen(game);
-        settingsScreen = new SettingsScreen(game, config);
+        mainMenu = new MainMenu(game, config);
         gameScreen = new GameScreen(game);
         gameOverScreen = new GameOverScreen(game);
         gameCompletedScreen = new GameCompletedScreen(game);

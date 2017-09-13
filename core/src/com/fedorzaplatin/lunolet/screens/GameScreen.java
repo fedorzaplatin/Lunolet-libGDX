@@ -66,7 +66,7 @@ public class GameScreen extends BaseScreen{
         pauseMenuStage = new PauseMenu(new FitViewport(WIDTH, HEIGHT),
                 (TextureAtlas) game.am.get("buttons.atlas"),
                 (BitmapFont) game.am.get("fonts/bebas52.fnt"));
-        hudStage = new Hud(new FitViewport(WIDTH, HEIGHT), (BitmapFont) game.am.get("fonts/bebas28.fnt"), lunarModule.getHeight());
+        hudStage = new Hud(new FitViewport(WIDTH, HEIGHT), (BitmapFont) game.am.get("fonts/bebas28.fnt"), -1f);
 
         world = new World(new Vector2(0, -1.62f), false);
         world.setContactListener(new GameContactListener());
@@ -120,7 +120,6 @@ public class GameScreen extends BaseScreen{
                 case 2:
                     pauseMenuStage.reset();
                     game.stopGameScreenMusic();
-                    game.playMainMenuMusic();
                     game.setScreen(game.sm.mainMenu);
                     break;
                 case 3:

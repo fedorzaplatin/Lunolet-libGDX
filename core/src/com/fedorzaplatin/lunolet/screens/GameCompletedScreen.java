@@ -43,7 +43,6 @@ public class GameCompletedScreen extends BaseScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.stopGameScreenMusic();
-                game.playMainMenuMusic();
                 game.setScreen(game.sm.mainMenu);
             }
         });
