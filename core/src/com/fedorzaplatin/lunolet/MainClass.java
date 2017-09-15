@@ -22,8 +22,6 @@ public class MainClass extends Game {
 	public ScreensManager sm;
 	public AssetManager am;
 	private Ini config;
-
-	private Music gameScreenMusic;
 	
 	@Override
 	public void create () {
@@ -80,9 +78,6 @@ public class MainClass extends Game {
 	public void finishLoad() {
 		sm.load(config);
 
-		gameScreenMusic = am.get("game-screen/gameScreenMusic.mp3");
-		gameScreenMusic.setLooping(true);
-
 		Ini.Section section = config.get("SETTINGS");
         float musicVolume = Float.parseFloat(section.get("musicVolume"));
         float effectsVolume = Float.parseFloat(section.get("effectsVolume"));
@@ -93,17 +88,9 @@ public class MainClass extends Game {
 		setScreen(sm.mainMenu);
 	}
 
-	public void playGameScreenMusic () {
-		gameScreenMusic.play();
-	}
-
-	public void stopGameScreenMusic () {
-		gameScreenMusic.stop();
-	}
-
 	public void setMusicVolume(float value) {
 		((MainMenu) sm.mainMenu).setMusicVolume(value);
-		gameScreenMusic.setVolume(value);
+		((GameScreen) sm.gameScreen).setMusicVolume(value);
 	}
 
 	public void setEffectsVolume(float value) {
