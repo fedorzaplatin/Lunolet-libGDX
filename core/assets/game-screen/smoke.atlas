@@ -1,0 +1,174 @@
+
+smoke.png
+size: 1010,84
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+smoke
+  rotate: false
+  xy: 2, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 0
+smoke
+  rotate: false
+  xy: 44, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 1
+smoke
+  rotate: false
+  xy: 86, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 2
+smoke
+  rotate: false
+  xy: 128, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 3
+smoke
+  rotate: false
+  xy: 170, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 4
+smoke
+  rotate: false
+  xy: 212, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 5
+smoke
+  rotate: false
+  xy: 254, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 6
+smoke
+  rotate: false
+  xy: 296, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 7
+smoke
+  rotate: false
+  xy: 338, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 8
+smoke
+  rotate: false
+  xy: 380, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 9
+smoke
+  rotate: false
+  xy: 422, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 10
+smoke
+  rotate: false
+  xy: 464, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 11
+smoke
+  rotate: false
+  xy: 506, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 12
+smoke
+  rotate: false
+  xy: 548, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 13
+smoke
+  rotate: false
+  xy: 590, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 14
+smoke
+  rotate: false
+  xy: 632, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 15
+smoke
+  rotate: false
+  xy: 674, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 16
+smoke
+  rotate: false
+  xy: 716, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 17
+smoke
+  rotate: false
+  xy: 758, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 18
+smoke
+  rotate: false
+  xy: 800, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 19
+smoke
+  rotate: false
+  xy: 842, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 20
+smoke
+  rotate: false
+  xy: 884, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 21
+smoke
+  rotate: false
+  xy: 926, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 22
+smoke
+  rotate: false
+  xy: 968, 2
+  size: 40, 80
+  orig: 40, 80
+  offset: 0, 0
+  index: 23

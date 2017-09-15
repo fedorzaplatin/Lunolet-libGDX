@@ -1,0 +1,62 @@
+
+tutorialScreenTextures.png
+size: 628,628
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+a
+  rotate: false
+  xy: 76, 2
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+angleRight
+  rotate: false
+  xy: 410, 393
+  size: 177, 233
+  orig: 177, 233
+  offset: 0, 0
+  index: -1
+angleWrong
+  rotate: false
+  xy: 2, 150
+  size: 197, 240
+  orig: 197, 240
+  offset: 0, 0
+  index: -1
+d
+  rotate: false
+  xy: 2, 2
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+space
+  rotate: false
+  xy: 2, 76
+  size: 122, 72
+  orig: 122, 72
+  offset: 0, 0
+  index: -1
+surfaceRight
+  rotate: false
+  xy: 201, 194
+  size: 231, 196
+  orig: 231, 196
+  offset: 0, 0
+  index: -1
+surfaceWrong
+  rotate: false
+  xy: 201, 3
+  size: 226, 189
+  orig: 226, 189
+  offset: 0, 0
+  index: -1
+velocity
+  rotate: false
+  xy: 2, 392
+  size: 406, 234
+  orig: 406, 234
+  offset: 0, 0
+  index: -1
