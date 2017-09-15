@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.fedorzaplatin.lunolet.screens.GameScreen;
+import com.fedorzaplatin.lunolet.screens.MainMenu;
 import com.fedorzaplatin.lunolet.screens.SplashScreen;
 import org.ini4j.Ini;
 
@@ -21,8 +22,6 @@ public class MainClass extends Game {
 	public ScreensManager sm;
 	public AssetManager am;
 	private Ini config;
-
-	private Music mainMenuMusic, gameScreenMusic;
 	
 	@Override
 	public void create () {
@@ -79,13 +78,6 @@ public class MainClass extends Game {
 	public void finishLoad() {
 		sm.load(config);
 
-		gameScreenMusic = am.get("game-screen/gameScreenMusic.mp3");
-		gameScreenMusic.setLooping(true);
-
-		mainMenuMusic = am.get("main-menu/mainMenuMusic.mp3");
-		mainMenuMusic.setLooping(true);
-		mainMenuMusic.play();
-
 		Ini.Section section = config.get("SETTINGS");
         float musicVolume = Float.parseFloat(section.get("musicVolume"));
         float effectsVolume = Float.parseFloat(section.get("effectsVolume"));
@@ -96,25 +88,9 @@ public class MainClass extends Game {
 		setScreen(sm.mainMenu);
 	}
 
-	public void playMainMenuMusic() {
-		mainMenuMusic.play();
-	}
-
-	public void stopMainMenuMusic() {
-		mainMenuMusic.stop();
-	}
-
-	public void playGameScreenMusic () {
-		gameScreenMusic.play();
-	}
-
-	public void stopGameScreenMusic () {
-		gameScreenMusic.stop();
-	}
-
 	public void setMusicVolume(float value) {
-		mainMenuMusic.setVolume(value);
-		gameScreenMusic.setVolume(value);
+		((MainMenu) sm.mainMenu).setMusicVolume(value);
+		((GameScreen) sm.gameScreen).setMusicVolume(value);
 	}
 
 	public void setEffectsVolume(float value) {
