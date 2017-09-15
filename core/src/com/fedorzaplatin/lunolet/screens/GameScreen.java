@@ -274,6 +274,11 @@ public class GameScreen extends BaseScreen {
         private boolean isLanded;
         private float contactTime;
 
+        /**
+         * Constructor
+         * @param viewport
+         * @param batch ATTENTION. The main stage required PolygonSpriteBatch. You have to pass PolygonSpriteBatch on construct
+         */
         public MainStage(Viewport viewport, Batch batch) {
             super(viewport, batch);
 
@@ -295,6 +300,9 @@ public class GameScreen extends BaseScreen {
                     (Sound) game.am.get("game-screen/engineSound.mp3"));
         }
 
+        /**
+         * Reset game world to the initial state
+         */
         public void reset() {
             isLanded = false;
             contactTime = 0;
@@ -316,7 +324,7 @@ public class GameScreen extends BaseScreen {
         @Override
         public void act(float delta) {
             super.act(delta);
-            //if lunar module is next to the world's border (left/right) world generates left or right
+            // if the lunar module is next to the world's border (left/right) world generates left or right
             if (lunarModule.getPosition().x < currentWorldLeftBorder) {
                 moon.generateLeft();
                 background.extend(-7);
@@ -327,11 +335,12 @@ public class GameScreen extends BaseScreen {
                 currentWorldRightBorder += 5f;
             }
 
-            //check if lunar module has crossed the upper world's border
+            // check if the lunar module has crossed the upper world's border
             if (lunarModule.getPosition().y > (1250 / PPM)) {
                 lunarModule.destroy();
             }
 
+            // if the lunar module is not alive canceling the game
             if (!lunarModule.isAlive()) {
                 updateScreen(3);
             }
