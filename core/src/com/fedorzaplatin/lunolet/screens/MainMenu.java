@@ -489,7 +489,8 @@ public class MainMenu extends BaseScreen{
             textLabel.setAlignment(Align.center);
 
             // Create back button
-            ImageButton backBtn = new ImageButton(new LunoletButtonsStyle((TextureAtlas) game.am.get("buttons.atlas"), "back"));
+            buttonStyle = new LunoletButtonsStyle((TextureAtlas) game.am.get("buttons.atlas"), "back");
+            ImageButton backBtn = new ImageButton(buttonStyle);
             backBtn.addCaptureListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
@@ -641,8 +642,86 @@ public class MainMenu extends BaseScreen{
      * Statistics screen
      */
     private class Statistics extends Stage {
+
+        private int failedLandings, successfulLandings;
+        private Label failedLandingsCounter, successfulLandingsCounter;
+
         public Statistics(Viewport viewport) {
             super(viewport);
+
+            Label.LabelStyle labelStyle;
+            ImageButton.ImageButtonStyle buttonStyle;
+
+            // Create header label
+            labelStyle = new Label.LabelStyle((BitmapFont) game.am.get("fonts/bebas52.fnt"), Color.WHITE);
+            Label headerLabel = new Label("statistics", labelStyle);
+
+            // Create successful landings label
+            labelStyle = new Label.LabelStyle((BitmapFont) game.am.get("fonts/courierNew30.fnt"), Color.WHITE);
+            Label successfulLandingsLabel = new Label("Successful landings:", labelStyle);
+
+            // Create successful landings counter label
+            successfulLandingsCounter = new Label(String.format("%d", successfulLandings), labelStyle);
+
+            // Create failed landings label
+            Label failedLandingsLabel = new Label("Failed landings:", labelStyle);
+
+            // Create failed landings counter label
+            failedLandingsCounter = new Label(String.format("%d", failedLandings), labelStyle);
+
+            // Create back button
+            buttonStyle = new LunoletButtonsStyle(game.am.get("buttons.atlas"), "back");
+            ImageButton backBtn = new ImageButton(buttonStyle);
+            backBtn.addCaptureListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    updateScreen(3);
+                }
+            });
+
+            // Create reset statistics button
+            buttonStyle = new LunoletButtonsStyle(game.am.get("buttons.atlas"), "resetStatistics");
+            ImageButton resetStatisticsBtn = new ImageButton(buttonStyle);
+            resetStatisticsBtn.addCaptureListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+
+                }
+            });
+
+            // Create subtable with statistics information
+            Table statisticsTable = new Table();
+            statisticsTable.setFillParent(false);
+            statisticsTable.add(successfulLandingsLabel);
+            statisticsTable.add(successfulLandingsCounter);
+            statisticsTable.row();
+            statisticsTable.add(failedLandingsLabel);
+            statisticsTable.add(failedLandingsCounter);
+
+            // Create main table
+            Table table = new Table();
+            table.setFillParent(true);
+            table.add(headerLabel).colspan(2);
+            table.row();
+            table.add(statisticsTable).colspan(3);
+            table.row();
+            table.add(backBtn);
+            table.add(resetStatisticsBtn);
+
+            // Add main table to the stage
+            addActor(table);
+        }
+
+        /**
+         * @param fl number of failed landings
+         * @param sl number of successful landings
+         */
+        public void refresh(int fl, int sl) {
+            successfulLandings = sl;
+            failedLandings = fl;
+
+            successfulLandingsCounter.setText(String.format("%d", successfulLandings));
+            failedLandingsCounter.setText(String.format("%d", failedLandings));
         }
     }
 }
