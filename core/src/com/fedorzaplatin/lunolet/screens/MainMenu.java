@@ -636,4 +636,13 @@ public class MainMenu extends BaseScreen{
             effectsVolumeSlider.setValue(currentEffectsVolume);
         }
     }
+
+    /**
+     * Statistics screen
+     */
+    private class Statistics extends Stage {
+        public Statistics(Viewport viewport) {
+            super(viewport);
+        }
+    }
 }
