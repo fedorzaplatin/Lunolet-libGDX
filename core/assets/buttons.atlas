@@ -1,257 +1,278 @@
 
 buttons.png
-size: 607,607
+size: 624,624
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 againDown
   rotate: false
-  xy: 407, 495
+  xy: 366, 232
   size: 121, 54
   orig: 121, 54
   offset: 0, 0
   index: -1
 againOver
   rotate: false
-  xy: 2, 47
+  xy: 342, 176
   size: 121, 54
   orig: 121, 54
   offset: 0, 0
   index: -1
 againUp
   rotate: false
-  xy: 391, 551
+  xy: 416, 400
   size: 121, 54
   orig: 121, 54
   offset: 0, 0
   index: -1
 applyDown
   rotate: false
-  xy: 356, 439
+  xy: 315, 64
   size: 120, 54
   orig: 120, 54
   offset: 0, 0
   index: -1
 applyOver
   rotate: false
-  xy: 285, 495
+  xy: 315, 120
   size: 120, 54
   orig: 120, 54
   offset: 0, 0
   index: -1
 applyUp
   rotate: false
-  xy: 127, 439
+  xy: 282, 8
   size: 120, 54
   orig: 120, 54
   offset: 0, 0
   index: -1
 backDown
   rotate: false
-  xy: 339, 159
+  xy: 489, 232
   size: 108, 54
   orig: 108, 54
   offset: 0, 0
   index: -1
 backOver
   rotate: false
-  xy: 2, 271
+  xy: 437, 120
   size: 108, 54
   orig: 108, 54
   offset: 0, 0
   index: -1
 backUp
   rotate: false
-  xy: 184, 215
+  xy: 437, 64
   size: 108, 54
   orig: 108, 54
   offset: 0, 0
   index: -1
 creditsDown
   rotate: false
-  xy: 2, 495
+  xy: 2, 120
   size: 156, 54
   orig: 156, 54
   offset: 0, 0
   index: -1
 creditsOver
   rotate: false
-  xy: 449, 159
+  xy: 184, 176
   size: 156, 54
   orig: 156, 54
   offset: 0, 0
   index: -1
 creditsUp
   rotate: false
-  xy: 125, 47
+  xy: 2, 64
   size: 156, 54
   orig: 156, 54
   offset: 0, 0
   index: -1
 exitDown
   rotate: false
-  xy: 507, 327
+  xy: 532, 456
   size: 90, 54
   orig: 90, 54
   offset: 0, 0
   index: -1
 exitOver
   rotate: false
-  xy: 514, 551
+  xy: 532, 512
   size: 90, 54
   orig: 90, 54
   offset: 0, 0
   index: -1
 exitUp
   rotate: false
-  xy: 507, 383
+  xy: 532, 568
   size: 90, 54
   orig: 90, 54
   offset: 0, 0
   index: -1
 mainMenuDown
   rotate: false
-  xy: 184, 551
+  xy: 325, 568
   size: 205, 54
   orig: 205, 54
   offset: 0, 0
   index: -1
 mainMenuOver
   rotate: false
-  xy: 2, 103
+  xy: 325, 456
   size: 205, 54
   orig: 205, 54
   offset: 0, 0
   index: -1
 mainMenuUp
   rotate: false
-  xy: 364, 103
+  xy: 209, 400
   size: 205, 54
   orig: 205, 54
   offset: 0, 0
   index: -1
 nextDown
   rotate: false
-  xy: 478, 439
+  xy: 491, 288
   size: 105, 54
   orig: 105, 54
   offset: 0, 0
   index: -1
 nextOver
   rotate: false
-  xy: 476, 215
+  xy: 465, 176
   size: 105, 54
   orig: 105, 54
   offset: 0, 0
   index: -1
 nextUp
   rotate: false
-  xy: 249, 439
+  xy: 404, 8
   size: 105, 54
   orig: 105, 54
   offset: 0, 0
   index: -1
-resetStatisticslDown
+resetStatisticsDown
   rotate: false
-  xy: 112, 271
+  xy: 2, 568
   size: 321, 54
   orig: 321, 54
   offset: 0, 0
   index: -1
-resetStatisticslOver
+resetStatisticsOver
   rotate: false
-  xy: 2, 383
+  xy: 2, 512
   size: 321, 54
   orig: 321, 54
   offset: 0, 0
   index: -1
-resetStatisticslUp
+resetStatisticsUp
   rotate: false
-  xy: 2, 327
+  xy: 2, 456
   size: 321, 54
   orig: 321, 54
   offset: 0, 0
   index: -1
 resumeDown
   rotate: false
-  xy: 209, 103
+  xy: 160, 64
   size: 153, 54
   orig: 153, 54
   offset: 0, 0
   index: -1
 resumeOver
   rotate: false
-  xy: 435, 271
+  xy: 160, 120
   size: 153, 54
   orig: 153, 54
   offset: 0, 0
   index: -1
 resumeUp
   rotate: false
-  xy: 184, 159
+  xy: 2, 8
   size: 153, 54
   orig: 153, 54
   offset: 0, 0
   index: -1
 settingsDown
   rotate: false
-  xy: 2, 159
+  xy: 2, 232
   size: 180, 54
   orig: 180, 54
   offset: 0, 0
   index: -1
 settingsOver
   rotate: false
-  xy: 325, 383
+  xy: 2, 176
   size: 180, 54
   orig: 180, 54
   offset: 0, 0
   index: -1
 settingsUp
   rotate: false
-  xy: 2, 215
+  xy: 184, 232
   size: 180, 54
   orig: 180, 54
   offset: 0, 0
   index: -1
 startDown
   rotate: false
-  xy: 2, 439
+  xy: 366, 288
   size: 123, 54
   orig: 123, 54
   offset: 0, 0
   index: -1
 startOver
   rotate: false
-  xy: 283, 47
+  xy: 157, 8
   size: 123, 54
   orig: 123, 54
   offset: 0, 0
   index: -1
 startUp
   rotate: false
-  xy: 160, 495
+  xy: 391, 344
   size: 123, 54
   orig: 123, 54
   offset: 0, 0
   index: -1
+statisticsDown
+  rotate: false
+  xy: 2, 344
+  size: 205, 54
+  orig: 205, 54
+  offset: 0, 0
+  index: -1
+statisticsOver
+  rotate: false
+  xy: 325, 512
+  size: 205, 54
+  orig: 205, 54
+  offset: 0, 0
+  index: -1
+statisticsUp
+  rotate: false
+  xy: 2, 400
+  size: 205, 54
+  orig: 205, 54
+  offset: 0, 0
+  index: -1
 tutorialDown
   rotate: false
-  xy: 325, 327
+  xy: 2, 288
   size: 180, 54
   orig: 180, 54
   offset: 0, 0
   index: -1
 tutorialOver
   rotate: false
-  xy: 2, 551
+  xy: 209, 344
   size: 180, 54
   orig: 180, 54
   offset: 0, 0
   index: -1
 tutorialUp
   rotate: false
-  xy: 294, 215
+  xy: 184, 288
   size: 180, 54
   orig: 180, 54
   offset: 0, 0
