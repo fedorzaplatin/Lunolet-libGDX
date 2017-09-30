@@ -262,7 +262,7 @@ public class MainMenu extends BaseScreen{
             // Create first page of the tutorial
             // Create labels
             Label pageOneHeaderLabel = new Label("tutorial", style3);
-            Label pageOneTextLabel = new Label("Your goal is to land on the\nmoon successfully\n" +
+            Label pageOneTextLabel = new Label("Your goal is to land on the\nMoon's surface successfully\n" +
                     "\n" +
                     "To do this you have to remember\na few things", style2);
             pageOneTextLabel.setAlignment(Align.center);
