@@ -30,6 +30,9 @@ import com.fedorzaplatin.lunolet.objects.LunarModule;
 import com.fedorzaplatin.lunolet.MainClass;
 import com.fedorzaplatin.lunolet.objects.Moon;
 import com.fedorzaplatin.lunolet.ui.LunoletButtonsStyle;
+import org.ini4j.Ini;
+
+import java.io.IOException;
 
 import static com.fedorzaplatin.lunolet.Constants.PPM;
 
@@ -45,14 +48,16 @@ public class GameScreen extends BaseScreen {
     private PauseMenu pauseMenuStage;
     private LunarModule lunarModule;
     private World world;
+    private int successfulLandings, failedLandings;
 
     private int state;
     private Music music;
     private InputProcessor gameInputProcessor;
+    private Ini config;
 
     private Box2DDebugRenderer b2ddr;
 
-    public GameScreen(final MainClass game) {
+    public GameScreen(final MainClass game, Ini config) {
         super(game);
 
         // If debug mode is active create Box2D debug renderer
@@ -64,6 +69,13 @@ public class GameScreen extends BaseScreen {
                     true,
                     true);
         }
+
+        this.config = config;
+
+        //Load statistics
+        Ini.Section section = this.config.get("STATISTICS");
+        successfulLandings = Integer.parseInt(section.get("successfulLandings"));
+        failedLandings = Integer.parseInt(section.get("failedLandings"));
 
         gameInputProcessor = new GameScreenInputProcessor();
 
@@ -236,11 +248,29 @@ public class GameScreen extends BaseScreen {
                 break;
             case 2:
                 ((MainStage) mainStage).hide();
+
+                // Update number of successful landings
+                config.put("STATISTICS", "successfulLandings", ++successfulLandings);
+                try{
+                    config.store();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 Gdx.input.setInputProcessor(gameCompleted);
                 state = 2;
                 break;
             case 3:
                 ((MainStage) mainStage).hide();
+
+                // Update number of failed landings
+                config.put("STATISTICS", "failedLandings", ++failedLandings);
+                try{
+                    config.store();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 Gdx.input.setInputProcessor(gameOver);
                 state = 3;
                 break;

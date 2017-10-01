@@ -31,7 +31,7 @@ import java.io.IOException;
 public class MainMenu extends BaseScreen{
 
     private int state;
-    private Stage menu, tutorial, credits, settings;
+    private Stage menu, tutorial, credits, settings, statistics;
     final private Ini config;
     private int firstStart;
     private Music music;
@@ -52,6 +52,7 @@ public class MainMenu extends BaseScreen{
         tutorial = new Tutorial(new FitViewport(width, height));
         credits = new Credits(new FitViewport(width, height));
         settings = new Settings(new FitViewport(width, height));
+        statistics = new Statistics(new FitViewport(width, height));
     }
 
     @Override
@@ -77,6 +78,9 @@ public class MainMenu extends BaseScreen{
         } else if (state == 4) {
             credits.act();
             credits.draw();
+        } else if (state == 6) {
+            statistics.act();
+            statistics.draw();
         }
     }
 
@@ -116,7 +120,7 @@ public class MainMenu extends BaseScreen{
 
     /**
      * Set screen stage accordance with stateNumber
-     * @param stateNumber 0 - main menu, 1 - game, 2 - tutorial, 3 - settings, 4 - credits, 5 - exit the game
+     * @param stateNumber 0 - main menu, 1 - game, 2 - tutorial, 3 - settings, 4 - credits, 5 - exit the game, 6 - statistics screen
      */
     private void updateScreen(int stateNumber) {
         switch (stateNumber) {
@@ -126,8 +130,8 @@ public class MainMenu extends BaseScreen{
                 break;
             case 1: // game
                 if (firstStart == 1) {
-                    config.put("DEFAULT", "firstStart", 0);
                     firstStart = 0;
+                    config.put("DEFAULT", "firstStart", 0);
                     try {
                         config.store();
                     } catch (IOException e) {
@@ -154,6 +158,20 @@ public class MainMenu extends BaseScreen{
                 break;
             case 5: // exit the game
                 Gdx.app.exit();
+                break;
+            case 6:
+                state = 6;
+
+                // Get statistics from configuration file
+                int successfulLandings, failedLandings;
+                Ini.Section section = config.get("STATISTICS");
+                successfulLandings = Integer.parseInt(section.get("successfulLandings"));
+                failedLandings = Integer.parseInt(section.get("failedLandings"));
+
+                // Update statistics screen
+                ((Statistics) statistics).refresh(failedLandings, successfulLandings);
+
+                Gdx.input.setInputProcessor(statistics);
                 break;
         }
     }
@@ -489,7 +507,8 @@ public class MainMenu extends BaseScreen{
             textLabel.setAlignment(Align.center);
 
             // Create back button
-            ImageButton backBtn = new ImageButton(new LunoletButtonsStyle((TextureAtlas) game.am.get("buttons.atlas"), "back"));
+            buttonStyle = new LunoletButtonsStyle((TextureAtlas) game.am.get("buttons.atlas"), "back");
+            ImageButton backBtn = new ImageButton(buttonStyle);
             backBtn.addCaptureListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
@@ -572,6 +591,16 @@ public class MainMenu extends BaseScreen{
                 }
             });
 
+            // Create statistics button
+            buttonStyle = new LunoletButtonsStyle((TextureAtlas) game.am.get("buttons.atlas"), "statistics");
+            ImageButton statisticsBtn = new ImageButton(buttonStyle);
+            statisticsBtn.addCaptureListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    updateScreen(6);
+                }
+            });
+
             // Create apply button
             buttonStyle = new LunoletButtonsStyle((TextureAtlas) game.am.get("buttons.atlas"), "apply");
             applyBtn = new ImageButton(buttonStyle);
@@ -595,11 +624,12 @@ public class MainMenu extends BaseScreen{
             Table mainTable = new Table();
             mainTable.setFillParent(true);
             mainTable.center().top();
-            mainTable.add(settingsLabel).pad(26).expandX().center().top().colspan(2);
+            mainTable.add(settingsLabel).pad(26).expandX().center().top().colspan(3);
             mainTable.row().expand();
-            mainTable.add(parametersTable).colspan(2);
+            mainTable.add(parametersTable).colspan(3);
             mainTable.row();
             mainTable.add(backBtn).pad(23).left().bottom();
+            mainTable.add(statisticsBtn).pad(23).center().bottom();
             mainTable.add(applyBtn).pad(23).right().bottom();
 
             // Add main table to the stage
@@ -634,6 +664,102 @@ public class MainMenu extends BaseScreen{
         public void reset() {
             musicVolumeSlider.setValue(currentMusicVolume);
             effectsVolumeSlider.setValue(currentEffectsVolume);
+        }
+    }
+
+    /**
+     * Statistics screen
+     */
+    private class Statistics extends Stage {
+
+        private int failedLandings, successfulLandings;
+        private Label failedLandingsCounter, successfulLandingsCounter;
+
+        public Statistics(Viewport viewport) {
+            super(viewport);
+
+            Label.LabelStyle labelStyle;
+            ImageButton.ImageButtonStyle buttonStyle;
+
+            // Create header label
+            labelStyle = new Label.LabelStyle((BitmapFont) game.am.get("fonts/bebas52.fnt"), Color.WHITE);
+            Label headerLabel = new Label("statistics", labelStyle);
+
+            // Create successful landings label
+            labelStyle = new Label.LabelStyle((BitmapFont) game.am.get("fonts/courierNew30.fnt"), Color.WHITE);
+            Label successfulLandingsLabel = new Label("Successful landings:", labelStyle);
+
+            // Create successful landings counter label
+            successfulLandingsCounter = new Label(String.format("%d", successfulLandings), labelStyle);
+
+            // Create failed landings label
+            Label failedLandingsLabel = new Label("Failed landings:", labelStyle);
+
+            // Create failed landings counter label
+            failedLandingsCounter = new Label(String.format("%d", failedLandings), labelStyle);
+
+            // Create back button
+            buttonStyle = new LunoletButtonsStyle((TextureAtlas) game.am.get("buttons.atlas"), "back");
+            ImageButton backBtn = new ImageButton(buttonStyle);
+            backBtn.addCaptureListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    updateScreen(3);
+                }
+            });
+
+            // Create reset statistics button
+            buttonStyle = new LunoletButtonsStyle((TextureAtlas) game.am.get("buttons.atlas"), "resetStatistics");
+            ImageButton resetStatisticsBtn = new ImageButton(buttonStyle);
+            resetStatisticsBtn.addCaptureListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    // Reset statistics values
+                    config.put("STATISTICS", "successfulLandings", 0);
+                    config.put("STATISTICS", "failedLandings", 0);
+                    try {
+                        config.store();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    failedLandingsCounter.setText("0");
+                    successfulLandingsCounter.setText("0");
+                }
+            });
+
+            // Create subtable with statistics information
+            Table statisticsTable = new Table();
+            statisticsTable.setFillParent(false);
+            statisticsTable.add(successfulLandingsLabel).pad(20).right();
+            statisticsTable.add(successfulLandingsCounter).pad(20).left();
+            statisticsTable.row();
+            statisticsTable.add(failedLandingsLabel).pad(20).right();
+            statisticsTable.add(failedLandingsCounter).pad(20).left();
+
+            // Create main table
+            Table table = new Table();
+            table.setFillParent(true);
+            table.add(headerLabel).colspan(2).pad(26).expandX().center().top();
+            table.row().expand();
+            table.add(statisticsTable).colspan(3);
+            table.row();
+            table.add(backBtn).pad(23).expandX().bottom().left();
+            table.add(resetStatisticsBtn).pad(23).expandX().bottom().right();
+
+            // Add main table to the stage
+            addActor(table);
+        }
+
+        /**
+         * @param fl number of failed landings
+         * @param sl number of successful landings
+         */
+        public void refresh(int fl, int sl) {
+            successfulLandings = sl;
+            failedLandings = fl;
+
+            successfulLandingsCounter.setText(String.format("%d", successfulLandings));
+            failedLandingsCounter.setText(String.format("%d", failedLandings));
         }
     }
 }

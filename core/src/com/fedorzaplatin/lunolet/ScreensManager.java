@@ -15,6 +15,6 @@ public class ScreensManager {
     public void load(Ini config){
         splashScreen = new SplashScreen(game);
         mainMenu = new MainMenu(game, config);
-        gameScreen = new GameScreen(game);
+        gameScreen = new GameScreen(game, config);
     }
 }
