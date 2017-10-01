@@ -130,8 +130,8 @@ public class MainMenu extends BaseScreen{
                 break;
             case 1: // game
                 if (firstStart == 1) {
-                    config.put("DEFAULT", "firstStart", 0);
                     firstStart = 0;
+                    config.put("DEFAULT", "firstStart", 0);
                     try {
                         config.store();
                     } catch (IOException e) {
