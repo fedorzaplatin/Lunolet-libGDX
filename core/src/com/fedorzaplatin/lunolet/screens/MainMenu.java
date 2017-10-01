@@ -714,7 +714,16 @@ public class MainMenu extends BaseScreen{
             resetStatisticsBtn.addCaptureListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-
+                    // Reset statistics values
+                    config.put("STATISTICS", "successfulLandings", 0);
+                    config.put("STATISTICS", "failedLandings", 0);
+                    try {
+                        config.store();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    failedLandingsCounter.setText("0");
+                    successfulLandingsCounter.setText("0");
                 }
             });
 
